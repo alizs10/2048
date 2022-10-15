@@ -1,27 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Square } from './Container/Square'
 
 export const Container = () => {
 
-  const [rows, setRows] = useState(4)
-  const [squares, setSquares] = useState([])
+  const {squares} = useSelector(state => state.squares)
 
-
-  useEffect(() => {
-
-    function addSqaure() {
-      for (let i = 0; i < rows * rows; i++) {
-        setSquares(prevState => {
-          if (prevState.length != rows * rows) { return ([...prevState, { number: null }]) }
-          else {
-            return prevState
-          }
-        })
-      }
-    }
-    addSqaure()
-
-  }, [])
   return (
 
     <div className='p-2 bg-stone-400 aspect-square rounded-md grid grid-cols-4 gap-2'>
