@@ -8,7 +8,7 @@ export const Container = () => {
 
   return (
 
-    <div className='p-2 bg-stone-400 aspect-square rounded-md grid grid-cols-4 gap-2'>
+    <div className='p-2 bg-stone-400 aspect-square self-center w-full rounded-md grid grid-cols-4 gap-2'>
 
       {squares.map((square, index) => (
         <Square key={index} square={square} />

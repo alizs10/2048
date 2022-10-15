@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+body {
+    font-family: 'Ubuntu Mono', monospace;
+}
+
 .flex-center {
     @apply flex justify-center items-center;
 }

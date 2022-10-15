@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { setSeconds } from '../../redux/slices/infoSlice'
 import { setPlay } from '../../redux/slices/rulesSlice'
 import { start } from '../../redux/slices/squaresSlice'
 
@@ -10,6 +11,10 @@ export const Start = () => {
     const playGame = () => {
         dispatch(setPlay(true))
         dispatch(start())
+
+        const timer = setInterval(() => {
+            dispatch(setSeconds())
+        }, 1000)
     }
 
     return (

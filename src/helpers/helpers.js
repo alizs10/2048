@@ -1,5 +1,10 @@
-function randomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+function randomNumber(min, max, except = null) {
+    let rand = Math.floor(Math.random() * (max - min + 1) + min);
+    if (except && rand == except) {
+        console.log("happen");
+        randomNumber(min, max, except)
+    }
+    return rand;
 }
 
 export const getTwoRandomNumber = (min, max) => {
@@ -11,10 +16,36 @@ export const getTwoRandomNumber = (min, max) => {
     rand2 = randomNumber(min, max)
 
     if (rand2 == rand1) {
-        getTwoRandomNumber(min, max)
+        rand2 = randomNumber(min, max, rand2)
     }
 
     return {
         rand1, rand2
     }
+}
+
+export const upAvailableIndexes = (index, rows) => {
+
+    let availableIndexes = [];
+
+
+    let newIndex = index - rows;
+    while (newIndex >= 0) {
+        availableIndexes.push(newIndex)
+        newIndex -= rows;
+    }
+
+    availableIndexes.sort((a, b) => a - b)
+
+    return availableIndexes;
+}
+
+export const getNewIndex = (arr) => {
+    let rand = Math.floor(Math.random() * (arr.length) + 0);
+    
+    if (arr[rand].number !== null) {
+        getNewIndex(arr)
+    }
+
+    return rand;
 }

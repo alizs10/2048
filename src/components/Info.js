@@ -1,10 +1,14 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 export const Info = () => {
+
+  const { moves, seconds, minutes, hours } = useSelector(state => state.info)
+
   return (
     <div className='flex justify-between'>
-        <span className='text-stone-500 text-xs'>168 moves</span>
-        <span className='text-stone-500 text-xs'>3:29</span>
+      <span className='text-stone-500 text-xs'>{moves} moves</span>
+      <span className='text-stone-500 text-xs'>{`${hours != 0 ? hours + ':' : ''}${minutes != 0 ? minutes + ':' : ''}${seconds}`}s</span>
     </div>
   )
 }

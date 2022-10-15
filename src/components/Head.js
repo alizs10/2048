@@ -6,9 +6,9 @@ import { Undo } from './Head/Undo'
 
 export const Head = () => {
     return (
-        <div className='grid grid-cols-3 gap-2'>
+        <div className='aspect-video flex gap-2'>
             <Goal />
-            <div className='ml-2 col-span-2 grid grid-cols-2 gap-2'>
+            <div className='w-full grid grid-cols-2 gap-2'>
                 <Score />
                 <New />
                 <Undo />

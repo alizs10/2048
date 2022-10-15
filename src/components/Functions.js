@@ -1,6 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Down } from './Functions/Down'
+import { Left } from './Functions/Left'
+import { Right } from './Functions/Right'
 import { Start } from './Functions/Start'
+import { Up } from './Functions/Up'
 
 export const Functions = () => {
 
@@ -13,9 +17,11 @@ export const Functions = () => {
       ) : (
         <>
           <Left />
-          <Up />
-          <Down />
-          <Buttom />
+          <div className='flex flex-col gap-y-2'>
+            <Up />
+            <Down />
+          </div>
+          <Right />
         </>
       )}
     </div>
