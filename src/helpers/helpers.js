@@ -41,10 +41,10 @@ export const upAvailableIndexes = (index, rows) => {
 }
 
 export const getNewIndex = (arr) => {
-    let rand = Math.floor(Math.random() * (arr.length) + 0);
+    let rand = randomNumber(0, arr.length -1);
     
     if (arr[rand].number !== null) {
-        getNewIndex(arr)
+        rand = randomNumber(0, arr.length -1, rand)
     }
 
     return rand;

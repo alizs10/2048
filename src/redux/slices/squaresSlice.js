@@ -30,10 +30,15 @@ export const squaresSlice = createSlice({
 
       let moveableSquares = []
       state.squares.map((square, index) => {
-        if (square.number !== null) { moveableSquares.push(index) }
+        if (square.number !== null) {
+          let possibleAvailableIndexes = upAvailableIndexes(index, state.rows)
+          if (possibleAvailableIndexes.length > 0) {
+            moveableSquares.push(index)
+          }
+        }
       })
 
-      console.log(moveableSquares);
+      
       state.squares.map((square, index) => {
         if (moveableSquares.includes(index)) {
           let possibleAvailableIndexes = upAvailableIndexes(index, state.rows)
@@ -55,8 +60,12 @@ export const squaresSlice = createSlice({
         }
       })
 
-      let newSquareIndex = getNewIndex(state.squares)
-      state.squares[newSquareIndex].number = 2;
+      if(moveableSquares.length > 0)
+      {
+        let newSquareIndex = getNewIndex(state.squares)
+        console.log(newSquareIndex);
+        state.squares[newSquareIndex].number = 2;
+      }
 
 
     },
