@@ -55,3 +55,4 @@ export const getNewIndex = (arr) => {
 
     return rand;
 }
+

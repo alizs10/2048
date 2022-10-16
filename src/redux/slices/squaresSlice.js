@@ -1,5 +1,6 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import { getNewIndex, getRandomIndex, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
+import { setPossibleMoves } from '../../helpers/square'
 
 const initialState = {
   rows: 4,
@@ -31,6 +32,15 @@ export const squaresSlice = createSlice({
       let moveableSquares = []
       let availableSquares = []
       let currentState = current(state)
+      
+      let squaresInstance = setPossibleMoves(currentState.squares, currentState.rows)
+      let newMove = false;
+      squaresInstance.map(square => {
+        if(square.upMoves.length > 0)
+        {
+          newMove = true;
+        }
+      })
 
       currentState.squares.map((square, index) => {
         if (square.number !== null) {
@@ -69,10 +79,11 @@ export const squaresSlice = createSlice({
           availableSquares.push(index)
         }
       })
-      if (moveableSquares.length > 0) {
-        console.log(availableSquares);
+
+      
+      if (newMove) {
+        
         let newSquareIndex = getRandomIndex(availableSquares)
-        console.log(newSquareIndex);
         state.squares[newSquareIndex].number = 2;
       }
 
