@@ -45,12 +45,30 @@ export const upAvailableIndexes = (index, rows) => {
     return availableIndexes;
 }
 
-export const getNewIndex = (arr) => {
-    let rand = randomNumber(0, arr.length -1);
+export const rightAvailableIndexes = (index, rows) => {
+
+    let availableIndexes = []; 
+    let row = Math.floor(index / rows);
+    let min = row * rows
+    let max = min == 0 ? (rows - 1) : (row * rows) + (rows - 1);
+    let newIndex = index + 1;
     
+    while (newIndex <= max && newIndex >= min) {
+        availableIndexes.push(newIndex)
+        newIndex+=1;
+    }
+
+    availableIndexes.sort((a, b) => a - b)
+
+    return availableIndexes;
+}
+
+export const getNewIndex = (arr) => {
+    let rand = randomNumber(0, arr.length - 1);
+
     console.log(arr);
     if (arr[rand].number !== null) {
-        rand = randomNumber(0, arr.length -1, rand)
+        rand = randomNumber(0, arr.length - 1, rand)
     }
 
     return rand;

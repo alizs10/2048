@@ -32,12 +32,11 @@ export const squaresSlice = createSlice({
       let moveableSquares = []
       let availableSquares = []
       let currentState = current(state)
-      
-      let squaresInstance = setPossibleMoves(currentState.squares, currentState.rows)
+
+      let squaresInstance = setPossibleMoves(currentState.squares, currentState.rows, 'up')
       let newMove = false;
       squaresInstance.map(square => {
-        if(square.upMoves.length > 0)
-        {
+        if (square.upMoves.length > 0) {
           newMove = true;
         }
       })
@@ -73,6 +72,7 @@ export const squaresSlice = createSlice({
         }
       })
 
+      // CREATE NEW SQUARE
       currentState = current(state)
       currentState.squares.map((square, index) => {
         if (square.number === null) {
@@ -80,9 +80,7 @@ export const squaresSlice = createSlice({
         }
       })
 
-      
       if (newMove) {
-        
         let newSquareIndex = getRandomIndex(availableSquares)
         state.squares[newSquareIndex].number = 2;
       }
@@ -90,6 +88,49 @@ export const squaresSlice = createSlice({
 
     },
     right: state => {
+
+      let availableSquares = []
+      let currentState = current(state)
+      let squaresInstance = setPossibleMoves(currentState.squares, currentState.rows, 'right')
+      console.log(squaresInstance);
+      let newMove = false;
+      squaresInstance.map(square => {
+        if (square.rightMoves.length > 0) {
+          newMove = true;
+        }
+      })
+
+
+      // MOVE SQUARES
+      squaresInstance.map((square, index) => {
+        let rightMoves = square.rightMoves;
+        if (rightMoves.length > 0) {
+          rightMoves.map(moveIndex => {
+
+            if (state.squares[moveIndex].number == square.number) {
+              state.squares[moveIndex].number *= 2;
+            }
+            if (state.squares[moveIndex].number === null) {
+              state.squares[moveIndex].number = square.number;
+            }
+            state.squares[index].number = null;
+          })
+
+        }
+      })
+
+      // CREATE NEW SQUARE
+      currentState = current(state)
+      currentState.squares.map((square, index) => {
+        if (square.number === null) {
+          availableSquares.push(index)
+        }
+      })
+
+      if (newMove) {
+        let newSquareIndex = getRandomIndex(availableSquares)
+        state.squares[newSquareIndex].number = 2;
+      }
 
     },
     down: state => {
