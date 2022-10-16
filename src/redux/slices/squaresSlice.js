@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { getNewIndex, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
+import { createSlice, current } from '@reduxjs/toolkit'
+import { getNewIndex, getRandomIndex, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
 
 const initialState = {
   rows: 4,
@@ -29,7 +29,10 @@ export const squaresSlice = createSlice({
     up: state => {
 
       let moveableSquares = []
-      state.squares.map((square, index) => {
+      let availableSquares = []
+      let currentState = current(state)
+
+      currentState.squares.map((square, index) => {
         if (square.number !== null) {
           let possibleAvailableIndexes = upAvailableIndexes(index, state.rows)
           if (possibleAvailableIndexes.length > 0) {
@@ -38,7 +41,7 @@ export const squaresSlice = createSlice({
         }
       })
 
-      
+
       state.squares.map((square, index) => {
         if (moveableSquares.includes(index)) {
           let possibleAvailableIndexes = upAvailableIndexes(index, state.rows)
@@ -60,9 +63,15 @@ export const squaresSlice = createSlice({
         }
       })
 
-      if(moveableSquares.length > 0)
-      {
-        let newSquareIndex = getNewIndex(state.squares)
+      currentState = current(state)
+      currentState.squares.map((square, index) => {
+        if (square.number === null) {
+          availableSquares.push(index)
+        }
+      })
+      if (moveableSquares.length > 0) {
+        console.log(availableSquares);
+        let newSquareIndex = getRandomIndex(availableSquares)
         console.log(newSquareIndex);
         state.squares[newSquareIndex].number = 2;
       }

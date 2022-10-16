@@ -7,6 +7,11 @@ function randomNumber(min, max, except = null) {
     return rand;
 }
 
+export const getRandomIndex = (arr) => {
+    let rand = Math.floor(Math.random() * arr.length);
+    return arr[rand];
+}
+
 export const getTwoRandomNumber = (min, max) => {
 
     let rand1;
@@ -43,6 +48,7 @@ export const upAvailableIndexes = (index, rows) => {
 export const getNewIndex = (arr) => {
     let rand = randomNumber(0, arr.length -1);
     
+    console.log(arr);
     if (arr[rand].number !== null) {
         rand = randomNumber(0, arr.length -1, rand)
     }
