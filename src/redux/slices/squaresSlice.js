@@ -13,8 +13,10 @@ export const squaresSlice = createSlice({
   reducers: {
     initial: (state) => {
       // state.user = action.payload
+      let id = 0;
       while (state.squares.length < state.rows * state.rows) {
-        state.squares.push({ number: null })
+        state.squares.push({ id, number: null })
+        id++;
       }
     },
     start: (state, action) => {
@@ -100,20 +102,31 @@ export const squaresSlice = createSlice({
         }
       })
 
+      // REVERSE SQUARES
+      squaresInstance.sort((a, b) => {
+        return b.id-a.id;
+      })
 
       // MOVE SQUARES
       squaresInstance.map((square, index) => {
         let rightMoves = square.rightMoves;
+        rightMoves.reverse()
+        let moved = false;
+
         if (rightMoves.length > 0) {
           rightMoves.map(moveIndex => {
-
-            if (state.squares[moveIndex].number == square.number) {
-              state.squares[moveIndex].number *= 2;
-            }
-            if (state.squares[moveIndex].number === null) {
+            if (state.squares[moveIndex].number === null && !moved) {
+              
               state.squares[moveIndex].number = square.number;
+              state.squares[square.id].number = null;
+              moved = true
             }
-            state.squares[index].number = null;
+            if (state.squares[moveIndex].number == square.number && !moved) {
+              state.squares[moveIndex].number *= 2;
+              state.squares[square.id].number = null;
+              moved = true
+            }
+
           })
 
         }
