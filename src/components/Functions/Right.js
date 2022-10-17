@@ -10,7 +10,7 @@ export const Right = () => {
 
     const handleRightMove = () => {
         let squaresInstance = [...squares]
-
+        squaresInstance.reverse()
         squaresInstance.map(square => {
           let positionX = square.position[0];
           let positionY = square.position[1];
@@ -21,7 +21,7 @@ export const Right = () => {
             positionX++;
           }
           
-          let availablePosition = whichPositionIsAvailable(squares, possibleMoves)
+          let availablePosition = whichPositionIsAvailable(squaresInstance, possibleMoves)
     
           if(availablePosition)
           {

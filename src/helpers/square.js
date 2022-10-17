@@ -12,12 +12,13 @@ export const whichPositionIsAvailable = (squares, possibleMoves) => {
             })
         }
 
+    
         if (isTaken.length == 0) {
             shouldBreak = true
             availablePosition = move;
         }
     })
 
-    console.log(availablePosition);
+    
     return availablePosition;
 }
