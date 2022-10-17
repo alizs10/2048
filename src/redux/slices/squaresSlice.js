@@ -1,9 +1,10 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import { getNewIndex, getRandomIndex, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
 import { setPossibleMoves } from '../../helpers/square'
-
+import { v4 as uuidv4 } from 'uuid';
 const initialState = {
   rows: 4,
+  placeHolders: [],
   squares: []
 }
 
@@ -14,20 +15,16 @@ export const squaresSlice = createSlice({
     initial: (state) => {
       // state.user = action.payload
       let id = 0;
-      while (state.squares.length < state.rows * state.rows) {
-        state.squares.push({ id, number: null })
+      while (state.placeHolders.length < state.rows * state.rows) {
+        state.placeHolders.push({ id })
         id++;
       }
     },
     start: (state, action) => {
-      let { rand1, rand2 } = getTwoRandomNumber(0, state.rows * state.rows - 1)
+      let { rand1, rand2 } = getTwoRandomNumber(0, state.rows - 1)
 
-      state.squares.map((square, index) => {
-
-        if (index == rand1 || index == rand2) {
-          square.number = 2;
-        }
-      })
+      state.squares.push({ id: uuidv4(), value: 2, position:[rand1, rand1] })
+      state.squares.push({ id: uuidv4(), value: 2, position: [rand2, rand2] })
     },
     up: state => {
 
@@ -36,6 +33,7 @@ export const squaresSlice = createSlice({
       let currentState = current(state)
 
       let squaresInstance = setPossibleMoves(currentState.squares, currentState.rows, 'up')
+      console.log(squaresInstance);
       let newMove = false;
       squaresInstance.map(square => {
         if (square.upMoves.length > 0) {
@@ -104,7 +102,7 @@ export const squaresSlice = createSlice({
 
       // REVERSE SQUARES
       squaresInstance.sort((a, b) => {
-        return b.id-a.id;
+        return b.id - a.id;
       })
 
       // MOVE SQUARES
@@ -116,7 +114,6 @@ export const squaresSlice = createSlice({
         if (rightMoves.length > 0) {
           rightMoves.map(moveIndex => {
             if (state.squares[moveIndex].number === null && !moved) {
-              
               state.squares[moveIndex].number = square.number;
               state.squares[square.id].number = null;
               moved = true
