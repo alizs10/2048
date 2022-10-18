@@ -43,8 +43,6 @@ export const Up = () => {
 
     })
 
-
-
     dispatch(updatePositions(squaresInstance))
   }
   return (
