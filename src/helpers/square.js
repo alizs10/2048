@@ -1,20 +1,22 @@
-export const whichPositionIsAvailable = (squares, possibleMoves, square) => {
+export const whichPositionIsAvailable = (squares, possibleMoves, tile) => {
 
-    let Square = {...square};
+    let square = { ...tile };
     let shouldCheckNext = true;
     let availablePositions = [];
+    let shouldMerge = false;
     function checkPosition(position, isLast = false) {
-        
-        let nextSquare = squares.find(square => square.position[0] == position[0] && square.position[1] == position[1])
+
+        let nextSquare = squares.find(sq => sq.position[0] == position[0] && sq.position[1] == position[1])
         if (nextSquare) {
             console.log("its taken");
 
-            if (nextSquare.value == Square.value) {
-            console.log("its taken and equal");
-            shouldCheckNext = false;
+            if (nextSquare.value == square.value) {
                 availablePositions.push(position);
+                shouldMerge =true;
+                console.log("its taken and equal",position, availablePositions);
+                shouldCheckNext = false;
             } else {
-                console.log("res", nextSquare.value , Square.value);
+                console.log("res", nextSquare.value, square.value);
                 if (!isLast) {
                     console.log("its taken and its not equal and its not last");
                     shouldCheckNext = true;
@@ -50,8 +52,9 @@ export const whichPositionIsAvailable = (squares, possibleMoves, square) => {
         }
 
     })
+    // console.log(possibleMoves,availablePositions);
 
-    return availablePositions;
+    return {availablePositions, shouldMerge};
 }
 
 
