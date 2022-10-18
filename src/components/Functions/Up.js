@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { whichPositionIsAvailable } from '../../helpers/square'
-import { createNewSquare, updatePositions } from '../../redux/slices/squaresSlice'
+import { createNewSquare, merge, updatePositions } from '../../redux/slices/squaresSlice'
 
 export const Up = () => {
 
@@ -21,7 +21,7 @@ export const Up = () => {
         positionY--;
       }
 
-      let {availablePositions, shouldMerge} = whichPositionIsAvailable(squaresInstance, possibleMoves, square)
+      let { availablePositions, shouldMerge } = whichPositionIsAvailable(squaresInstance, possibleMoves, square)
       availablePositions.reverse()
 
       if (availablePositions.length > 0) {
@@ -30,27 +30,23 @@ export const Up = () => {
         square = { ...square, position: availablePositions[0] };
         let filteredSquares = squaresInstance.filter(sq => sq.id != square.id)
         squaresInstance = [...filteredSquares, square]
+        dispatch(updatePositions(squaresInstance))
       }
 
       if (shouldMerge && availablePositions.length > 0) {
-        
-        console.log("what up", availablePositions);
 
         let isMatched = squaresInstance.filter(sq => sq.position[0] == availablePositions[0][0] && sq.position[1] == availablePositions[0][1])
         if (isMatched.length > 1) {
-          isMatched[0] = { ...isMatched[0], value: isMatched[0].value * isMatched.length }
-          let filteredSquares = squaresInstance.filter(sq => sq.position[0] != availablePositions[0][0] && sq.position[1] != availablePositions[0][1])
-          squaresInstance = [...filteredSquares, isMatched[0]]
+          dispatch(merge(isMatched))
         }
       }
 
     })
 
-    dispatch(updatePositions(squaresInstance))
-    
+
     if (newMove) {
       setTimeout(() => {
-          dispatch(createNewSquare())
+        dispatch(createNewSquare())
 
       }, 300)
     }

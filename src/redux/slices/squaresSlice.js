@@ -20,26 +20,40 @@ export const squaresSlice = createSlice({
         id++;
       }
     },
-    start: (state, action) => {
-      let { rand1, rand2 } = getTwoRandomNumber(0, state.rows - 1)
+    start: (state) => {
+      let squaresInstance = [...current(state).squares]
+      let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
+      let firstSquare = { id: uuidv4(), value: 2, position: firstCoordinate }
+      squaresInstance = [...squaresInstance, firstSquare]
 
-      state.squares.push({ id: uuidv4(), value: 2, position:[rand1, rand1] })
-      state.squares.push({ id: uuidv4(), value: 2, position: [rand2, rand2] })
+      let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
+      let secondSquare = { id: uuidv4(), value: 2, position: secondCoordinate }
+      squaresInstance = [...squaresInstance, secondSquare]
+
+      state.squares = squaresInstance;
+
     },
     updatePositions: (state, action) => {
       state.squares = action.payload;
+    },
+    merge: (state, action) => {
+      let squaresInstance = [...state.squares];
+      let mergingSquares = action.payload;
+      let filteredSquares = squaresInstance.filter(sq => sq.id !== mergingSquares[0].id && sq.id !== mergingSquares[1].id)
+      let mergedSquare = { ...mergingSquares[0], value: mergingSquares[0].value * 2 }
+      state.squares = [...filteredSquares, mergedSquare]
     },
     createNewSquare: state => {
       let squares = current(state).squares
       let newCoordinate = generateUniqueCoordinate(squares, state.rows)
       console.log(newCoordinate);
-      let newSquare = {id: uuidv4(), value: 2, position: newCoordinate}
+      let newSquare = { id: uuidv4(), value: 2, position: newCoordinate }
       state.squares = [...state.squares, newSquare]
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions,createNewSquare } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, createNewSquare } = squaresSlice.actions
 
 export default squaresSlice.reducer
