@@ -74,3 +74,30 @@ export const getNewIndex = (arr) => {
     return rand;
 }
 
+
+export const generateUniqueCoordinate = (squares, rows) => {
+
+    let availablePlaces = [];
+
+    let x = 0;
+    let y = 0;
+    while(x < rows)
+    {
+        y=0;
+        while(y < rows)
+        {
+            let place = squares.find(sq => sq.position[0] == x && sq.position[1] == y)
+            if(!place)
+            {
+                availablePlaces.push([x,y])
+            }
+            y++;
+        }
+        x++;
+    }
+
+
+    let randCoordinate = getRandomIndex(availablePlaces);
+    return randCoordinate;
+ 
+}

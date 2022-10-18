@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import { getNewIndex, getRandomIndex, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
+import { generateUniqueCoordinate, getNewIndex, getRandomIndex, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
 import { setPossibleMoves } from '../../helpers/square'
 import { v4 as uuidv4 } from 'uuid';
 const initialState = {
@@ -28,11 +28,18 @@ export const squaresSlice = createSlice({
     },
     updatePositions: (state, action) => {
       state.squares = action.payload;
+    },
+    createNewSquare: state => {
+      let squares = current(state).squares
+      let newCoordinate = generateUniqueCoordinate(squares, state.rows)
+      console.log(newCoordinate);
+      let newSquare = {id: uuidv4(), value: 2, position: newCoordinate}
+      state.squares = [...state.squares, newSquare]
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions } = squaresSlice.actions
+export const { initial, start, updatePositions,createNewSquare } = squaresSlice.actions
 
 export default squaresSlice.reducer

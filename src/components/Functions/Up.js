@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { whichPositionIsAvailable } from '../../helpers/square'
-import { updatePositions } from '../../redux/slices/squaresSlice'
+import { createNewSquare, updatePositions } from '../../redux/slices/squaresSlice'
 
 export const Up = () => {
 
@@ -9,6 +9,7 @@ export const Up = () => {
   const dispatch = useDispatch()
 
   const handleUpMove = () => {
+    let newMove = false
     let squaresInstance = [...squares]
 
     squaresInstance.map((square, index) => {
@@ -24,6 +25,8 @@ export const Up = () => {
       availablePositions.reverse()
 
       if (availablePositions.length > 0) {
+
+        newMove = true;
         square = { ...square, position: availablePositions[0] };
         let filteredSquares = squaresInstance.filter(sq => sq.id != square.id)
         squaresInstance = [...filteredSquares, square]
@@ -44,6 +47,14 @@ export const Up = () => {
     })
 
     dispatch(updatePositions(squaresInstance))
+    
+    if (newMove) {
+      setTimeout(() => {
+          dispatch(createNewSquare())
+
+      }, 300)
+    }
+
   }
   return (
     <button onClick={() => handleUpMove()} className='col-span-1 flex-center pt-4 text-4xl rounded-md bg-stone-600 text-white'>
