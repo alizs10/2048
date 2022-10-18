@@ -11,6 +11,7 @@ export const Right = () => {
     const handleRightMove = () => {
         let squaresInstance = [...squares]
         squaresInstance.reverse()
+
         squaresInstance.map(square => {
           let positionX = square.position[0];
           let positionY = square.position[1];
@@ -20,12 +21,14 @@ export const Right = () => {
             possibleMoves.push([positionX + 1,positionY])
             positionX++;
           }
+
           
-          let availablePosition = whichPositionIsAvailable(squaresInstance, possibleMoves)
-    
-          if(availablePosition)
+          let availablePositions = whichPositionIsAvailable(squaresInstance, possibleMoves, square)
+          availablePositions.reverse()
+          
+          if(availablePositions.length > 0)
           {
-            square = {...square, position:availablePosition};
+            square = {...square, position:availablePositions[0]};
             let filteredSquares = squaresInstance.filter(sq => sq.id != square.id)
             squaresInstance = [...filteredSquares, square]
           }

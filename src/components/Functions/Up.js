@@ -21,14 +21,15 @@ export const Up = () => {
         positionY--;
       }
       
-      let availablePosition = whichPositionIsAvailable(squaresInstance, possibleMoves)
+      let availablePositions = whichPositionIsAvailable(squaresInstance, possibleMoves, square)
+      availablePositions.reverse()
 
-      if(availablePosition)
+      if(availablePositions.length > 0)
       {
-        square = {...square, position:availablePosition};
+        square = {...square, position:availablePositions[0]};
         let filteredSquares = squaresInstance.filter(sq => sq.id != square.id)
         squaresInstance = [...filteredSquares, square]
-        console.log(squaresInstance);
+
       }
       
     })
