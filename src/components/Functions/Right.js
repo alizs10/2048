@@ -15,6 +15,7 @@ export const Right = () => {
       return b.position[0] - a.position[0] 
     })
     
+    console.log(squaresInstance);
     squaresInstance.map((square, index) => {
       let isFirst = (index == 0) ? true : false;
       let isLast = (index == squaresInstance.length - 1) ? true : false;

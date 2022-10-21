@@ -25,12 +25,12 @@ export const squaresSlice = createSlice({
       let squaresInstance = [...current(state).squares]
       // let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
       let firstCoordinate = [1, 0];
-      let firstSquare = { id: uuidv4(), value: 2, position: firstCoordinate, canMerged: true }
+      let firstSquare = { id: uuidv4(), value: 8, position: firstCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       // let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
       let secondCoordinate = [2, 0];
-      let secondSquare = { id: uuidv4(), value: 2, position: secondCoordinate, canMerged: true }
+      let secondSquare = { id: uuidv4(), value: 4, position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
       let thirdCoordinate = [3, 0];
@@ -126,8 +126,8 @@ export const squaresSlice = createSlice({
 
         if (possibleMoves.length > 0) {
           const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)
-
           nextMoveCoordinate = nextMoveCoo;
+          
           mergeEvent = mergeStatus;
           if (moveStatus) {
             state.moveEvent = moveStatus;
@@ -145,9 +145,10 @@ export const squaresSlice = createSlice({
             //find merged square
             let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
             let mergedSquare = state.squares[mergedSquareIndex]
+            console.log(nextMoveCoordinate, square, mergedSquare);
             mergedSquare.value *= 2;
             mergedSquare.canMerged = false;
-
+            
           }
         }
       }

@@ -103,5 +103,6 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
         nextMoveCoordinate = nextPositions[nextPositions.length - 1]
     }
 
+    console.log(nextPositions);
     return { nextMoveCoo: nextMoveCoordinate, moveStatus: moveEvent, mergeStatus: mergeEvent }
 }
