@@ -44,6 +44,7 @@ export const squaresSlice = createSlice({
       let newCoordinate = generateUniqueCoordinate(state.squares, state.rows)
       let newSquare = { id: uuidv4(), value: 2, position: newCoordinate, canMerged: true }
       state.squares = [...state.squares, newSquare]
+      
     },
     moveSquare: (state, action) => {
 

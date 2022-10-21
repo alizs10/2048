@@ -14,9 +14,11 @@ export const Container = () => {
   useEffect(() => {
     if(moveEvent)
     {
-     
-      dispatch(prepareSquaresForMerge())
-      dispatch(createNewSquare())
+      setTimeout(() => {
+        dispatch(prepareSquaresForMerge())
+        dispatch(createNewSquare())
+      },300)
+        
     }
     
 
