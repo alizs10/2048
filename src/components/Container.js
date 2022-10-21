@@ -5,6 +5,7 @@ import PlaceHolder from './Container/PlaceHolder'
 import { createNewSquare, moveSquare, prepareSquaresForMerge } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
+import { addMove } from '../redux/slices/infoSlice'
 
 
 export const Container = () => {
@@ -17,6 +18,7 @@ export const Container = () => {
       setTimeout(() => {
         dispatch(prepareSquaresForMerge())
         dispatch(createNewSquare())
+        dispatch(addMove())
       }, 300)
 
     }

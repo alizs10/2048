@@ -77,7 +77,6 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
         })
     }
 
-    console.log(possibleMoves, square.value);
     possibleMoves.every(possibleMove => {
 
         let possibleSquare = squares.find(sq => sq.position[0] == possibleMove[0] && sq.position[1] == possibleMove[1])
@@ -104,6 +103,6 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
         nextMoveCoordinate = nextPositions[nextPositions.length - 1]
     }
 
-    console.log(nextPositions);
+ 
     return { nextMoveCoo: nextMoveCoordinate, moveStatus: moveEvent, mergeStatus: mergeEvent }
 }
