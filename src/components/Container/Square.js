@@ -16,9 +16,42 @@ const Square = ({ square, parent }) => {
 
     }, [square])
 
+    let classColors = 'bg-gray-200 text-gray-600';
+    let exponent = Math.log2(square.value)
+    switch (exponent) {
+        case 2:
+            classColors = 'bg-yellow-50 text-gray-600'
+            break;
+    
+        case 3:
+            classColors = 'bg-orange-300 text-white'
+            break;
+        case 4:
+            classColors = 'bg-orange-600 text-white'
+            break;
+    
+        case 5:
+            classColors = 'bg-red-400 text-white'
+            break;
+        case 6:
+            classColors = 'bg-red-600 text-white'
+            break;
+        case 7:
+            classColors = 'bg-yellow-200 text-white'
+            break;
+        case 7:
+            classColors = 'bg-yellow-300 text-white'
+            break;
+        case 8:
+            classColors = 'bg-yellow-400 text-white'
+            break;
+    
+        default:
+            break;
+    }
     
     return (
-        <div ref={squareRef} className={`transition-all duration-300 absolute aspect-square rounded-md bg-yellow-300 text-white flex-center font-bold text-2xl`}>
+        <div ref={squareRef} className={`transition-all duration-300 absolute aspect-square rounded-md ${classColors} flex-center font-bold text-4xl`}>
             {square.value}
         </div>
     )
