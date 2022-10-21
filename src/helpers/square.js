@@ -77,11 +77,12 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
         })
     }
 
+    console.log(possibleMoves, square.value);
     possibleMoves.every(possibleMove => {
 
         let possibleSquare = squares.find(sq => sq.position[0] == possibleMove[0] && sq.position[1] == possibleMove[1])
-
-        if (possibleSquare && possibleSquare.value == square.value) {
+        if (possibleSquare && possibleSquare.value == square.value && possibleSquare.canMerged) {
+            
             nextPositions.push(possibleMove)
             moveEvent = true;
             mergeEvent = true;

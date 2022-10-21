@@ -96,6 +96,7 @@ export const squaresSlice = createSlice({
           square.position = nextMoveCoordinate;
           if (mergeEvent) {
             //delete square and double the value of merged square
+            
             let filteredSquares = state.squares.filter(sq => sq.id !== squareId);
             state.squares = [...filteredSquares];
 
