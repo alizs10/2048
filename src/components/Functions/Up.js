@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { whichPositionIsAvailable } from '../../helpers/square'
-import { createNewSquare, merge, updatePositions } from '../../redux/slices/squaresSlice'
+import { moveSquare } from '../../redux/slices/squaresSlice'
 
 export const Up = () => {
 
@@ -9,47 +8,17 @@ export const Up = () => {
   const dispatch = useDispatch()
 
   const handleUpMove = () => {
-    let newMove = false
+
     let squaresInstance = [...squares]
-
-    squaresInstance.map((square, index) => {
-      let positionX = square.position[0];
-      let positionY = square.position[1];
-      let possibleMoves = []
-      while (positionY > 0) {
-        possibleMoves.push([positionX, positionY - 1])
-        positionY--;
-      }
-
-      let { availablePositions, shouldMerge } = whichPositionIsAvailable(squaresInstance, possibleMoves, square)
-      availablePositions.reverse()
-
-      if (availablePositions.length > 0) {
-
-        newMove = true;
-        square = { ...square, position: availablePositions[0] };
-        let filteredSquares = squaresInstance.filter(sq => sq.id != square.id)
-        squaresInstance = [...filteredSquares, square]
-        dispatch(updatePositions(squaresInstance))
-      }
-
-      if (shouldMerge && availablePositions.length > 0) {
-
-        let isMatched = squaresInstance.filter(sq => sq.position[0] == availablePositions[0][0] && sq.position[1] == availablePositions[0][1])
-        if (isMatched.length > 1) {
-          dispatch(merge(isMatched))
-        }
-      }
-
+    squaresInstance.sort((a, b) => {
+      return a.position[1] - b.position[1]
     })
 
+    squaresInstance.map((square, index) => {
+      let isFirst = (index == 0) ? true : false;
+      dispatch(moveSquare({ squareId: square.id, dir: "up", isFirst }))
 
-    if (newMove) {
-      setTimeout(() => {
-        dispatch(createNewSquare())
-
-      }, 300)
-    }
+    })
 
   }
   return (
