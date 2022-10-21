@@ -71,6 +71,11 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
             return b[1] - a[1];
         })
     }
+    if (dir === "down") {
+        possibleMoves.sort(function (a, b) {
+            return a[1] - b[1];
+        })
+    }
 
     possibleMoves.every(possibleMove => {
 
