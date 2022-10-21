@@ -5,6 +5,7 @@ import { Functions } from "./components/Functions";
 import { Head } from "./components/Head";
 import { Hint } from "./components/Hint";
 import { Info } from "./components/Info";
+import MoveProvider from "./components/Providers/MoveProvider";
 import { initial } from "./redux/slices/squaresSlice";
 
 function App() {
@@ -19,10 +20,14 @@ function App() {
   return (
     <div className="flex flex-col gap-y-4 p-5 h-screen bg-gray-200">
       <Head />
-      <Hint/>
-      <Container />
+      <Hint />
+      <MoveProvider>
+        <Container />
+      </MoveProvider>
       <Info />
-      <Functions/>
+      <MoveProvider>
+        <Functions />
+      </MoveProvider>
     </div>
   );
 }

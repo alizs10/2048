@@ -34,7 +34,7 @@ const Square = ({ square, parent }) => {
             classColors = 'bg-red-400 text-white'
             break;
         case 6:
-            classColors = 'bg-red-600 text-white'
+            classColors = 'bg-red-500 text-white'
             break;
         case 7:
             classColors = 'bg-yellow-200 text-white'
@@ -44,6 +44,17 @@ const Square = ({ square, parent }) => {
             break;
         case 8:
             classColors = 'bg-yellow-400 text-white'
+            break;
+        case 9:
+            classColors = 'bg-yellow-500 text-white'
+            break;
+    
+        case 10:
+            classColors = 'bg-yellow-600 text-white'
+            break;
+    
+        case 11:
+            classColors = 'bg-yellow-700 text-white'
             break;
     
         default:
