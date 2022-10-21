@@ -1,13 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Square from './Container/Square'
 import PlaceHolder from './Container/PlaceHolder'
+import { createNewSquare, prepareSquaresForMerge } from '../redux/slices/squaresSlice'
 
 
 export const Container = () => {
 
-  const { placeHolders, squares } = useSelector(state => state.squares)
+  const { placeHolders, squares, moveEvent } = useSelector(state => state.squares)
 
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if(moveEvent)
+    {
+     
+      dispatch(prepareSquaresForMerge())
+      dispatch(createNewSquare())
+    }
+    
+
+  }, [squares])
   const containerRef = useRef(null)
   return (
 

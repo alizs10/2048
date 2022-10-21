@@ -11,7 +11,7 @@ export const Left = () => {
     const handleLeftMove = () => {
         let newMove = false;
         let squaresInstance = [...squares]
-        // squaresInstance.reverse()
+        squaresInstance.reverse()
 
         squaresInstance.map(square => {
             let positionX = square.position[0];
