@@ -12,6 +12,7 @@ export const Container = () => {
 
   const dispatch = useDispatch()
   useEffect(() => {
+
     if(moveEvent)
     {
       setTimeout(() => {

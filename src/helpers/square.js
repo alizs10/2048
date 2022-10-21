@@ -15,7 +15,7 @@ export const whichPositionIsAvailable = (squares, possibleMoves, square) => {
                 console.log("its last and its available");
                 // its last and its available
                 availablePositions.push(position)
-            }   
+            }
         }
 
     }
@@ -40,18 +40,52 @@ export const canMerge = (squares, nextPosition, square) => {
 
     let nextSquare = squares.find(sq => sq.position[0] == nextPosition[0] && sq.position[1] == nextPosition[1])
     if (nextSquare && nextSquare.value == square.value) {
-            return {status: true, position: nextPosition};
+        return { status: true, position: nextPosition };
     }
 
-    return {status: true}
+    return { status: true }
 }
 
-/**
- * ! NOTE
- * ? STEP ONE:
- *    * 1.check the next position:
- *      ! 1 => its available => check the next position => 
- *              ? 1- its taken
- *              ? 2- its available => check next
- *       ! 2 => its taken
- */
+
+export const findNextMove = (squares, possibleMoves, square, dir) => {
+
+    let nextPositions = [];
+    let nextMoveCoordinate = null;
+    let moveEvent = false;
+    let mergeEvent = false;
+
+    if (dir === "right") {
+        possibleMoves.sort(function (a, b) {
+            return a[0] - b[0];
+        })
+
+    }
+
+    possibleMoves.every(possibleMove => {
+
+        let possibleSquare = squares.find(sq => sq.position[0] == possibleMove[0] && sq.position[1] == possibleMove[1])
+
+        if (possibleSquare && possibleSquare.value == square.value) {
+            nextPositions.push(possibleMove)
+            moveEvent = true;
+            mergeEvent = true;
+        }
+
+        if (!possibleSquare) {
+            nextPositions.push(possibleMove)
+            moveEvent = true;
+        }
+
+        if (possibleSquare && possibleSquare.value != square.value) {
+            return false;
+        }
+
+        return true;
+    })
+
+    if (nextPositions.length > 0) {
+        nextMoveCoordinate = nextPositions[nextPositions.length - 1]
+    }
+
+    return { nextMoveCoo: nextMoveCoordinate, moveStatus: moveEvent, mergeStatus: mergeEvent }
+}

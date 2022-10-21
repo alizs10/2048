@@ -14,16 +14,6 @@ export const Right = () => {
     squaresInstance.sort((a,b) => {
       return b.position[0] - a.position[0] 
     })
-
-
-    /**
-     * ! NOTE:
-     * ? FIRST STEP => REVERSE SQUARES
-     * ? SECOND STEP => MOVE SQUARE
-     * ? THIRD STEP => MERGE IF HAPPENED
-     * ? FORTH STEP => UPDATE AND MERGE POSITIONS IN REAL TIME
-     */
-
     
     squaresInstance.map((square, index) => {
       let isFirst = (index == 0) ? true : false;
