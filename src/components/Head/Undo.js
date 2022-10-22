@@ -10,7 +10,7 @@ export const Undo = () => {
     }
 
     return (
-        <button onClick={handleUndo} className='col-span-1 bg-red-500 rounded-md flex-center py-2 font-bold text-white'>
+        <button onClick={handleUndo} className='col-span-1 bg-red-500 rounded-md flex-center font-bold text-white text-xs sm:text-sm md:text-lg'>
             UNDO
         </button>
     )

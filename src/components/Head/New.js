@@ -28,8 +28,8 @@ export const New = () => {
 
 
     return (
-        <button onClick={() => confirmAlert(options)} className='col-span-1 bg-red-500 rounded-md flex-center py-2 font-bold text-white'>
-            New
+        <button onClick={() => confirmAlert(options)} className='col-span-1 bg-red-500 rounded-md flex-center font-bold text-white text-xs py-1 sm:text-sm md:text-lg'>
+            NEW
         </button>
     )
 }

@@ -62,7 +62,7 @@ const Square = ({ square, parent }) => {
     }
     
     return (
-        <div ref={squareRef} className={`transition-all duration-300 absolute aspect-square rounded-md ${classColors} flex-center font-bold text-4xl`}>
+        <div ref={squareRef} className={`transition-all duration-300 select-none absolute aspect-square rounded-md ${classColors} flex-center font-bold text-3xl`}>
             {square.value}
         </div>
     )
