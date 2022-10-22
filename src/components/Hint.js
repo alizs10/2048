@@ -3,7 +3,14 @@ import { useSelector } from 'react-redux';
 
 export const Hint = () => {
 
-  const { goal } = useSelector(state => state.info)
+  const {goal} = useSelector(state => state.info)
+
+
+  useEffect(() => {
+    setHintMessage(defaultHint)
+  }, [goal])
+  
+  
   const { gameOver } = useSelector(state => state.rules)
   const defaultHint = `Join the numbers and get to the ${goal} tile!`;
   const [hintMessage, setHintMessage] = useState(defaultHint);
