@@ -14,7 +14,7 @@ export const Functions = () => {
   const {play} = useSelector(state => state.rules)
 
   return (
-    <div className='grid grid-cols-3 gap-2'>
+    <div className='grid grid-cols-3 gap-2 h-full'>
       {!play ? (
         <Start/>
       ) : (
