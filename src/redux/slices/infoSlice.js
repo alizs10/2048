@@ -14,6 +14,14 @@ export const infoSlice = createSlice({
   name: 'info',
   initialState,
   reducers: {
+    initialInfos: (state) => {
+      state.moves = 0;
+      state.score = 0;
+      state.seconds = 0;
+      state.minutes = 0;
+      state.hours = 0;
+      state.goal = 2048;
+    },
     setScore: (state, actions) => {
       state.score = actions.payload
     },
@@ -41,6 +49,6 @@ export const infoSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setScore, setSeconds, setGoal, setBest, addMove } = infoSlice.actions
+export const { setScore, setSeconds, setGoal, setBest, addMove,initialInfos } = infoSlice.actions
 
 export default infoSlice.reducer

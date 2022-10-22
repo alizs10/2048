@@ -23,20 +23,16 @@ export const squaresSlice = createSlice({
       }
     },
     start: (state) => {
-      let squaresInstance = [...current(state).squares]
+      let squaresInstance = []
       let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      // let firstCoordinate = [1, 0];
+
       let firstSquare = { id: uuidv4(), value: 2, position: firstCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      // let secondCoordinate = [2, 0];
+
       let secondSquare = { id: uuidv4(), value: 2, position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
-
-      // let thirdCoordinate = [3, 0];
-      // let thirdSquare = { id: uuidv4(), value: 4, position: thirdCoordinate, canMerged: true }
-      // squaresInstance = [...squaresInstance, thirdSquare]
 
       state.squares = squaresInstance;
 

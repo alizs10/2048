@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSeconds } from '../redux/slices/infoSlice'
-import { setPlay } from '../redux/slices/rulesSlice'
+import { initialInfos, setSeconds } from '../redux/slices/infoSlice'
+import { setGameOver, setPlay } from '../redux/slices/rulesSlice'
 import { start } from '../redux/slices/squaresSlice'
 import { Down } from './Functions/Down'
 import { Left } from './Functions/Left'
@@ -28,6 +28,7 @@ export const Functions = () => {
   }, [gameOver])
 
   const playGame = () => {
+    dispatch(initialInfos())
     dispatch(setPlay(true))
     dispatch(start())
 
