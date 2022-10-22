@@ -27,6 +27,10 @@ const FunctionsProvider = ({ children }) => {
         dispatch(setPlay(true))
         dispatch(start())
 
+        if(timerInterval.current)
+        {
+            clearInterval(timerInterval.current)
+        }
         timerInterval.current = setInterval(() => {
             dispatch(setSeconds())
         }, 1000)
