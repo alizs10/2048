@@ -47,15 +47,15 @@ export const upAvailableIndexes = (index, rows) => {
 
 export const rightAvailableIndexes = (index, rows) => {
 
-    let availableIndexes = []; 
+    let availableIndexes = [];
     let row = Math.floor(index / rows);
     let min = row * rows
     let max = min == 0 ? (rows - 1) : (row * rows) + (rows - 1);
     let newIndex = index + 1;
-    
+
     while (newIndex <= max && newIndex >= min) {
         availableIndexes.push(newIndex)
-        newIndex+=1;
+        newIndex += 1;
     }
 
     availableIndexes.sort((a, b) => a - b)
@@ -81,15 +81,12 @@ export const generateUniqueCoordinate = (squares, rows) => {
 
     let x = 0;
     let y = 0;
-    while(x < rows)
-    {
-        y=0;
-        while(y < rows)
-        {
+    while (x < rows) {
+        y = 0;
+        while (y < rows) {
             let place = squares.find(sq => sq.position[0] == x && sq.position[1] == y)
-            if(!place)
-            {
-                availablePlaces.push([x,y])
+            if (!place) {
+                availablePlaces.push([x, y])
             }
             y++;
         }
@@ -99,5 +96,60 @@ export const generateUniqueCoordinate = (squares, rows) => {
 
     let randCoordinate = getRandomIndex(availablePlaces);
     return randCoordinate;
- 
+
+}
+
+
+export const isGameOver = (squares, rows) => {
+
+    let isGameOver = true;
+    if (squares.length == rows * rows) {
+        /**
+         * ! NOTE:
+         * ? set possible moves for every square
+         * ? if only one square can move => the game is not over!
+         */
+
+        squares.every(square=> {
+
+            let possibleMoves = [];
+            let x = square.position[0]
+            let y = square.position[1]
+            
+            if (x < rows - 1) {
+                possibleMoves.push([x + 1, y])
+            }
+
+            if (x > 0) {
+                possibleMoves.push([x - 1, y])
+            }
+
+            if (y < rows - 1) {
+                possibleMoves.push([x, y + 1])
+
+            }
+
+            if (y > 0) {
+                possibleMoves.push([x, y - 1])
+            }
+
+            possibleMoves.every(possibleMove => {
+                let possibleSquare = squares.find(sq => sq.position[0] == possibleMove[0] && sq.position[1] == possibleMove[1])
+
+                if(possibleSquare.value == square.value)
+                {
+                    isGameOver = false;
+                    return false;
+                }
+
+                return true;
+            })
+
+            return isGameOver;
+        })
+    } else {
+        isGameOver = false;
+    }
+
+    return isGameOver;
 }

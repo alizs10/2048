@@ -6,11 +6,13 @@ import { createNewSquare, moveSquare, prepareSquaresForMerge } from '../redux/sl
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
 import { addMove } from '../redux/slices/infoSlice'
+import { setGameOver } from '../redux/slices/rulesSlice'
+import { isGameOver } from '../helpers/helpers'
 
 
 export const Container = () => {
 
-  const { placeHolders, squares, moveEvent } = useSelector(state => state.squares)
+  const { placeHolders, squares, moveEvent, rows } = useSelector(state => state.squares)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -21,6 +23,15 @@ export const Container = () => {
         dispatch(addMove())
       }, 300)
 
+    }
+
+    if(squares.length == rows * rows)
+    {
+      let gameOverStatus = isGameOver(squares, rows)
+      if(gameOverStatus)
+      {
+        dispatch(setGameOver())
+      }
     }
   }, [squares])
 

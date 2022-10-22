@@ -1,5 +1,8 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSeconds } from '../redux/slices/infoSlice'
+import { setPlay } from '../redux/slices/rulesSlice'
+import { start } from '../redux/slices/squaresSlice'
 import { Down } from './Functions/Down'
 import { Left } from './Functions/Left'
 import { Right } from './Functions/Right'
@@ -8,12 +11,36 @@ import { Up } from './Functions/Up'
 
 export const Functions = () => {
 
-  const { play } = useSelector(state => state.rules)
+  const { gameOver,play } = useSelector(state => state.rules)
+
+  const dispatch = useDispatch()
+  const timerInterval = useRef(null)
+
+
+  useEffect(() => {
+
+    if(gameOver)
+    {
+        clearInterval(timerInterval.current)
+    }
+
+
+  }, [gameOver])
+
+  const playGame = () => {
+    dispatch(setPlay(true))
+    dispatch(start())
+
+    timerInterval.current = setInterval(() => {
+      dispatch(setSeconds())
+    }, 1000)
+
+  }
 
   return (
     <div className='grid grid-cols-3 gap-2'>
       {!play ? (
-        <Start />
+        <Start playGame={playGame}/>
       ) : (
         <>
           <Left />

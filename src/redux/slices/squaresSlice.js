@@ -7,6 +7,7 @@ const initialState = {
   placeHolders: [],
   squares: [],
   moveEvent: false,
+  lastSquares: [],
 }
 
 export const squaresSlice = createSlice({
@@ -48,13 +49,6 @@ export const squaresSlice = createSlice({
 
     },
     moveSquare: (state, action) => {
-
-      /**
-       * * 1. find next move for square
-       * * 2. move square
-       * * 3. find out if merging should happen
-       * * 4. merge if we should
-       */
 
       let squareId = action.payload.squareId
       let dir = action.payload.dir
@@ -146,7 +140,7 @@ export const squaresSlice = createSlice({
             //find merged square
             let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
             let mergedSquare = state.squares[mergedSquareIndex]
-            console.log(nextMoveCoordinate, square, mergedSquare);
+            
             mergedSquare.value *= 2;
             mergedSquare.canMerged = false;
             
@@ -167,8 +161,7 @@ export const squaresSlice = createSlice({
           possibleMoves.push([positionX, positionY - 1])
           positionY--;
         }
-        console.log(possibleMoves);
-
+        
         if (possibleMoves.length > 0) {
 
           const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)

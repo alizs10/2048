@@ -1,21 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getTwoRandomNumber } from '../../helpers/helpers'
 
 const initialState = {
   play: false,
+  gameOver: false,
 }
 
 export const rulesSlice = createSlice({
   name: 'rules',
   initialState,
   reducers: {
-    setPlay: (state, actions) => {
-        state.play = actions.payload
+    setPlay: (state, action) => {
+        
+      state.play = true;
     },
+    setGameOver: state => {
+      state.gameOver = true;
+      state.play = false;
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setPlay } = rulesSlice.actions
+export const { setPlay, setGameOver } = rulesSlice.actions
 
 export default rulesSlice.reducer
