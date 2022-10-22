@@ -44,7 +44,7 @@ export const infoSlice = createSlice({
     },
     setGoal: (state, actions) => {
       state.goal = actions.payload
-    },
+    }
   },
 })
 

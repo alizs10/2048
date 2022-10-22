@@ -110,12 +110,12 @@ export const isGameOver = (squares, rows) => {
          * ? if only one square can move => the game is not over!
          */
 
-        squares.every(square=> {
+        squares.every(square => {
 
             let possibleMoves = [];
             let x = square.position[0]
             let y = square.position[1]
-            
+
             if (x < rows - 1) {
                 possibleMoves.push([x + 1, y])
             }
@@ -136,8 +136,7 @@ export const isGameOver = (squares, rows) => {
             possibleMoves.every(possibleMove => {
                 let possibleSquare = squares.find(sq => sq.position[0] == possibleMove[0] && sq.position[1] == possibleMove[1])
 
-                if(possibleSquare.value == square.value)
-                {
+                if (possibleSquare.value == square.value) {
                     isGameOver = false;
                     return false;
                 }
@@ -152,4 +151,21 @@ export const isGameOver = (squares, rows) => {
     }
 
     return isGameOver;
+}
+
+
+export const isGoalReached = (squares, goal) => {
+
+    let isGoalReached = false;
+
+    squares.every(sq => {
+        if (sq.value == goal) {
+            isGoalReached = true;
+            return false;
+        }
+        return true;
+    })
+
+
+    return isGoalReached;
 }
