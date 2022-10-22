@@ -14,12 +14,10 @@ const MoveProvider = ({ children }) => {
         squaresInstance.sort((a,b) => {
           return b.position[0] - a.position[0] 
         })
-        
-        console.log(squaresInstance);
+      
         squaresInstance.map((square, index) => {
           let isFirst = (index == 0) ? true : false;
-          let isLast = (index == squaresInstance.length - 1) ? true : false;
-          dispatch(moveSquare({ squareId: square.id, dir: "right", isFirst, isLast }))
+          dispatch(moveSquare({ squareId: square.id, dir: "right", isFirst }))
     
         })
       }
@@ -65,8 +63,7 @@ const MoveProvider = ({ children }) => {
     
         squaresInstance.map((square, index) => {
             let isFirst = (index == 0) ? true : false;
-            let isLast = (index == squaresInstance.length - 1) ? true : false;
-            dispatch(moveSquare({ squareId: square.id, dir: "left", isFirst, isLast }))
+            dispatch(moveSquare({ squareId: square.id, dir: "left", isFirst }))
     
         })
     

@@ -56,182 +56,66 @@ export const squaresSlice = createSlice({
         state.moveEvent = false;
       }
 
+      let squareIndex = squaresInstance.findIndex(sq => sq.id === squareId)
+      let square = state.squares[squareIndex];
+
+      // find next move for it
+      let positionX = square.position[0];
+      let positionY = square.position[1];
+      let possibleMoves = [];
       if (dir === "right") {
-        let squareIndex = squaresInstance.findIndex(sq => sq.id === squareId)
-        let square = state.squares[squareIndex];
-
-        // find next move for it
-
-
-        let positionX = square.position[0];
-        let positionY = square.position[1];
-        let possibleMoves = [];
         while (positionX < state.rows - 1) {
           possibleMoves.push([positionX + 1, positionY])
           positionX++;
         }
-        if (possibleMoves.length > 0) {
-
-          const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)
-
-          nextMoveCoordinate = nextMoveCoo;
-          mergeEvent = mergeStatus;
-          if (moveStatus) {
-            state.moveEvent = moveStatus;
-          }
-        }
-
-        if (state.moveEvent && nextMoveCoordinate) {
-
-          square.position = nextMoveCoordinate;
-          if (mergeEvent) {
-            //delete square and double the value of merged square
-            
-            let filteredSquares = state.squares.filter(sq => sq.id !== squareId);
-            state.squares = [...filteredSquares];
-
-            //find merged square
-            let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
-            let mergedSquare = state.squares[mergedSquareIndex]
-            mergedSquare.value *= 2;
-            mergedSquare.canMerged = false;
-
-          }
-        }
-
       }
-
       if (dir === "left") {
-
-        let squareIndex = squaresInstance.findIndex(sq => sq.id === squareId)
-        let square = state.squares[squareIndex];
-
-        // find next move for it
-        let positionX = square.position[0];
-        let positionY = square.position[1];
-        let possibleMoves = [];
         while (positionX > 0) {
           possibleMoves.push([positionX - 1, positionY])
           positionX--;
         }
-
-        if (possibleMoves.length > 0) {
-          const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)
-          nextMoveCoordinate = nextMoveCoo;
-          
-          mergeEvent = mergeStatus;
-          if (moveStatus) {
-            state.moveEvent = moveStatus;
-          }
-        }
-
-        if (state.moveEvent && nextMoveCoordinate) {
-
-          square.position = nextMoveCoordinate;
-          if (mergeEvent) {
-            //delete square and double the value of merged square
-            let filteredSquares = state.squares.filter(sq => sq.id !== squareId);
-            state.squares = [...filteredSquares];
-
-            //find merged square
-            let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
-            let mergedSquare = state.squares[mergedSquareIndex]
-            
-            mergedSquare.value *= 2;
-            mergedSquare.canMerged = false;
-            
-          }
-        }
       }
-
       if (dir === "up") {
-        let squareIndex = squaresInstance.findIndex(sq => sq.id === squareId)
-        let square = state.squares[squareIndex];
-
-        // find next move for it
-        let positionX = square.position[0];
-        let positionY = square.position[1];
-        let possibleMoves = [];
-
         while (positionY > 0) {
           possibleMoves.push([positionX, positionY - 1])
           positionY--;
         }
-        
-        if (possibleMoves.length > 0) {
-
-          const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)
-
-          nextMoveCoordinate = nextMoveCoo;
-          mergeEvent = mergeStatus;
-          if (moveStatus) {
-            state.moveEvent = moveStatus;
-          }
-        }
-
-        if (state.moveEvent && nextMoveCoordinate) {
-
-          square.position = nextMoveCoordinate;
-          if (mergeEvent) {
-            //delete square and double the value of merged square
-            let filteredSquares = state.squares.filter(sq => sq.id !== squareId);
-            state.squares = [...filteredSquares];
-
-            //find merged square
-            let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
-            let mergedSquare = state.squares[mergedSquareIndex]
-            mergedSquare.value *= 2;
-            mergedSquare.canMerged = false;
-
-          }
-        }
-
       }
 
-
       if (dir === "down") {
-        let squareIndex = squaresInstance.findIndex(sq => sq.id === squareId)
-        let square = state.squares[squareIndex];
-
-        // find next move for it
-        let positionX = square.position[0];
-        let positionY = square.position[1];
-        let possibleMoves = [];
-
         while (positionY < state.rows - 1) {
           possibleMoves.push([positionX, positionY + 1])
           positionY++;
         }
-        
+      }
 
-        if (possibleMoves.length > 0) {
+      if (possibleMoves.length > 0) {
 
-          const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)
+        const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)
 
-          nextMoveCoordinate = nextMoveCoo;
-          mergeEvent = mergeStatus;
-          if (moveStatus) {
-            state.moveEvent = moveStatus;
-          }
+        nextMoveCoordinate = nextMoveCoo;
+        mergeEvent = mergeStatus;
+        if (moveStatus) {
+          state.moveEvent = moveStatus;
         }
+      }
 
-        if (state.moveEvent && nextMoveCoordinate) {
+      if (state.moveEvent && nextMoveCoordinate) {
 
-          square.position = nextMoveCoordinate;
-          if (mergeEvent) {
-            //delete square and double the value of merged square
-            let filteredSquares = state.squares.filter(sq => sq.id !== squareId);
-            state.squares = [...filteredSquares];
+        square.position = nextMoveCoordinate;
+        if (mergeEvent) {
+          //delete square and double the value of merged square
 
-            //find merged square
-            let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
-            let mergedSquare = state.squares[mergedSquareIndex]
-            mergedSquare.value *= 2;
-            mergedSquare.canMerged = false;
+          let filteredSquares = state.squares.filter(sq => sq.id !== squareId);
+          state.squares = [...filteredSquares];
 
-          }
+          //find merged square
+          let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
+          let mergedSquare = state.squares[mergedSquareIndex]
+          mergedSquare.value *= 2;
+          mergedSquare.canMerged = false;
+
         }
-
       }
 
     },
