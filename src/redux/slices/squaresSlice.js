@@ -126,7 +126,10 @@ export const squaresSlice = createSlice({
       state.undo = action.payload
     },
     undo: state => {
-      state.squares = state.undo
+      if(state.undo.length > 0)
+      {
+        state.squares = state.undo
+      }
     }
   }
 })

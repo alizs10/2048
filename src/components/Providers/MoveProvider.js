@@ -8,11 +8,11 @@ const MoveProvider = ({ children }) => {
     const {  squares, moveEvent } = useSelector(state => state.squares)
     const dispatch = useDispatch()
 
-    const [squaresBackup, setSquaresBackup] = useState(null)
+    const [squaresBackup, setSquaresBackup] = useState([])
   
     useEffect(() => {
 
-      if(moveEvent)
+      if(moveEvent && squaresBackup.length > 0)
       {
         dispatch(setUndo(squaresBackup))
       }
@@ -68,8 +68,8 @@ const MoveProvider = ({ children }) => {
       
     
       const handleLeftMove = () => {
-        setSquaresBackup([...squares])
-    
+      
+        setSquaresBackup([...squares])    
         let squaresInstance = [...squares]
         squaresInstance.sort((a, b) => {
             return a.position[0] - b.position[0];
