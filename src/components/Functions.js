@@ -11,37 +11,12 @@ import { Up } from './Functions/Up'
 
 export const Functions = () => {
 
-  const { gameOver,play } = useSelector(state => state.rules)
-
-  const dispatch = useDispatch()
-  const timerInterval = useRef(null)
-
-
-  useEffect(() => {
-
-    if(gameOver)
-    {
-        clearInterval(timerInterval.current)
-    }
-
-
-  }, [gameOver])
-
-  const playGame = () => {
-    dispatch(initialInfos())
-    dispatch(setPlay(true))
-    dispatch(start())
-
-    timerInterval.current = setInterval(() => {
-      dispatch(setSeconds())
-    }, 1000)
-
-  }
+  const {play} = useSelector(state => state.rules)
 
   return (
     <div className='grid grid-cols-3 gap-2'>
       {!play ? (
-        <Start playGame={playGame}/>
+        <Start/>
       ) : (
         <>
           <Left />
