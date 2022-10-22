@@ -74,7 +74,7 @@ export const Container = () => {
 
   return (
 
-    <div {...handlers} ref={refPassthrough} className='w-4/5 relative bg-stone-400 aspect-square p-2 gap-2 self-center rounded-md grid grid-cols-4'>
+    <div {...handlers} ref={refPassthrough} className='w-full relative bg-stone-400 aspect-square p-2 gap-2 self-center rounded-md grid grid-cols-4'>
       {placeHolders.map((placeHolder) => (
         <PlaceHolder key={placeHolder.id} />
       ))}

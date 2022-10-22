@@ -18,7 +18,7 @@ function App() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-y-4 p-5 h-screen bg-gray-200 lg:w-1/3 md:w-1/3 sm:mx-auto overflow-hidden">
+    <div className="flex flex-col gap-y-4 py-5 px-12 h-screen bg-gray-200 lg:w-1/3 md:w-1/3 sm:mx-auto overflow-hidden">
       <Head />
       <Hint />
       <MoveProvider>
