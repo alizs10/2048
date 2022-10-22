@@ -7,7 +7,7 @@ const initialState = {
   placeHolders: [],
   squares: [],
   moveEvent: false,
-  lastSquares: [],
+  undo: [],
 }
 
 export const squaresSlice = createSlice({
@@ -121,11 +121,17 @@ export const squaresSlice = createSlice({
     },
     prepareSquaresForMerge: state => {
       state.squares.map(sq => { sq.canMerged = true })
+    },
+    setUndo: (state, action) => {
+      state.undo = action.payload
+    },
+    undo: state => {
+      state.squares = state.undo
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions, merge, createNewSquare, moveSquare, prepareSquaresForMerge } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, createNewSquare, moveSquare, prepareSquaresForMerge, setUndo, undo } = squaresSlice.actions
 
 export default squaresSlice.reducer

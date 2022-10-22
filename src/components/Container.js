@@ -26,20 +26,17 @@ export const Container = () => {
 
     }
 
-    if(squares.length == rows * rows)
-    {
+    if (squares.length == rows * rows) {
       let gameOverStatus = isGameOver(squares, rows)
-      if(gameOverStatus)
-      {
+      if (gameOverStatus) {
         dispatch(setGameOver())
       }
     }
 
     let goalReachStatus = isGoalReached(squares, goal)
-    
-    if(goalReachStatus)
-    {
-      dispatch(setGoal(goal*2))
+
+    if (goalReachStatus) {
+      dispatch(setGoal(goal * 2))
     }
   }, [squares])
 

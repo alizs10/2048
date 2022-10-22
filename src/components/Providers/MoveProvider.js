@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MoveContext from '../../context/MoveContext'
-import { moveSquare } from '../../redux/slices/squaresSlice'
+import { moveSquare, setUndo } from '../../redux/slices/squaresSlice'
 
 const MoveProvider = ({ children }) => {
 
-    const {  squares } = useSelector(state => state.squares)
+    const {  squares, moveEvent } = useSelector(state => state.squares)
     const dispatch = useDispatch()
+
+    const [squaresBackup, setSquaresBackup] = useState(null)
   
+    useEffect(() => {
+
+      if(moveEvent)
+      {
+        dispatch(setUndo(squaresBackup))
+      }
+
+    }, [moveEvent])
+
     const handleRightMove = () => {
 
+        setSquaresBackup([...squares])
         let squaresInstance = [...squares]
         squaresInstance.sort((a,b) => {
           return b.position[0] - a.position[0] 
@@ -17,12 +29,12 @@ const MoveProvider = ({ children }) => {
       
         squaresInstance.map((square, index) => {
           let isFirst = (index == 0) ? true : false;
-          dispatch(moveSquare({ squareId: square.id, dir: "right", isFirst }))
-    
+          dispatch(moveSquare({ squareId: square.id, dir: "right", isFirst }))    
         })
       }
     
       const handleUpMove = () => {
+        setSquaresBackup([...squares])
     
         let squaresInstance = [...squares]
         squaresInstance.sort((a, b) => {
@@ -39,6 +51,7 @@ const MoveProvider = ({ children }) => {
     
     
       const handleDownMove = () => {
+        setSquaresBackup([...squares])
         
         let squaresInstance = [...squares]
         squaresInstance.sort((a, b) => {
@@ -55,6 +68,7 @@ const MoveProvider = ({ children }) => {
       
     
       const handleLeftMove = () => {
+        setSquaresBackup([...squares])
     
         let squaresInstance = [...squares]
         squaresInstance.sort((a, b) => {
