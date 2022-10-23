@@ -6,8 +6,8 @@ export const Down = () => {
   const { handleDownMove } = useContext(MoveContext)
 
   return (
-    <button onClick={handleDownMove} className='col-span-1 flex-center pb-4 text-4xl rounded-md bg-stone-600 text-white'>
-      &#8964;
+    <button onClick={handleDownMove} className='col-span-1 flex-center py-2 text-lg rounded-md bg-stone-600 text-white'>
+      DOWN
     </button>
   )
 }

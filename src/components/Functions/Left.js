@@ -5,8 +5,8 @@ export const Left = () => {
     const { handleLeftMove } = useContext(MoveContext)
 
     return (
-        <button onClick={handleLeftMove} className='col-span-1 flex-center text-xl rounded-md bg-stone-600 text-white'>
-            &#10094;
+        <button onClick={handleLeftMove} className='col-span-1 h-fit py-2 mt-auto flex-center text-lg rounded-md bg-stone-600 text-white'>
+            Left
         </button>
     )
 }
