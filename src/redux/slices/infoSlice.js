@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   score: 0,
-  best: 0,
+  best: localStorage.getItem('best') ?? 0,
   moves: 0,
   seconds: 0,
   minutes: 0,
@@ -17,6 +17,7 @@ export const infoSlice = createSlice({
     initialInfos: (state) => {
       state.moves = 0;
       state.score = 0;
+      state.best = localStorage.getItem('best') ?? 0;
       state.seconds = 0;
       state.minutes = 0;
       state.hours = 0;
@@ -33,6 +34,7 @@ export const infoSlice = createSlice({
       if(state.score > state.best)
       {
         state.best = state.score;
+        localStorage.setItem("best", state.best);
       }
     },
     addMove: (state) => {
