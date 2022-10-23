@@ -5,7 +5,7 @@ export const Goal = () => {
 
     const {goal} = useSelector(state => state.info)
     return (
-        <div className='w-1/4 h-fit aspect-square flex-center text-white font-bold bg-yellow-400 rounded-md text-xl md:text-3xl'>
+        <div className='w-[40%] xs:w-[30%] h-fit aspect-square flex-center text-white font-bold bg-yellow-400 rounded-md text-xl md:text-3xl'>
             {goal}
         </div>
     )
