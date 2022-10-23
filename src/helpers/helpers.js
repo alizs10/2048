@@ -169,3 +169,27 @@ export const isGoalReached = (squares, goal) => {
 
     return isGoalReached;
 }
+
+export const formatScore = score => {
+
+    let scoreNum = score;
+    let scoreStr = scoreNum.toString()
+    let formatedScore;
+    let str;
+    let unit;
+
+    if(scoreStr.length <= 6 && scoreStr.length > 3)
+    {
+        formatedScore = scoreNum / 1000;
+        unit =  'K';
+    } 
+    if (scoreStr.length > 6){
+        formatedScore = scoreNum / 1000000;
+        unit =  'M';
+        str = formatedScore.toFixed(1) + unit;
+    }
+    
+    str = scoreStr.length > 3 ? formatedScore.toFixed(1) + unit : scoreStr;
+
+    return str;
+}

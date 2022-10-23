@@ -8,6 +8,7 @@ const initialState = {
   squares: [],
   moveEvent: false,
   undo: [],
+  scoreCount: 0
 }
 
 export const squaresSlice = createSlice({
@@ -15,7 +16,6 @@ export const squaresSlice = createSlice({
   initialState,
   reducers: {
     initial: (state) => {
-      // state.user = action.payload
       let id = 0;
       while (state.placeHolders.length < state.rows * state.rows) {
         state.placeHolders.push({ id })
@@ -104,8 +104,8 @@ export const squaresSlice = createSlice({
 
         square.position = nextMoveCoordinate;
         if (mergeEvent) {
-          //delete square and double the value of merged square
 
+          //delete square and double the value of merged square
           let filteredSquares = state.squares.filter(sq => sq.id !== squareId);
           state.squares = [...filteredSquares];
 
@@ -114,6 +114,7 @@ export const squaresSlice = createSlice({
           let mergedSquare = state.squares[mergedSquareIndex]
           mergedSquare.value *= 2;
           mergedSquare.canMerged = false;
+          state.scoreCount = mergedSquare.value;
 
         }
       }
@@ -126,15 +127,17 @@ export const squaresSlice = createSlice({
       state.undo = action.payload
     },
     undo: state => {
-      if(state.undo.length > 0)
-      {
+      if (state.undo.length > 0) {
         state.squares = state.undo
       }
+    },
+    resetScoreCount: state => {
+      state.scoreCount = 0;
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions, merge, createNewSquare, moveSquare, prepareSquaresForMerge, setUndo, undo } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, createNewSquare, moveSquare, prepareSquaresForMerge, setUndo, undo,resetScoreCount } = squaresSlice.actions
 
 export default squaresSlice.reducer
