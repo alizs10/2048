@@ -78,7 +78,7 @@ export const Container = () => {
       {placeHolders.map((placeHolder) => (
         <PlaceHolder key={placeHolder.id} />
       ))}
-      <div ref={containerRef} className='absolute top-0 right-0 bottom-0 left-0  aspect-square p-2 gap-2 self-center w-full rounded-md'>
+      <div ref={containerRef} className='absolute top-0 right-0 bottom-0 left-0 touch-none aspect-square p-2 gap-2 self-center w-full rounded-md'>
 
 
         {squares.map((square) => (
