@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import { generateUniqueCoordinate, getNewIndex, getRandomIndex, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
+import { generateUniqueCoordinate, getNewIndex, getRandomIndex, getRandomValue, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
 import { v4 as uuidv4 } from 'uuid';
 import { findNextMove } from '../../helpers/square';
 const initialState = {
@@ -26,13 +26,13 @@ export const squaresSlice = createSlice({
     start: (state) => {
       let squaresInstance = []
       let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-
-      let firstSquare = { id: uuidv4(), value: 2, position: firstCoordinate, canMerged: true }
+      let firstValue = getRandomValue()
+      let firstSquare = { id: uuidv4(), value: firstValue, position: firstCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-
-      let secondSquare = { id: uuidv4(), value: 2, position: secondCoordinate, canMerged: true }
+      let secondValue = getRandomValue()
+      let secondSquare = { id: uuidv4(), value: secondValue, position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
       state.squares = squaresInstance;
@@ -41,7 +41,7 @@ export const squaresSlice = createSlice({
     createNewSquare: state => {
       state.moveEvent = false;
       let newCoordinate = generateUniqueCoordinate(state.squares, state.rows)
-      let newSquare = { id: uuidv4(), value: 2, position: newCoordinate, canMerged: true }
+      let newSquare = { id: uuidv4(), value: getRandomValue(), position: newCoordinate, canMerged: true }
       state.squares = [...state.squares, newSquare]
 
     },

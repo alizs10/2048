@@ -12,6 +12,12 @@ export const getRandomIndex = (arr) => {
     return arr[rand];
 }
 
+export const getRandomValue = () => {
+    let possibleValues = [2, 2, 2, 4];
+    let rand = Math.floor(Math.random() * possibleValues.length);
+    return possibleValues[rand];
+}
+
 export const getTwoRandomNumber = (min, max) => {
 
     let rand1;
