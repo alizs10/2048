@@ -197,22 +197,20 @@ export const setSquareColor = value => {
     let exponent = Math.log2(value)
     let colorClasses;
 
+    console.log(Math.log2(2048));
     switch (exponent) {
-        case 1: // 4
+        case 1: // 2
             colorClasses = 'bg-stone-100 text-gray-600'
             break;
-
         case 2: // 4
             colorClasses = 'bg-[#faf4ea] text-gray-600'
             break;
-
         case 3: // 8
             colorClasses = 'bg-[#F9C48B] text-white'
             break;
         case 4: // 16
             colorClasses = 'bg-[#f7a072] text-white'
             break;
-
         case 5: // 32
             colorClasses = 'bg-[#fe4a49]/70 text-white'
             break;
@@ -222,21 +220,19 @@ export const setSquareColor = value => {
         case 7: // 128
             colorClasses = 'bg-[#FAE588] text-white'
             break;
-        case 7: // 256
+        case 8: // 256
             colorClasses = 'bg-[#FAE275] text-white'
             break;
-        case 8: // 512
+        case 9: // 512
             colorClasses = 'bg-[#FAE275] text-white'
             break;
-        case 9: // 1024
+        case 10: // 1024
             colorClasses = 'bg-[#f9dc5c] text-white'
             break;
-
-        case 10: // 2048
+        case 11: // 2048
             colorClasses = 'bg-yellow-300 text-white'
             break;
-
-        case 11: // 4096
+        case 12: // 4096
             colorClasses = 'bg-stone-700 text-white'
             break;
 
