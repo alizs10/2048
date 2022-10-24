@@ -9,12 +9,12 @@ const Square = ({ square, parent }) => {
     const [y, setY] = useState("")
     const [value, setValue] = useState(square.value)
     const [isMerged, setIsMerged] = useState(false)
+    const [shouldMove, setShouldMove] = useState(false)
 
     const squareRef = useRef(null)
 
     useEffect(() => {
-        if(square.value != value)
-        {
+        if (square.value != value) {
             setIsMerged(true)
         }
         setValue(square.value)
@@ -22,8 +22,7 @@ const Square = ({ square, parent }) => {
 
     useEffect(() => {
 
-        if(isMerged)
-        {
+        if (isMerged) {
             setScale(1.1)
             setTimeout(() => {
                 setScale(1)
@@ -44,24 +43,6 @@ const Square = ({ square, parent }) => {
         squareRef.current.style.top = `${square.position[1] * squareRef.current.clientHeight + ((square.position[1] + 1) * (gap))}px`;
         squareRef.current.style.left = `${square.position[0] * squareRef.current.clientWidth + ((square.position[0] + 1) * (gap))}px`;
 
-        setX(square.position[0] * squareRef.current.clientWidth + ((square.position[0]) * (gap)))
-        setY(square.position[1] * squareRef.current.clientHeight + ((square.position[1]) * (gap)))
-
-    }, [])
-
-    useEffect(() => {
-
-        let placeHolderWidth = parent.current.children[0].clientWidth;
-        let gap = ((parent.current.clientWidth) - (placeHolderWidth * 4)) / 5;
-
-
-        squareRef.current.style.width = `${parent.current.children[0].clientWidth}px`;
-        // squareRef.current.style.top = `${square.position[1] * squareRef.current.clientHeight + ((square.position[1] + 1) * (gap))}px`;
-        // squareRef.current.style.left = `${square.position[0] * squareRef.current.clientWidth + ((square.position[0] + 1) * (gap))}px`;
-
-        setX(square.position[0] * squareRef.current.clientWidth + ((square.position[0] + 1) * (gap)))
-        setY(square.position[1] * squareRef.current.clientHeight + ((square.position[1] + 1) * (gap)))
-
     }, [square])
 
     useEffect(() => {
@@ -75,11 +56,11 @@ const Square = ({ square, parent }) => {
     return (
         <motion.div
             initial={{ scale: 0 }}
-            animate={{ scale, top: y, left: x }}
-            transition={{ bounce: "none", duration: 0.2 }}
+            animate={{ scale }}
+            transition={{ bounce: "none", duration: 0.1 }}
             ref={squareRef}
 
-            className={`select-none absolute aspect-square rounded-md ${colorClasses} flex-center font-bold text-3xl`}>
+            className={`transition-all duration-200 select-none absolute aspect-square rounded-md ${colorClasses} flex-center font-bold text-3xl`}>
             {square.value}
         </motion.div>
     )
