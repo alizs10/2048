@@ -16,48 +16,53 @@ const Square = ({ square, parent }) => {
 
     }, [square])
 
-    let classColors = 'bg-gray-200 text-gray-600';
+    let classColors = '';
     let exponent = Math.log2(square.value)
     switch (exponent) {
-        case 2:
-            classColors = 'bg-yellow-50 text-gray-600'
+        case 1: // 4 
+            classColors = 'bg-stone-100 text-gray-600'
             break;
     
-        case 3:
-            classColors = 'bg-orange-300 text-white'
-            break;
-        case 4:
-            classColors = 'bg-orange-600 text-white'
+        case 2: // 4 
+            classColors = 'bg-[#faf4ea] text-gray-600'
             break;
     
-        case 5:
-            classColors = 'bg-red-400 text-white'
+        case 3: // 8
+            classColors = 'bg-[#F9C48B] text-white'
             break;
-        case 6:
-            classColors = 'bg-red-500 text-white'
+        case 4: // 16
+            classColors = 'bg-[#f7a072] text-white'
             break;
-        case 7:
-            classColors = 'bg-yellow-200 text-white'
+    
+        case 5: // 32
+            classColors = 'bg-[#fe4a49]/70 text-white'
             break;
-        case 7:
+        case 6: // 64
+            classColors = 'bg-[#fe4a49]/90 text-white'
+            break;
+        case 7: // 128
+            classColors = 'bg-[#FAE588] text-white'
+            break;
+        case 7: // 256
+            classColors = 'bg-[#FAE275] text-white'
+            break;
+        case 8: // 512
+            classColors = 'bg-[#FAE275] text-white'
+            break;
+        case 9: // 1024
+            classColors = 'bg-[#f9dc5c] text-white'
+            break;
+    
+        case 10: // 2048
             classColors = 'bg-yellow-300 text-white'
             break;
-        case 8:
-            classColors = 'bg-yellow-400 text-white'
-            break;
-        case 9:
-            classColors = 'bg-yellow-500 text-white'
-            break;
     
-        case 10:
-            classColors = 'bg-yellow-600 text-white'
-            break;
-    
-        case 11:
-            classColors = 'bg-yellow-700 text-white'
+        case 11: // 4096
+            classColors = 'bg-stone-700 text-white'
             break;
     
         default:
+            classColors = 'bg-stone-700 text-white'
             break;
     }
     
