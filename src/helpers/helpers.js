@@ -197,7 +197,6 @@ export const setSquareColor = value => {
     let exponent = Math.log2(value)
     let colorClasses;
 
-    console.log(Math.log2(2048));
     switch (exponent) {
         case 1: // 2
             colorClasses = 'bg-stone-100 text-gray-600'

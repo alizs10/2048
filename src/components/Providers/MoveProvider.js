@@ -29,7 +29,8 @@ const MoveProvider = ({ children }) => {
       
         squaresInstance.map((square, index) => {
           let isFirst = (index == 0) ? true : false;
-          dispatch(moveSquare({ squareId: square.id, dir: "right", isFirst }))    
+          let isLast = (index == squaresInstance.length - 1) ? true : false;
+          dispatch(moveSquare({ squareId: square.id, dir: "right", isFirst, isLast }))    
         })
       }
     
@@ -43,7 +44,8 @@ const MoveProvider = ({ children }) => {
     
         squaresInstance.map((square, index) => {
           let isFirst = (index == 0) ? true : false;
-          dispatch(moveSquare({ squareId: square.id, dir: "up", isFirst }))
+          let isLast = (index == squaresInstance.length - 1) ? true : false;
+          dispatch(moveSquare({ squareId: square.id, dir: "up", isFirst, isLast }))
     
         })
     
@@ -60,7 +62,8 @@ const MoveProvider = ({ children }) => {
     
         squaresInstance.map((square, index) => {
           let isFirst = (index == 0) ? true : false;
-          dispatch(moveSquare({ squareId: square.id, dir: "down", isFirst }))
+          let isLast = (index == squaresInstance.length - 1) ? true : false;
+          dispatch(moveSquare({ squareId: square.id, dir: "down", isFirst, isLast }))
     
         })
     
@@ -77,7 +80,8 @@ const MoveProvider = ({ children }) => {
     
         squaresInstance.map((square, index) => {
             let isFirst = (index == 0) ? true : false;
-            dispatch(moveSquare({ squareId: square.id, dir: "left", isFirst }))
+            let isLast = (index == squaresInstance.length - 1) ? true : false;
+            dispatch(moveSquare({ squareId: square.id, dir: "left", isFirst, isLast }))
     
         })
     

@@ -8,7 +8,8 @@ const initialState = {
   squares: [],
   moveEvent: false,
   undo: [],
-  scoreCount: 0
+  scoreCount: 0,
+  moveScores: 0
 }
 
 export const squaresSlice = createSlice({
@@ -49,6 +50,7 @@ export const squaresSlice = createSlice({
       let squareId = action.payload.squareId
       let dir = action.payload.dir
       let isFirst = action.payload.isFirst
+      let isLast = action.payload.isLast
       let squaresInstance = [...state.squares];
       let mergeEvent = false;
       let nextMoveCoordinate = null;
@@ -114,11 +116,16 @@ export const squaresSlice = createSlice({
           let mergedSquare = state.squares[mergedSquareIndex]
           mergedSquare.value *= 2;
           mergedSquare.canMerged = false;
-          state.scoreCount = mergedSquare.value;
+          state.moveScores += mergedSquare.value;
 
         }
       }
 
+      if(isLast)
+      {
+        state.scoreCount = state.moveScores;
+        state.moveScores = 0;
+      }
     },
     prepareSquaresForMerge: state => {
       state.squares.map(sq => { sq.canMerged = true })

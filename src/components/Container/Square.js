@@ -75,7 +75,7 @@ const Square = ({ square, parent }) => {
     return (
         <motion.div
             initial={{ scale: 0 }}
-            animate={{ scale, top: `${y}px`, left: `${x}px` }}
+            animate={{ scale, top: y, left: x }}
             transition={{ bounce: "none", duration: 0.2 }}
             ref={squareRef}
 
