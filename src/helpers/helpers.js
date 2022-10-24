@@ -178,18 +178,72 @@ export const formatScore = score => {
     let str;
     let unit;
 
-    if(scoreStr.length <= 6 && scoreStr.length > 3)
-    {
+    if (scoreStr.length <= 6 && scoreStr.length > 3) {
         formatedScore = scoreNum / 1000;
-        unit =  'K';
-    } 
-    if (scoreStr.length > 6){
+        unit = 'K';
+    }
+    if (scoreStr.length > 6) {
         formatedScore = scoreNum / 1000000;
-        unit =  'M';
+        unit = 'M';
         str = formatedScore.toFixed(1) + unit;
     }
-    
+
     str = scoreStr.length > 3 ? formatedScore.toFixed(1) + unit : scoreStr;
 
     return str;
+}
+
+export const setSquareColor = value => {
+    let exponent = Math.log2(value)
+    let colorClasses;
+
+    switch (exponent) {
+        case 1: // 4
+            colorClasses = 'bg-stone-100 text-gray-600'
+            break;
+
+        case 2: // 4
+            colorClasses = 'bg-[#faf4ea] text-gray-600'
+            break;
+
+        case 3: // 8
+            colorClasses = 'bg-[#F9C48B] text-white'
+            break;
+        case 4: // 16
+            colorClasses = 'bg-[#f7a072] text-white'
+            break;
+
+        case 5: // 32
+            colorClasses = 'bg-[#fe4a49]/70 text-white'
+            break;
+        case 6: // 64
+            colorClasses = 'bg-[#fe4a49]/90 text-white'
+            break;
+        case 7: // 128
+            colorClasses = 'bg-[#FAE588] text-white'
+            break;
+        case 7: // 256
+            colorClasses = 'bg-[#FAE275] text-white'
+            break;
+        case 8: // 512
+            colorClasses = 'bg-[#FAE275] text-white'
+            break;
+        case 9: // 1024
+            colorClasses = 'bg-[#f9dc5c] text-white'
+            break;
+
+        case 10: // 2048
+            colorClasses = 'bg-yellow-300 text-white'
+            break;
+
+        case 11: // 4096
+            colorClasses = 'bg-stone-700 text-white'
+            break;
+
+        default:
+            colorClasses = 'bg-stone-700 text-white'
+            break;
+    }
+
+    return colorClasses;
 }

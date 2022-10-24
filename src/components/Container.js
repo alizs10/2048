@@ -22,7 +22,7 @@ export const Container = () => {
         dispatch(prepareSquaresForMerge())
         dispatch(createNewSquare())
         dispatch(addMove())
-      }, 300)
+      }, 200)
 
     }
 
