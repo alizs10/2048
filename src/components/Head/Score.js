@@ -18,8 +18,8 @@ export const Score = () => {
 
         if (scoreCount > 0) {
             setScoreCountArr(prevState => [...prevState, { id: uuidv4(), score: scoreCount }])
-            // dispatch(addScore(scoreCount))
-            // dispatch(resetScoreCount())
+            dispatch(addScore(scoreCount))
+            dispatch(resetScoreCount())
         }
 
     }, [scoreCount])
