@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { undoScore } from '../../redux/slices/infoSlice'
 import { undo } from '../../redux/slices/squaresSlice'
 
 export const Undo = () => {
@@ -7,6 +8,7 @@ export const Undo = () => {
     const dispatch = useDispatch()
     const handleUndo = () => {
         dispatch(undo())
+        dispatch(undoScore())
     }
 
     return (

@@ -8,11 +8,11 @@ export const whichPositionIsAvailable = (squares, possibleMoves, square) => {
         let nextSquare = squares.find(sq => sq.position[0] == position[0] && sq.position[1] == position[1])
         if (!nextSquare) {
             if (!isLast) {
-                console.log("its not last and its available");
+                
                 shouldCheckNext = true;
                 availablePositions.push(position)
             } else {
-                console.log("its last and its available");
+                
                 // its last and its available
                 availablePositions.push(position)
             }
@@ -79,7 +79,7 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
     possibleMoves.every(possibleMove => {
 
         let possibleSquare = squares.find(sq => sq.position[0] == possibleMove[0] && sq.position[1] == possibleMove[1])
-        console.log(possibleSquare);
+        
         if (possibleSquare && possibleSquare.value == square.value && possibleSquare.canMerged && square.canMerged) {
 
             nextPositions.push(possibleMove)
@@ -93,8 +93,6 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
         }
 
         if (possibleSquare && (possibleSquare.value != square.value || !possibleSquare.canMerged || !square.canMerged)) {
-
-            console.log("yes");
             return false;
         }
 

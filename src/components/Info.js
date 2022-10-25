@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { formatTime } from '../helpers/helpers'
 
 export const Info = () => {
 
@@ -8,7 +9,7 @@ export const Info = () => {
   return (
     <div className='flex justify-between'>
       <span className='text-stone-500 text-sm'>{moves} moves</span>
-      <span className='text-stone-500 text-sm'>{`${hours != 0 ? hours + ':' : ''}${minutes + ':'}${seconds < 10 ? '0' + seconds : seconds}`}</span>
+      <span className='text-stone-500 text-sm'>{formatTime(seconds, minutes, hours)}</span>
     </div>
   )
 }

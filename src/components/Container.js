@@ -6,7 +6,7 @@ import { createNewSquare, prepareSquaresForMerge } from '../redux/slices/squares
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
 import { addMove, setGoal } from '../redux/slices/infoSlice'
-import { setGameOver } from '../redux/slices/rulesSlice'
+import { setGameOver, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
 
 
@@ -37,6 +37,7 @@ export const Container = () => {
 
     if (goalReachStatus) {
       dispatch(setGoal(goal * 2))
+      dispatch(setWin(true))
     }
   }, [squares])
 
@@ -74,7 +75,7 @@ export const Container = () => {
 
   return (
 
-    <div {...handlers} ref={refPassthrough} className='w-full relative bg-stone-400 aspect-square p-2 gap-2 self-center rounded-md grid grid-cols-4'>
+    <div {...handlers} ref={refPassthrough} className='z-50 w-full relative bg-stone-400 aspect-square p-2 gap-2 self-center rounded-md grid grid-cols-4'>
       {placeHolders.map((placeHolder) => (
         <PlaceHolder key={placeHolder.id} />
       ))}

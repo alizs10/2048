@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 const initialState = {
   score: 0,
+  undoScore: 0,
   best: localStorage.getItem('best') ?? 0,
   moves: 0,
   seconds: 0,
@@ -17,6 +18,7 @@ export const infoSlice = createSlice({
     initialInfos: (state) => {
       state.moves = 0;
       state.score = 0;
+      state.undoScore = 0;
       state.best = localStorage.getItem('best') ?? 0;
       state.seconds = 0;
       state.minutes = 0;
@@ -31,8 +33,7 @@ export const infoSlice = createSlice({
     },
     addScore: (state, action) => {
       state.score += action.payload;
-      if(state.score > state.best)
-      {
+      if (state.score > state.best) {
         state.best = state.score;
         localStorage.setItem("best", state.best);
       }
@@ -53,11 +54,17 @@ export const infoSlice = createSlice({
     },
     setGoal: (state, actions) => {
       state.goal = actions.payload
+    },
+    setUndoScore: (state, action) => {
+      state.undoScore = action.payload
+    },
+    undoScore: (state) => {
+      state.score = state.undoScore
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setScore, setSeconds, setGoal, setBest, addMove,initialInfos, addScore } = infoSlice.actions
+export const { setScore, setSeconds, setGoal, setBest, addMove, initialInfos, addScore, setUndoScore, undoScore } = infoSlice.actions
 
 export default infoSlice.reducer
