@@ -1,21 +1,25 @@
 import { AnimatePresence } from 'framer-motion'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { formatScore } from '../../helpers/helpers'
 import { addScore } from '../../redux/slices/infoSlice'
 import { resetScoreCount } from '../../redux/slices/squaresSlice'
 import ScoreCount from './ScoreCount'
 
+import { v4 as uuidv4 } from 'uuid';
+
 export const Score = () => {
 
     const { score, best } = useSelector(state => state.info)
     const { scoreCount } = useSelector(state => state.squares)
+    const [scoreCountArr, setScoreCountArr] = useState([])
     const dispatch = useDispatch()
     useEffect(() => {
 
         if (scoreCount > 0) {
-            dispatch(addScore(scoreCount))
-            dispatch(resetScoreCount())
+            setScoreCountArr(prevState => [...prevState, { id: uuidv4(), score: scoreCount }])
+            // dispatch(addScore(scoreCount))
+            // dispatch(resetScoreCount())
         }
 
     }, [scoreCount])
@@ -29,10 +33,14 @@ export const Score = () => {
                 </span>
 
                 <AnimatePresence>
-                    {scoreCount > 0 && (
-                        <ScoreCount score={scoreCount} />
-                    )}
+
+                    {scoreCountArr.map(score => (
+
+                        <ScoreCount key={score.id} score={score} scoreCountArr={scoreCountArr} setScoreCountArr={setScoreCountArr} />
+
+                    ))}
                 </AnimatePresence>
+
             </div>
 
             <div className='col-span-1 bg-stone-700 rounded-md flex-center py-1 text-xs sm:text-lg md:text-xl font-bold text-white flex-col'>
