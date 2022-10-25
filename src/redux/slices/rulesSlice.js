@@ -11,12 +11,12 @@ export const rulesSlice = createSlice({
   initialState,
   reducers: {
     setPlay: (state, action) => {
-        
+
       state.play = true;
     },
-    setGameOver: state => {
-      state.gameOver = true;
-      state.play = false;
+    setGameOver: (state, action) => {
+      state.gameOver = action.payload;
+      state.play = !action.payload;
     },
     setWin: (state, action) => {
       state.win = action.payload;

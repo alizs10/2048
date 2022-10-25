@@ -29,7 +29,7 @@ export const Container = () => {
     if (squares.length == rows * rows) {
       let gameOverStatus = isGameOver(squares, rows)
       if (gameOverStatus) {
-        dispatch(setGameOver())
+        dispatch(setGameOver(true))
       }
     }
 

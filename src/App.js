@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "./components/Container";
 import { Functions } from "./components/Functions";
+import GameOver from "./components/GameOver";
 import { Head } from "./components/Head";
 import { Hint } from "./components/Hint";
 import { Info } from "./components/Info";
@@ -12,7 +13,7 @@ import { initial } from "./redux/slices/squaresSlice";
 
 function App() {
 
-  const { win } = useSelector(state => state.rules)
+  const { win, gameOver } = useSelector(state => state.rules)
   const dispatch = useDispatch()
   useEffect(() => {
 
@@ -36,6 +37,11 @@ function App() {
           <Win />
         </AnimatePresence>
       )}
+      <AnimatePresence>
+        {gameOver && (
+          <GameOver />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
