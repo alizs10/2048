@@ -76,12 +76,12 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
             return a[1] - b[1];
         })
     }
-
     possibleMoves.every(possibleMove => {
 
         let possibleSquare = squares.find(sq => sq.position[0] == possibleMove[0] && sq.position[1] == possibleMove[1])
-        if (possibleSquare && possibleSquare.value == square.value && possibleSquare.canMerged) {
-            
+        console.log(possibleSquare);
+        if (possibleSquare && possibleSquare.value == square.value && possibleSquare.canMerged && square.canMerged) {
+
             nextPositions.push(possibleMove)
             moveEvent = true;
             mergeEvent = true;
@@ -92,7 +92,9 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
             moveEvent = true;
         }
 
-        if (possibleSquare && possibleSquare.value != square.value) {
+        if (possibleSquare && (possibleSquare.value != square.value || !possibleSquare.canMerged || !square.canMerged)) {
+
+            console.log("yes");
             return false;
         }
 
@@ -103,6 +105,6 @@ export const findNextMove = (squares, possibleMoves, square, dir) => {
         nextMoveCoordinate = nextPositions[nextPositions.length - 1]
     }
 
- 
+
     return { nextMoveCoo: nextMoveCoordinate, moveStatus: moveEvent, mergeStatus: mergeEvent }
 }

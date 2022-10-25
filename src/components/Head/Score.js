@@ -14,7 +14,6 @@ export const Score = () => {
     useEffect(() => {
 
         if (scoreCount > 0) {
-            console.log(scoreCount);
             dispatch(addScore(scoreCount))
             dispatch(resetScoreCount())
         }

@@ -25,15 +25,25 @@ export const squaresSlice = createSlice({
     },
     start: (state) => {
       let squaresInstance = []
-      let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let firstValue = getRandomValue()
-      let firstSquare = { id: uuidv4(), value: firstValue, position: firstCoordinate, canMerged: true }
+      // let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
+      // let firstValue = getRandomValue()
+      let firstSquare = { id: uuidv4(), value: 4, position: [0,0], canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
-      let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let secondValue = getRandomValue()
-      let secondSquare = { id: uuidv4(), value: secondValue, position: secondCoordinate, canMerged: true }
+      // let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
+      // let secondValue = getRandomValue()
+      let secondSquare = { id: uuidv4(), value: 2, position: [1,0], canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
+      
+      // let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
+      // let firstValue = getRandomValue()
+      let thirdSquare = { id: uuidv4(), value: 2, position: [2,0], canMerged: true }
+      squaresInstance = [...squaresInstance, thirdSquare]
+
+      // let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
+      // let secondValue = getRandomValue()
+      let forthSquare = { id: uuidv4(), value: 4, position: [3,0], canMerged: true }
+      squaresInstance = [...squaresInstance, forthSquare]
 
       state.squares = squaresInstance;
 
@@ -93,7 +103,9 @@ export const squaresSlice = createSlice({
 
       if (possibleMoves.length > 0) {
 
-        const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(state.squares, possibleMoves, current(square), dir)
+        
+        
+        const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(current(state).squares, possibleMoves, square, dir)
 
         nextMoveCoordinate = nextMoveCoo;
         mergeEvent = mergeStatus;
@@ -104,6 +116,7 @@ export const squaresSlice = createSlice({
 
       if (state.moveEvent && nextMoveCoordinate) {
 
+        
         square.position = nextMoveCoordinate;
         if (mergeEvent) {
 
@@ -114,9 +127,11 @@ export const squaresSlice = createSlice({
           //find merged square
           let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
           let mergedSquare = state.squares[mergedSquareIndex]
+          console.log(current(mergedSquare));
           mergedSquare.value *= 2;
           mergedSquare.canMerged = false;
           state.moveScores += mergedSquare.value;
+          
 
         }
       }
