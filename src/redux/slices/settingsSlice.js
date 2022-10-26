@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  undo: true,
+  undo: false,
   sounds: false
 }
 

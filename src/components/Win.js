@@ -21,7 +21,7 @@ const Win = () => {
 
     const handleUndo = () => {
         dispatch(setWin(false))
-        dispatch(setGoal(goal/2))
+        dispatch(setGoal(goal / 2))
         dispatch(undoScore())
         dispatch(undo())
         continueGame()
@@ -45,12 +45,15 @@ const Win = () => {
             <div className='row-span-5 h-full self-end flex justify-between'>
                 <button
                     onClick={handleContinuePlay}
-                    className='py-2 px-4 h-fit rounded-md self-end bg-stone-400 text-white font-bold flex-center'
+                    className={`py-2 ${undo ? 'px-4' : 'w-full'} h-fit rounded-md self-end bg-stone-400 text-white font-bold flex-center`}
                 >Play for {goal}</button>
-                <button
-                    onClick={handleUndo}
-                    className='py-2 px-4 h-fit rounded-md self-end bg-stone-400 text-white font-bold flex-center'
-                >Undo</button>
+
+                {undo && (
+                    <button
+                        onClick={handleUndo}
+                        className='py-2 px-4 h-fit rounded-md self-end bg-stone-400 text-white font-bold flex-center'
+                    >Undo</button>
+                )}
             </div>
         </motion.div>
     )

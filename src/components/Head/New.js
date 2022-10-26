@@ -1,11 +1,13 @@
 import React, { useContext } from 'react'
 import { confirmAlert } from 'react-confirm-alert';
+import { useSelector } from 'react-redux';
 import FunctionsContext from '../../context/FunctionsContext';
 import ConfirmUI from '../Helpers/ConfirmUI';
 
 export const New = () => {
 
     const { playGame } = useContext(FunctionsContext)
+    const {undo} = useSelector(state => state.settings)
 
     const options = {
         customUI: ({ onClose, title, message, buttons }) => {
@@ -28,7 +30,7 @@ export const New = () => {
 
 
     return (
-        <button onClick={() => confirmAlert(options)} className='col-span-1 bg-red-500 rounded-md flex-center font-bold text-white text-xs py-1 sm:text-sm md:text-lg'>
+        <button onClick={() => confirmAlert(options)} className={`${undo ? 'col-span-1' : 'col-span-2'} bg-red-500 rounded-md flex-center font-bold text-white text-xs py-1 sm:text-sm md:text-lg`}>
             NEW
         </button>
     )

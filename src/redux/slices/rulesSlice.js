@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   play: false,
-  gameOver: false,
+  gameOver: true,
   win: false,
 }
 
