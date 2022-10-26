@@ -6,7 +6,7 @@ import { moveSquare, setUndo } from '../../redux/slices/squaresSlice'
 
 const MoveProvider = ({ children }) => {
 
-  const { win } = useSelector(state => state.rules)
+  const { play, win, gameOver } = useSelector(state => state.rules)
   const { score } = useSelector(state => state.info)
   const { squares, moveEvent } = useSelector(state => state.squares)
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const MoveProvider = ({ children }) => {
 
   const handleRightMove = () => {
 
-    if (win) return
+    if (win || gameOver || !play) return
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -44,7 +44,7 @@ const MoveProvider = ({ children }) => {
   }
 
   const handleUpMove = () => {
-    if (win) return
+    if (win || gameOver || !play) return
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -64,7 +64,7 @@ const MoveProvider = ({ children }) => {
 
 
   const handleDownMove = () => {
-    if (win) return
+    if (win || gameOver || !play) return
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -85,7 +85,7 @@ const MoveProvider = ({ children }) => {
 
   const handleLeftMove = () => {
 
-    if (win) return
+    if (win || gameOver || !play) return
     setSquaresBackup([...squares])
     setScoreBackup(score)
     let squaresInstance = [...squares]

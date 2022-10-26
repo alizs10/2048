@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   play: false,
-  gameOver: true,
+  gameOver: false,
   win: false,
+  mode: 0, // 0 => classic, 1 => time-trial
 }
 
 export const rulesSlice = createSlice({
@@ -11,8 +12,7 @@ export const rulesSlice = createSlice({
   initialState,
   reducers: {
     setPlay: (state, action) => {
-
-      state.play = true;
+      state.play = action.payload;
     },
     setGameOver: (state, action) => {
       state.gameOver = action.payload;
@@ -20,11 +20,14 @@ export const rulesSlice = createSlice({
     },
     setWin: (state, action) => {
       state.win = action.payload;
+    },
+    setMode: (state, action) => {
+      state.mode = action.payload;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setPlay, setGameOver, setWin } = rulesSlice.actions
+export const { setPlay, setGameOver, setWin, setMode } = rulesSlice.actions
 
 export default rulesSlice.reducer

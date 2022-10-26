@@ -13,6 +13,7 @@ import { isGameOver, isGoalReached } from '../helpers/helpers'
 export const Container = () => {
 
   const { goal } = useSelector(state => state.info)
+  const { mode } = useSelector(state => state.rules)
   const { placeHolders, squares, moveEvent, rows } = useSelector(state => state.squares)
   const dispatch = useDispatch()
 
@@ -26,7 +27,12 @@ export const Container = () => {
 
     }
 
-    if (squares.length == rows * rows) {
+    // rule: when squares length == 16 => the game is over
+    if (squares.length == rows * rows && mode == 1) {
+      dispatch(setGameOver(true))
+    }
+
+    if (squares.length == rows * rows && mode == 0) {
       let gameOverStatus = isGameOver(squares, rows)
       if (gameOverStatus) {
         dispatch(setGameOver(true))
@@ -82,7 +88,7 @@ export const Container = () => {
       <div ref={containerRef} className='absolute top-0 right-0 bottom-0 left-0 touch-none aspect-square p-2 gap-2 self-center w-full rounded-md'>
 
 
-        {squares.map((square) => (
+        {squares.length > 0 && squares.map((square) => (
           <Square parent={containerRef} key={square.id} square={square} />
         ))}
 

@@ -3,29 +3,42 @@ import { useDispatch, useSelector } from 'react-redux'
 import FunctionsContext from '../../context/FunctionsContext'
 import { initialInfos, setSeconds } from '../../redux/slices/infoSlice'
 import { setPlay } from '../../redux/slices/rulesSlice'
-import { start } from '../../redux/slices/squaresSlice'
+import { createNewSquare, start } from '../../redux/slices/squaresSlice'
 
 const FunctionsProvider = ({ children }) => {
 
-    const { gameOver, win } = useSelector(state => state.rules)
+    const { gameOver, win, mode, play } = useSelector(state => state.rules)
     const [menuVisibility, setMenuVisibility] = useState(false)
 
     const dispatch = useDispatch()
     const timerInterval = useRef(null)
+    const timeTrialInterval = useRef(null)
 
 
     const handleToggleMenu = () => {
+        // when menu is shown => timer should stop
+        if(!menuVisibility)
+        {
+            dispatch(setPlay(false))
+        }
         setMenuVisibility(prevState => !prevState)
     }
 
     useEffect(() => {
 
-        if (gameOver || win) {
+        if (gameOver || win || !play) {
             clearInterval(timerInterval.current)
+            clearInterval(timeTrialInterval.current)
         }
 
 
-    }, [gameOver, win])
+    }, [gameOver, win, play])
+
+    useEffect(() => {
+        if (mode == 0) {
+            clearInterval(timeTrialInterval.current)
+        }
+    }, [mode])
 
     const playGame = () => {
         dispatch(initialInfos())
@@ -38,6 +51,12 @@ const FunctionsProvider = ({ children }) => {
         timerInterval.current = setInterval(() => {
             dispatch(setSeconds())
         }, 1000)
+
+        if (mode == 1) {
+            timeTrialInterval.current = setInterval(() => {
+                dispatch(createNewSquare())
+            }, 2000)
+        }
 
     }
 

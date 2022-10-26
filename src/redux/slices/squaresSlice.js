@@ -33,7 +33,7 @@ export const squaresSlice = createSlice({
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
       let secondSquare = { id: uuidv4(), value: getRandomValue(), position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
-   
+
       state.squares = squaresInstance;
 
     },
@@ -92,8 +92,8 @@ export const squaresSlice = createSlice({
 
       if (possibleMoves.length > 0) {
 
-        
-        
+
+
         const { nextMoveCoo, mergeStatus, moveStatus } = findNextMove(current(state).squares, possibleMoves, square, dir)
 
         nextMoveCoordinate = nextMoveCoo;
@@ -105,7 +105,7 @@ export const squaresSlice = createSlice({
 
       if (state.moveEvent && nextMoveCoordinate) {
 
-        
+
         square.position = nextMoveCoordinate;
         if (mergeEvent) {
 
@@ -116,17 +116,16 @@ export const squaresSlice = createSlice({
           //find merged square
           let mergedSquareIndex = state.squares.findIndex(sq => sq.position[0] == nextMoveCoordinate[0] && sq.position[1] == nextMoveCoordinate[1])
           let mergedSquare = state.squares[mergedSquareIndex]
-          
+
           mergedSquare.value *= 2;
           mergedSquare.canMerged = false;
           state.moveScores += mergedSquare.value;
-          
+
 
         }
       }
 
-      if(isLast)
-      {
+      if (isLast) {
         state.scoreCount = state.moveScores;
         state.moveScores = 0;
       }
@@ -144,11 +143,15 @@ export const squaresSlice = createSlice({
     },
     resetScoreCount: state => {
       state.scoreCount = 0;
+    },
+    setSquares: (state, action) => {
+      console.log(action);
+      state.squares = action.payload
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions, merge, createNewSquare, moveSquare, prepareSquaresForMerge, setUndo, undo,resetScoreCount } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, createNewSquare, moveSquare, prepareSquaresForMerge, setUndo, undo, resetScoreCount, setSquares } = squaresSlice.actions
 
 export default squaresSlice.reducer

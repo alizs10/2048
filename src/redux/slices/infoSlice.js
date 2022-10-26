@@ -41,6 +41,9 @@ export const infoSlice = createSlice({
     addMove: (state) => {
       state.moves += 1;
     },
+    setMoves: (state, action) => {
+      state.moves = action.payload;
+    },
     setSeconds: (state) => {
       state.seconds += 1;
       if (state.seconds == 60) {
@@ -51,6 +54,12 @@ export const infoSlice = createSlice({
         state.hours += 1;
         state.minutes = 0;
       }
+    },
+    setMinutes: (state, actions) => {
+      state.goal = actions.payload
+    },
+    setHours: (state, actions) => {
+      state.goal = actions.payload
     },
     setGoal: (state, actions) => {
       state.goal = actions.payload
@@ -65,6 +74,6 @@ export const infoSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setScore, setSeconds, setGoal, setBest, addMove, initialInfos, addScore, setUndoScore, undoScore } = infoSlice.actions
+export const { setScore, setSeconds, setMinutes, setHours,setMoves, setGoal, setBest, addMove, initialInfos, addScore, setUndoScore, undoScore } = infoSlice.actions
 
 export default infoSlice.reducer
