@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "./components/Container";
 import { Functions } from "./components/Functions";
@@ -7,22 +7,31 @@ import GameOver from "./components/GameOver";
 import { Head } from "./components/Head";
 import { Hint } from "./components/Hint";
 import { Info } from "./components/Info";
+import Menu from "./components/Menu";
 import MoveProvider from "./components/Providers/MoveProvider";
 import Win from "./components/Win";
+import FunctionsContext from "./context/FunctionsContext";
 import { initial } from "./redux/slices/squaresSlice";
+
+import { motion } from 'framer-motion'
 
 function App() {
 
   const { win, gameOver } = useSelector(state => state.rules)
   const dispatch = useDispatch()
+
   useEffect(() => {
-
     dispatch(initial())
-
   }, [])
 
   return (
-    <div className="relative flex flex-col gap-y-4 py-5 px-12 h-screen bg-gray-200 md:w-3/5 lg:w-[45%] xl:w-1/3 sm:mx-auto overflow-hidden">
+
+    <motion.div
+      initial={{ left: "100%" }}
+      animate={{ left: 0 }}
+      exit={{ left: "100%" }}
+      transition={{ bounce: "none" }}
+      className="absolute top-0 left-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 md:w-3/5 lg:w-[45%] xl:w-1/3 sm:mx-auto overflow-hidden">
       <Head />
       <Hint />
       <MoveProvider>
@@ -42,7 +51,9 @@ function App() {
           <GameOver />
         )}
       </AnimatePresence>
-    </div>
+
+    </motion.div>
+
   );
 }
 

@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useSelector } from 'react-redux'
+import FunctionsContext from '../../context/FunctionsContext'
 
 export const Goal = () => {
 
-    const {goal} = useSelector(state => state.info)
+    const { goal } = useSelector(state => state.info)
+    const { handleToggleMenu } = useContext(FunctionsContext)
+
     return (
-        <div className='w-[40%] xs:w-[30%] h-fit aspect-square flex-center text-white font-bold bg-yellow-400 rounded-md text-xl md:text-3xl'>
+        <div
+            onClick={handleToggleMenu}
+            className='cursor-pointer w-[40%] xs:w-[30%] h-fit aspect-square flex-center text-white font-bold bg-yellow-400 rounded-md text-xl md:text-3xl'>
             {goal}
         </div>
     )

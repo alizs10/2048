@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FunctionsContext from '../../context/FunctionsContext'
 import { initialInfos, setSeconds } from '../../redux/slices/infoSlice'
@@ -8,10 +8,15 @@ import { start } from '../../redux/slices/squaresSlice'
 const FunctionsProvider = ({ children }) => {
 
     const { gameOver, win } = useSelector(state => state.rules)
+    const [menuVisibility, setMenuVisibility] = useState(false)
 
     const dispatch = useDispatch()
     const timerInterval = useRef(null)
 
+
+    const handleToggleMenu = () => {
+        setMenuVisibility(prevState => !prevState)
+    }
 
     useEffect(() => {
 
@@ -52,7 +57,7 @@ const FunctionsProvider = ({ children }) => {
 
     return (
         <FunctionsContext.Provider value={{
-            playGame, continueGame
+            playGame, continueGame, handleToggleMenu, menuVisibility
         }}>
             {children}
         </FunctionsContext.Provider>
