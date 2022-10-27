@@ -12,6 +12,7 @@ const FunctionsProvider = ({ children }) => {
     const { goal, score, seconds, minutes, hours, moves } = useSelector(state => state.info)
 
     const [menuVisibility, setMenuVisibility] = useState(false)
+    const [statVisibility, setStatVisibility] = useState(false)
 
     const dispatch = useDispatch()
     const timerInterval = useRef(null)
@@ -23,6 +24,13 @@ const FunctionsProvider = ({ children }) => {
             dispatch(setPlay(false))
         }
         setMenuVisibility(prevState => !prevState)
+    }
+
+    const handleToggleStat = () => {
+        // when stat is shown => menu should disapear
+
+        handleToggleMenu()
+        setStatVisibility(prevState => !prevState)
     }
 
     useEffect(() => {
@@ -140,7 +148,7 @@ const FunctionsProvider = ({ children }) => {
 
     return (
         <FunctionsContext.Provider value={{
-            playGame, continueGame, handleToggleMenu, menuVisibility, cacheData, setCachedData
+            playGame, continueGame, handleToggleMenu, handleToggleStat, menuVisibility, statVisibility, cacheData, setCachedData
         }}>
             {children}
         </FunctionsContext.Provider>

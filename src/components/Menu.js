@@ -12,7 +12,7 @@ const Menu = () => {
 
     const { mode } = useSelector(state => state.rules)
     const { undo, sounds } = useSelector(state => state.settings)
-    const { handleToggleMenu, cacheData, setCachedData } = useContext(FunctionsContext)
+    const { handleToggleMenu, handleToggleStat, cacheData, setCachedData } = useContext(FunctionsContext)
 
     const dispatch = useDispatch()
 
@@ -96,7 +96,7 @@ const Menu = () => {
                 <button onClick={playClassicGame} className="py-2 w-full rounded-md bg-yellow-400 mt-8 flex-center gap-x-2 text-stone-700 text-lg font-bold">Classic play</button>
                 <button onClick={playTimeTrial} className="py-2 w-full rounded-md bg-red-500/90 flex-center gap-x-2 text-white text-lg font-bold">Time trial</button>
 
-                <button onClick={handleToggleMenu} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white mt-8 text-lg font-bold">Statistics</button>
+                <button onClick={handleToggleStat} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white mt-8 text-lg font-bold">Statistics</button>
                 <button onClick={handleToggleSounds} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white text-lg font-bold">Sounds {sounds ? "ON" : "OFF"}</button>
                 <button onClick={handleToggleUndo} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white text-lg font-bold">Undo {undo ? "ON" : "OFF"}</button>
 

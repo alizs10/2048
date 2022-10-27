@@ -3,22 +3,28 @@ import React, { useContext, useEffect } from 'react'
 import App from '../App'
 import FunctionsContext from '../context/FunctionsContext'
 import Menu from './Menu'
+import Statistics from './Statistics'
 
 const Game = () => {
 
-    const { menuVisibility } = useContext(FunctionsContext)
+    const { menuVisibility, statVisibility } = useContext(FunctionsContext)
 
     return (
         <div className='relative h-screen w-full overflow-hidden flex-center'>
 
             <AnimatePresence>
-                {!menuVisibility && (
+                {!menuVisibility && !statVisibility && (
                     <App />
                 )}
             </AnimatePresence>
             <AnimatePresence>
                 {menuVisibility && (
                     <Menu />
+                )}
+            </AnimatePresence>
+            <AnimatePresence>
+                {statVisibility && (
+                    <Statistics />
                 )}
             </AnimatePresence>
         </div>
