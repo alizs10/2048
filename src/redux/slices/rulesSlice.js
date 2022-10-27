@@ -4,7 +4,7 @@ const initialState = {
   play: false,
   gameOver: false,
   win: false,
-  mode: 0, // 0 => classic, 1 => time-trial
+  mode: localStorage.getItem("mode") ?? 0, // 0 => classic, 1 => time-trial
 }
 
 export const rulesSlice = createSlice({

@@ -10,11 +10,9 @@ import { initialInfos, setGoal, setHours, setMinutes, setMoves, setScore, setSec
 
 const Menu = () => {
 
-    const { play, mode } = useSelector(state => state.rules)
+    const { mode } = useSelector(state => state.rules)
     const { undo, sounds } = useSelector(state => state.settings)
-    const { goal, score, seconds, minutes, hours, moves } = useSelector(state => state.info)
-    const { squares } = useSelector(state => state.squares)
-    const { handleToggleMenu } = useContext(FunctionsContext)
+    const { handleToggleMenu, cacheData, setCachedData } = useContext(FunctionsContext)
 
     const dispatch = useDispatch()
 
@@ -75,55 +73,8 @@ const Menu = () => {
         handleToggleMenu()
     }
 
-    const setCachedData = cachedObj => {
-
-        console.log(cachedObj);
-
-        //score
-        dispatch(setScore(cachedObj.score))
-        //time
-        dispatch(setSeconds(cachedObj.time.seconds))
-        dispatch(setMinutes(cachedObj.time.minutes))
-        dispatch(setHours(cachedObj.time.hours))
-
-        //moves
-        dispatch(setMoves(cachedObj.moves))
-
-        //goal
-        dispatch(setGoal(cachedObj.goal))
-
-        //squares
-        dispatch(setSquares(cachedObj.squares))
-    }
-
-    const cacheData = mode => {
-
-        if(squares.length == 0) return
-
-        let backupObj = {};
-
-        backupObj.score = score;
-        backupObj.time = {
-            seconds, minutes, hours
-        };
-        backupObj.moves = moves;
-        backupObj.goal = goal;
-        backupObj.squares = squares;
-
-
-        switch (mode) {
-            case 0:
-                localStorage.setItem("classic-mode-cache", JSON.stringify(backupObj))
-                break;
-
-            case 1:
-                localStorage.setItem("time-trial-mode-cache", JSON.stringify(backupObj))
-                break;
-            default:
-                break;
-        }
-    }
-
+    
+    
 
     return (
         <motion.div

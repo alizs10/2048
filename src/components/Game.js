@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import App from '../App'
 import FunctionsContext from '../context/FunctionsContext'
 import Menu from './Menu'

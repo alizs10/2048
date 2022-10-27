@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "./components/Container";
 import { Functions } from "./components/Functions";
@@ -7,10 +7,8 @@ import GameOver from "./components/GameOver";
 import { Head } from "./components/Head";
 import { Hint } from "./components/Hint";
 import { Info } from "./components/Info";
-import Menu from "./components/Menu";
 import MoveProvider from "./components/Providers/MoveProvider";
 import Win from "./components/Win";
-import FunctionsContext from "./context/FunctionsContext";
 import { initial } from "./redux/slices/squaresSlice";
 
 import { motion } from 'framer-motion'
@@ -22,6 +20,7 @@ function App() {
 
   useEffect(() => {
     dispatch(initial())
+
   }, [])
 
   return (
