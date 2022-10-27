@@ -9,7 +9,7 @@ const Game = () => {
     const { menuVisibility } = useContext(FunctionsContext)
 
     return (
-        <div className='relative h-screen w-full overflow-hidden'>
+        <div className='relative h-screen w-full overflow-hidden flex-center'>
 
             <AnimatePresence>
                 {!menuVisibility && (

@@ -125,10 +125,10 @@ const Menu = () => {
     return (
         <motion.div
             initial={{ left: "-100%" }}
-            animate={{ left: 0 }}
+            animate={{ left: "auto" }}
             exit={{ left: "-100%" }}
             transition={{ bounce: "none" }}
-            className="absolute top-0 w-full h-full z-50 bg-gray-200 py-5 px-20"
+            className="absolute top-0 w-full h-full md:w-3/5 lg:w-[45%] xl:w-1/3 z-50 bg-gray-200 py-5 px-20"
         >
             <div className='flex-center flex-col gap-y-2'>
 
