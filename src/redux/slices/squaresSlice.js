@@ -145,7 +145,6 @@ export const squaresSlice = createSlice({
       state.scoreCount = 0;
     },
     setSquares: (state, action) => {
-      console.log(action);
       state.squares = action.payload
     }
   }

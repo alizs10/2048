@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FunctionsContext from '../../context/FunctionsContext'
-import { initialInfos, setSeconds } from '../../redux/slices/infoSlice'
+import { addSeconds, initialInfos } from '../../redux/slices/infoSlice'
 import { setPlay } from '../../redux/slices/rulesSlice'
 import { createNewSquare, start } from '../../redux/slices/squaresSlice'
 
@@ -17,8 +17,7 @@ const FunctionsProvider = ({ children }) => {
 
     const handleToggleMenu = () => {
         // when menu is shown => timer should stop
-        if(!menuVisibility)
-        {
+        if (!menuVisibility) {
             dispatch(setPlay(false))
         }
         setMenuVisibility(prevState => !prevState)
@@ -49,7 +48,7 @@ const FunctionsProvider = ({ children }) => {
             clearInterval(timerInterval.current)
         }
         timerInterval.current = setInterval(() => {
-            dispatch(setSeconds())
+            dispatch(addSeconds())
         }, 1000)
 
         if (mode == 1) {
@@ -62,14 +61,28 @@ const FunctionsProvider = ({ children }) => {
 
     const continueGame = () => {
 
+        console.log("we are here");
         dispatch(setPlay(true))
 
         if (timerInterval.current) {
             clearInterval(timerInterval.current)
         }
+
         timerInterval.current = setInterval(() => {
-            dispatch(setSeconds())
+            dispatch(addSeconds())
         }, 1000)
+
+        console.log(timerInterval.current);
+
+        if (mode == 1) {
+            if (timeTrialInterval.current) {
+                clearInterval(timeTrialInterval.current)
+            }
+
+            timeTrialInterval.current = setInterval(() => {
+                dispatch(createNewSquare())
+            }, 2000)
+        }
 
     }
 

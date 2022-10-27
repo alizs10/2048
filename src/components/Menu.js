@@ -77,6 +77,7 @@ const Menu = () => {
 
     const setCachedData = cachedObj => {
 
+        console.log(cachedObj);
 
         //score
         dispatch(setScore(cachedObj.score))
@@ -96,9 +97,11 @@ const Menu = () => {
     }
 
     const cacheData = mode => {
+
+        if(squares.length == 0) return
+
         let backupObj = {};
 
-        console.log(score);
         backupObj.score = score;
         backupObj.time = {
             seconds, minutes, hours
