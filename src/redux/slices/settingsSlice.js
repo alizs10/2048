@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+let cachedSettings = JSON.parse(localStorage.getItem("settings"));
 const initialState = {
-  undo: false,
-  sounds: false
+  undo: cachedSettings ? !!cachedSettings.undo : true,
+  sounds: cachedSettings ? !!cachedSettings.sounds : false
 }
 
 export const settingsSlice = createSlice({

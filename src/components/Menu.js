@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { motion } from 'framer-motion'
 import FunctionsContext from '../context/FunctionsContext'
@@ -23,6 +23,11 @@ const Menu = () => {
     const handleToggleUndo = () => {
         dispatch(toggleUndo())
     }
+
+    useEffect(() => {
+        let settingsObj = { undo, sounds }
+        localStorage.setItem("settings", JSON.stringify(settingsObj))
+    }, [undo, sounds])
 
     const playTimeTrial = () => {
 
@@ -50,7 +55,7 @@ const Menu = () => {
     }
 
     const playClassicGame = () => {
-        
+
         if (mode == 1) {
             // we need to backup
             cacheData(1)
@@ -73,8 +78,8 @@ const Menu = () => {
         handleToggleMenu()
     }
 
-    
-    
+
+
 
     return (
         <motion.div
