@@ -27,11 +27,11 @@ export const squaresSlice = createSlice({
     start: (state) => {
       let squaresInstance = []
       let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let firstSquare = { id: uuidv4(), value: getRandomValue(), position: firstCoordinate, canMerged: true }
+      let firstSquare = { id: uuidv4(), value: getRandomValue(), position: [0, 0], canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let secondSquare = { id: uuidv4(), value: getRandomValue(), position: secondCoordinate, canMerged: true }
+      let secondSquare = { id: uuidv4(), value: getRandomValue(), position: [0, 1], canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
       state.squares = squaresInstance;
@@ -42,7 +42,6 @@ export const squaresSlice = createSlice({
       let newCoordinate = generateUniqueCoordinate(state.squares, state.rows)
       let newSquare = { id: uuidv4(), value: getRandomValue(), position: newCoordinate, canMerged: true }
       state.squares = [...state.squares, newSquare]
-
     },
     moveSquare: (state, action) => {
 
@@ -60,7 +59,7 @@ export const squaresSlice = createSlice({
       let squareIndex = squaresInstance.findIndex(sq => sq.id === squareId)
       let square = state.squares[squareIndex];
 
-      // find next move for it
+      // find next move for it    
       let positionX = square.position[0];
       let positionY = square.position[1];
       let possibleMoves = [];

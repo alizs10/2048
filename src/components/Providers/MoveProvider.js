@@ -44,6 +44,8 @@ const MoveProvider = ({ children }) => {
   }
 
   const handleUpMove = () => {
+    console.log(play);
+    
     if (win || gameOver || !play) return
     setSquaresBackup([...squares])
     setScoreBackup(score)

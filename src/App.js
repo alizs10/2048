@@ -30,7 +30,7 @@ function App() {
       animate={{ left: "auto" }}
       exit={{ left: "100%" }}
       transition={{ bounce: "none" }}
-      className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 md:w-3/5 lg:w-[45%] xl:w-1/3 sm:mx-auto overflow-hidden">
+      className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 sm:mx-auto overflow-hidden">
       <Head />
       <Hint />
       <MoveProvider>

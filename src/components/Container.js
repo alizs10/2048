@@ -5,7 +5,7 @@ import PlaceHolder from './Container/PlaceHolder'
 import { createNewSquare, prepareSquaresForMerge } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
-import { addMove, setGoal, setSeconds } from '../redux/slices/infoSlice'
+import { addMove, setGoal } from '../redux/slices/infoSlice'
 import { setGameOver, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
 import FunctionsContext from '../context/FunctionsContext'
@@ -26,7 +26,7 @@ export const Container = () => {
     if (squares.length == 0) {
 
       let cachedMode = localStorage.getItem("mode")
-      console.log(cachedMode);
+
       let modeCacheKey = cachedMode == 1 ? "time-trial-mode-cache" : "classic-mode-cache"
       let cachedObj = localStorage.getItem(modeCacheKey)
 
@@ -35,10 +35,48 @@ export const Container = () => {
         setCachedData(JSON.parse(cachedObj))
       }
     }
+
+    document.addEventListener("keyup", arrowKeysListener)
+
+    return () => {
+      document.removeEventListener("keyup", arrowKeysListener)
+    }
   }, [])
 
+
+  const { handleRightMove,
+    handleLeftMove,
+    handleUpMove,
+    handleDownMove } = useContext(MoveContext)
+
+
+  const arrowKeysListener = e => {
+
+
+    console.log(e.code);
+    switch (e.code) {
+      case "ArrowLeft":
+        console.log("left");
+        handleLeftMove()
+        break;
+      case "ArrowRight":
+        handleRightMove()
+        break;
+      case "ArrowUp":
+
+        handleUpMove()
+        break;
+      case "ArrowDown":
+        handleDownMove()
+        break;
+
+      default:
+        console.log("default");
+        break;
+    }
+  }
+
   useEffect(() => {
-    console.log(mode);
     cacheData(mode)
   }, [seconds])
 
@@ -52,7 +90,6 @@ export const Container = () => {
       }, 200)
     }
 
-    cacheData(mode)
 
     // rule: when squares length == 16 => the game is over
     if (squares.length == rows * rows && mode == 1) {
@@ -75,11 +112,6 @@ export const Container = () => {
 
     cacheData(mode)
   }, [squares])
-
-  const { handleRightMove,
-    handleLeftMove,
-    handleUpMove,
-    handleDownMove } = useContext(MoveContext)
 
   const handlers = useSwipeable({
     onSwipedRight: handleRightMove,
@@ -110,18 +142,17 @@ export const Container = () => {
 
   return (
 
-    <div {...handlers} ref={refPassthrough} className='z-50 w-full relative bg-stone-400 aspect-square p-2 gap-2 self-center rounded-md grid grid-cols-4'>
+    <div {...handlers} ref={refPassthrough} className={`game-container z-50 relative w-fit bg-stone-400 aspect-square self-center`}>
       {placeHolders.map((placeHolder) => (
         <PlaceHolder key={placeHolder.id} />
       ))}
-      <div ref={containerRef} className='absolute top-0 right-0 bottom-0 left-0 touch-none aspect-square p-2 gap-2 self-center w-full rounded-md'>
 
 
-        {squares.length > 0 && squares.map((square) => (
-          <Square parent={containerRef} key={square.id} square={square} />
-        ))}
+      {squares.length > 0 && squares.map((square) => (
+        <Square parent={containerRef} key={square.id} square={square} />
+      ))}
 
-      </div>
+
     </div>
   )
 }

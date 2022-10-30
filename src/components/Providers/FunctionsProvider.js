@@ -81,7 +81,6 @@ const FunctionsProvider = ({ children }) => {
             dispatch(addSeconds())
         }, 1000)
 
-        console.log(timerInterval.current);
 
         if (mode == 1) {
             if (timeTrialInterval.current) {
@@ -97,7 +96,7 @@ const FunctionsProvider = ({ children }) => {
 
     const cacheData = mode => {
 
-        console.log("caching");
+        
         let squaresInstance = [...squares]
         if (squaresInstance.length == 0) return
 
@@ -113,7 +112,7 @@ const FunctionsProvider = ({ children }) => {
 
         switch (mode) {
             case "0":
-                console.log("here");
+                
                 localStorage.setItem("classic-mode-cache", JSON.stringify(backupObj))
                 break;
 

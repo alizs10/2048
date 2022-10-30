@@ -46,7 +46,6 @@ export const infoSlice = createSlice({
     },
     addSeconds: (state) => {
 
-      console.log("add seconds");
       state.seconds += 1;
       if (state.seconds == 60) {
         state.minutes += 1;

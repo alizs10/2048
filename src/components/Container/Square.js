@@ -3,14 +3,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { setSquareColor } from '../../helpers/helpers'
 
-const Square = ({ square, parent }) => {
+const Square = ({ square }) => {
 
-    const [x, setX] = useState("")
-    const [y, setY] = useState("")
     const [value, setValue] = useState(square.value)
     const [isMerged, setIsMerged] = useState(false)
-    const [shouldMove, setShouldMove] = useState(false)
-
+    const [scale, setScale] = useState(1)
+    
     const squareRef = useRef(null)
 
     useEffect(() => {
@@ -23,7 +21,7 @@ const Square = ({ square, parent }) => {
     useEffect(() => {
 
         if (isMerged) {
-            setScale(1.1)
+            setScale(1.2)
             setTimeout(() => {
                 setScale(1)
                 setIsMerged(false)
@@ -34,33 +32,19 @@ const Square = ({ square, parent }) => {
 
 
     useEffect(() => {
-
-        let placeHolderWidth = parent.current.children[0].clientWidth;
-        let gap = ((parent.current.clientWidth) - (placeHolderWidth * 4)) / 5;
-
-
-        squareRef.current.style.width = `${parent.current.children[0].clientWidth}px`;
-        squareRef.current.style.top = `${square.position[1] * squareRef.current.clientHeight + ((square.position[1] + 1) * (gap))}px`;
-        squareRef.current.style.left = `${square.position[0] * squareRef.current.clientWidth + ((square.position[0] + 1) * (gap))}px`;
-
+        squareRef.current.style.setProperty("--x", square.position[0])
+        squareRef.current.style.setProperty("--y", square.position[1])
     }, [square])
 
-    useEffect(() => {
-        setScale(1)
-    }, [])
 
-    const [scale, setScale] = useState(0)
     let colorClasses = setSquareColor(square.value);
-
 
     return (
         <motion.div
-            initial={{ scale: 0 }}
             animate={{ scale }}
-            transition={{ bounce: "none", duration: 0.1 }}
+            transition={{duration: 0.2}}
             ref={squareRef}
-
-            className={`transition-all duration-200 select-none absolute aspect-square rounded-md ${colorClasses} flex-center font-bold text-3xl`}>
+            className={`absolute tile select-none ${colorClasses} flex-center font-bold text-3xl`}>
             {square.value}
         </motion.div>
     )
