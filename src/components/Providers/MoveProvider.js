@@ -26,7 +26,7 @@ const MoveProvider = ({ children }) => {
 
   const handleRightMove = () => {
 
-    if (win || gameOver || !play) return
+    
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -44,9 +44,8 @@ const MoveProvider = ({ children }) => {
   }
 
   const handleUpMove = () => {
-    console.log(play);
     
-    if (win || gameOver || !play) return
+
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -66,7 +65,7 @@ const MoveProvider = ({ children }) => {
 
 
   const handleDownMove = () => {
-    if (win || gameOver || !play) return
+    
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -87,7 +86,7 @@ const MoveProvider = ({ children }) => {
 
   const handleLeftMove = () => {
 
-    if (win || gameOver || !play) return
+    
     setSquaresBackup([...squares])
     setScoreBackup(score)
     let squaresInstance = [...squares]
