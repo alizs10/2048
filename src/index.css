@@ -5,9 +5,8 @@
 :root {
     --gap: 2vmin;
     --rows: 4;
-    --tile-size: 20vmin;
+    --tile-size: 10vmin;
 }
-
 
 body {
     font-family: 'Ubuntu Mono', monospace;
@@ -25,17 +24,20 @@ body {
     gap:var(--gap);
     border-radius: 1vmin;
     padding: var(--gap);
+    transition: 100ms ease-in-out;
 }
 
 .tile, .place-holder {
     width: var(--tile-size);
     height: var(--tile-size);
     border-radius: 1vmin;
+    transition: 100ms ease-in-out;
 }
+
+
 
 .tile {
     animation: show 200ms ease-in-out;
-    transition: 100ms ease-in-out;
     --x: 0;
     --y: 1;
     top: calc(var(--tile-size) * var(--y) + var(--gap) * (var(--y) + 1));

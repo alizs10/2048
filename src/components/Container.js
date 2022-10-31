@@ -14,7 +14,7 @@ import FunctionsContext from '../context/FunctionsContext'
 export const Container = () => {
 
   const { goal, seconds } = useSelector(state => state.info)
-  const { mode,play } = useSelector(state => state.rules)
+  const { mode, play } = useSelector(state => state.rules)
 
   const { placeHolders, squares, moveEvent, rows } = useSelector(state => state.squares)
   const dispatch = useDispatch()
@@ -22,6 +22,7 @@ export const Container = () => {
   const { setCachedData, cacheData } = useContext(FunctionsContext)
 
   useEffect(() => {
+
 
     return
     if (squares.length == 0) {
@@ -40,22 +41,22 @@ export const Container = () => {
 
   }, [])
 
-  useEffect(() => {
-
-    if(play)
-    {
-      containerRef.current.focus()
-    }
-
-  }, [play])
-
   const { handleRightMove,
     handleLeftMove,
     handleUpMove,
     handleDownMove } = useContext(MoveContext)
 
 
+  useEffect(() => {
+    document.addEventListener("keydown", arrowKeysListener)
+
+    return () => {
+      document.removeEventListener("keydown", arrowKeysListener)
+    }
+  })
+
   const arrowKeysListener = e => {
+
 
     switch (e.key) {
       case "ArrowLeft":
@@ -63,7 +64,6 @@ export const Container = () => {
 
         break;
       case "ArrowRight":
-        console.log("right");
         handleRightMove()
         break;
       case "ArrowUp":
@@ -71,7 +71,6 @@ export const Container = () => {
         break;
       case "ArrowDown":
         handleDownMove()
-
         break;
 
       default:
@@ -79,6 +78,7 @@ export const Container = () => {
     }
 
   }
+
 
   useEffect(() => {
     cacheData(mode)
@@ -146,7 +146,7 @@ export const Container = () => {
 
   return (
 
-    <div {...handlers} ref={refPassthrough} onKeyDown={arrowKeysListener} tabIndex="0" className={`game-container z-50 relative w-fit bg-stone-400 aspect-square self-center`}>
+    <div {...handlers} ref={refPassthrough} tabIndex="0" className="game-container z-50 relative w-fit bg-stone-400 self-center">
       {placeHolders.map((placeHolder) => (
         <PlaceHolder key={placeHolder.id} />
       ))}

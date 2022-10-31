@@ -35,7 +35,6 @@ const Square = ({ square }) => {
 
         if(square)
         {
-            console.log(square);
             squareRef.current.style.setProperty("--x", square.position[0])
             squareRef.current.style.setProperty("--y", square.position[1])
         }

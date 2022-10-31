@@ -13,6 +13,7 @@ import { initial } from "./redux/slices/squaresSlice";
 
 import { motion } from 'framer-motion'
 
+
 function App() {
 
   const { win, gameOver } = useSelector(state => state.rules)
@@ -25,12 +26,12 @@ function App() {
 
   return (
 
-    <motion.div
+    <motion.div      
       initial={{ left: "100%" }}
       animate={{ left: "auto" }}
       exit={{ left: "100%" }}
       transition={{ bounce: "none" }}
-      className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 sm:mx-auto overflow-hidden">
+      className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 lg:w-1/3 sm:mx-auto overflow-hidden">
       <Head />
       <Hint />
       <MoveProvider>
