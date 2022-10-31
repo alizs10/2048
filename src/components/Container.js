@@ -123,7 +123,7 @@ export const Container = () => {
     onSwipedUp: handleUpMove,
     onSwipedDown: handleDownMove,
     ...{
-      delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
+      delta: 5,                             // min distance(px) before a swipe starts. *See Notes*
       preventScrollOnSwipe: false,           // prevents scroll during swipe (*See Details*)
       trackTouch: true,                      // track touch input
       trackMouse: true,                     // track mouse input
