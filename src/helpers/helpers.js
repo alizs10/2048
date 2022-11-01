@@ -249,6 +249,11 @@ export const setSquareColor = value => {
     return colorClasses;
 }
 
-export const formatTime = (seconds, minutes, hours) => {
-    return `${hours != 0 ? hours + ':' : ''}${minutes + ':'}${seconds < 10 ? '0' + seconds : seconds}`;
+export const formatTime = (timer) => {
+
+    let hours = Math.floor(timer / (60 * 60));
+    let minutes = Math.floor(timer / (60)) % 60;
+    let seconds = timer % 60;
+
+    return `${hours != 0 ? hours + ':' : ''}${minutes < 10 ? '0' + minutes + ':' : minutes + ':'}${seconds < 10 ? '0' + seconds : seconds}`;
 }

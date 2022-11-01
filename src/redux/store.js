@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import squaresReducer from './slices/squaresSlice'
 import rulesReducer from './slices/rulesSlice'
 import infoReducer from './slices/infoSlice'
+import timerReducer from './slices/timerSlice'
 import settingsReducer from './slices/settingsSlice'
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
         rules: rulesReducer,
         squares: squaresReducer,
         info: infoReducer,
+        timer: timerReducer,
         settings: settingsReducer,
     },
     

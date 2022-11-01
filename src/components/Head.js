@@ -8,6 +8,7 @@ import { Undo } from './Head/Undo'
 export const Head = () => {
 
     const {undo} = useSelector(state => state.settings)
+
     return (
         <div className='flex gap-1 sm:gap-2'>
             <Goal />

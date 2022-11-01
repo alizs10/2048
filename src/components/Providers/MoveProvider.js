@@ -14,6 +14,8 @@ const MoveProvider = ({ children }) => {
   const [squaresBackup, setSquaresBackup] = useState([])
   const [scoreBackup, setScoreBackup] = useState(0)
 
+
+
   useEffect(() => {
 
     if (moveEvent && squaresBackup.length > 0) {
@@ -25,8 +27,8 @@ const MoveProvider = ({ children }) => {
   }, [moveEvent])
 
   const handleRightMove = () => {
+    if (!play || win || gameOver) return
 
-    
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -44,7 +46,9 @@ const MoveProvider = ({ children }) => {
   }
 
   const handleUpMove = () => {
-    
+
+
+    if (!play || win || gameOver) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)
@@ -65,7 +69,9 @@ const MoveProvider = ({ children }) => {
 
 
   const handleDownMove = () => {
-    
+
+    if (!play || win || gameOver) return
+
     setSquaresBackup([...squares])
     setScoreBackup(score)
 
@@ -86,7 +92,9 @@ const MoveProvider = ({ children }) => {
 
   const handleLeftMove = () => {
 
-    
+
+    if (!play || win || gameOver) return
+
     setSquaresBackup([...squares])
     setScoreBackup(score)
     let squaresInstance = [...squares]

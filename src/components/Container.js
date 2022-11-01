@@ -1,30 +1,27 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Square from './Container/Square'
 import PlaceHolder from './Container/PlaceHolder'
-import { createNewSquare, prepareSquaresForMerge } from '../redux/slices/squaresSlice'
+import { createNewSquare, prepareSquaresForMerge, setSquares } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
-import { addMove, setGoal } from '../redux/slices/infoSlice'
+import { addMove, setGoal, setMoves, setScore } from '../redux/slices/infoSlice'
 import { setGameOver, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
-import FunctionsContext from '../context/FunctionsContext'
+import { setTimer } from '../redux/slices/timerSlice'
 
 
 export const Container = () => {
 
-  const { goal, seconds } = useSelector(state => state.info)
-  const { mode, play } = useSelector(state => state.rules)
+  const { goal, score, moves } = useSelector(state => state.info)
+  const { timer } = useSelector(state => state.timer)
+  const { mode } = useSelector(state => state.rules)
 
   const { placeHolders, squares, moveEvent, rows } = useSelector(state => state.squares)
   const dispatch = useDispatch()
 
-  const { setCachedData, cacheData } = useContext(FunctionsContext)
-
   useEffect(() => {
 
-
-    return
     if (squares.length == 0) {
 
       let cachedMode = localStorage.getItem("mode")
@@ -41,27 +38,19 @@ export const Container = () => {
 
   }, [])
 
-  const { handleRightMove,
-    handleLeftMove,
-    handleUpMove,
-    handleDownMove } = useContext(MoveContext)
+  const { handleRightMove, handleLeftMove, handleUpMove, handleDownMove } = useContext(MoveContext)
+
+  const setInputs = () => {
+    document.addEventListener("keydown", arrowKeysListener, { once: true })
+  }
 
 
-  useEffect(() => {
-    document.addEventListener("keydown", arrowKeysListener)
-
-    return () => {
-      document.removeEventListener("keydown", arrowKeysListener)
-    }
-  })
 
   const arrowKeysListener = e => {
-
 
     switch (e.key) {
       case "ArrowLeft":
         handleLeftMove()
-
         break;
       case "ArrowRight":
         handleRightMove()
@@ -77,12 +66,9 @@ export const Container = () => {
         break;
     }
 
+    setInputs()
+
   }
-
-
-  useEffect(() => {
-    cacheData(mode)
-  }, [seconds])
 
   useEffect(() => {
 
@@ -93,7 +79,6 @@ export const Container = () => {
         dispatch(addMove())
       }, 200)
     }
-
 
     // rule: when squares length == 16 => the game is over
     if (squares.length == rows * rows && mode == 1) {
@@ -116,6 +101,53 @@ export const Container = () => {
 
     cacheData(mode)
   }, [squares])
+
+  const cacheData = mode => {
+
+    let squaresInstance = [...squares]
+    if (squaresInstance.length == 0) return
+
+    let backupObj = {};
+
+    backupObj.score = score;
+    backupObj.timer = timer
+    backupObj.moves = moves;
+    backupObj.goal = goal;
+    backupObj.squares = squaresInstance;
+
+    switch (mode) {
+      case "0":
+
+        localStorage.setItem("classic-mode-cache", JSON.stringify(backupObj))
+        break;
+
+      case "1":
+        localStorage.setItem("time-trial-mode-cache", JSON.stringify(backupObj))
+        break;
+      default:
+        break;
+    }
+  }
+
+
+  const setCachedData = cachedObj => {
+
+    //score
+    dispatch(setScore(cachedObj.score))
+
+    //time
+    dispatch(setTimer(cachedObj.timer))
+
+    //moves
+    dispatch(setMoves(cachedObj.moves))
+
+    //goal
+    dispatch(setGoal(cachedObj.goal))
+
+    //squares
+    dispatch(setSquares(cachedObj.squares))
+  }
+
 
   const handlers = useSwipeable({
     onSwipedRight: handleRightMove,
