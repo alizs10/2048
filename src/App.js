@@ -26,7 +26,7 @@ function App() {
 
   return (
 
-    <motion.div      
+    <motion.div
       initial={{ left: "100%" }}
       animate={{ left: "auto" }}
       exit={{ left: "100%" }}
@@ -34,13 +34,13 @@ function App() {
       className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 lg:w-1/3 sm:mx-auto overflow-hidden">
       <Head />
       <Hint />
-      <MoveProvider>
-        <Container />
-      </MoveProvider>
+
+      <Container />
+
       <Info />
-      <MoveProvider>
-        <Functions />
-      </MoveProvider>
+
+      <Functions />
+
       {win && (
         <AnimatePresence>
           <Win />

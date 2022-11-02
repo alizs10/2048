@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MoveContext from '../../context/MoveContext'
 import { setUndoScore } from '../../redux/slices/infoSlice'
-import { moveSquare, setUndo } from '../../redux/slices/squaresSlice'
+import { moveSquare, setListenForMove, setUndo } from '../../redux/slices/squaresSlice'
 
 const MoveProvider = ({ children }) => {
 
   const { play, win, gameOver } = useSelector(state => state.rules)
   const { score } = useSelector(state => state.info)
-  const { squares, moveEvent } = useSelector(state => state.squares)
+  const { squares, moveEvent, listenForMove, moveEnds } = useSelector(state => state.squares)
   const dispatch = useDispatch()
 
   const [squaresBackup, setSquaresBackup] = useState([])
@@ -20,14 +20,42 @@ const MoveProvider = ({ children }) => {
 
     if (moveEvent && squaresBackup.length > 0) {
       dispatch(setUndo(squaresBackup))
-
       dispatch(setUndoScore(scoreBackup))
     }
 
   }, [moveEvent])
 
+  const setInputs = useCallback(e => {
+    switch (e.key) {
+      case "ArrowLeft":
+        handleLeftMove()
+        break;
+      case "ArrowRight":
+        handleRightMove()
+        break;
+      case "ArrowUp":
+        handleUpMove()
+        break;
+      case "ArrowDown":
+        handleDownMove()
+        break;
+
+      default:
+        break;
+    }
+  }, [squares])
+
+  useEffect(() => {
+
+    window.addEventListener("keydown", setInputs)
+
+    return () => window.removeEventListener("keydown", setInputs)
+
+  }, [setInputs])
+
+
   const handleRightMove = () => {
-    if (!play || win || gameOver) return
+    if (!listenForMove) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)
@@ -48,7 +76,7 @@ const MoveProvider = ({ children }) => {
   const handleUpMove = () => {
 
 
-    if (!play || win || gameOver) return
+    if (!listenForMove) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)
@@ -70,7 +98,7 @@ const MoveProvider = ({ children }) => {
 
   const handleDownMove = () => {
 
-    if (!play || win || gameOver) return
+    if (!listenForMove) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)
@@ -93,7 +121,7 @@ const MoveProvider = ({ children }) => {
   const handleLeftMove = () => {
 
 
-    if (!play || win || gameOver) return
+    if (!listenForMove) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)

@@ -7,15 +7,18 @@ import { store } from './redux/store';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import FunctionsProvider from './components/Providers/FunctionsProvider';
 import Game from './components/Game';
+import MoveProvider from './components/Providers/MoveProvider';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <FunctionsProvider>
-        <Game />
-      </FunctionsProvider>
+      <MoveProvider>
+        <FunctionsProvider>
+          <Game />
+        </FunctionsProvider>
+      </MoveProvider>
     </Provider>
   </React.StrictMode>
 );

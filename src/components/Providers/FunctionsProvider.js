@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FunctionsContext from '../../context/FunctionsContext'
+import MoveContext from '../../context/MoveContext'
 import { initialInfos } from '../../redux/slices/infoSlice'
 import { setPlay } from '../../redux/slices/rulesSlice'
 import { createNewSquare, start } from '../../redux/slices/squaresSlice'
@@ -13,7 +14,7 @@ const FunctionsProvider = ({ children }) => {
 
     const [menuVisibility, setMenuVisibility] = useState(false)
     const [statVisibility, setStatVisibility] = useState(false)
-    
+
     const dispatch = useDispatch()
     const timeTrialInterval = useRef(null)
 
@@ -53,7 +54,6 @@ const FunctionsProvider = ({ children }) => {
         dispatch(initialInfos())
         dispatch(setPlay(true))
         dispatch(start())
-
         if (mode == 1) {
             timeTrialInterval.current = setInterval(() => {
                 dispatch(createNewSquare())

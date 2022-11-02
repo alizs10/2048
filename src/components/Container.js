@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Square from './Container/Square'
 import PlaceHolder from './Container/PlaceHolder'
-import { createNewSquare, prepareSquaresForMerge, setSquares } from '../redux/slices/squaresSlice'
+import { createNewSquare, prepareSquaresForMerge, removeMoveListener, setSquares } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
 import { addMove, setGoal, setMoves, setScore } from '../redux/slices/infoSlice'
@@ -17,7 +17,7 @@ export const Container = () => {
   const { timer } = useSelector(state => state.timer)
   const { mode } = useSelector(state => state.rules)
 
-  const { placeHolders, squares, moveEvent, rows } = useSelector(state => state.squares)
+  const { placeHolders, squares, moveEvent, rows,listenForMove } = useSelector(state => state.squares)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -34,61 +34,29 @@ export const Container = () => {
         setCachedData(JSON.parse(cachedObj))
       }
     }
-
-
   }, [])
 
   const { handleRightMove, handleLeftMove, handleUpMove, handleDownMove } = useContext(MoveContext)
 
-  const setInputs = () => {
-    document.addEventListener("keydown", arrowKeysListener, { once: true })
-  }
-
-
-
-  const arrowKeysListener = e => {
-
-    switch (e.key) {
-      case "ArrowLeft":
-        handleLeftMove()
-        break;
-      case "ArrowRight":
-        handleRightMove()
-        break;
-      case "ArrowUp":
-        handleUpMove()
-        break;
-      case "ArrowDown":
-        handleDownMove()
-        break;
-
-      default:
-        break;
-    }
-
-    setInputs()
-
-  }
 
   useEffect(() => {
 
     if (moveEvent) {
-      setTimeout(() => {
-        dispatch(prepareSquaresForMerge())
-        dispatch(createNewSquare())
-        dispatch(addMove())
-      }, 200)
+      dispatch(addMove())
     }
 
     // rule: when squares length == 16 => the game is over
     if (squares.length == rows * rows && mode == 1) {
       dispatch(setGameOver(true))
+      dispatch(removeMoveListener())
     }
 
     if (squares.length == rows * rows && mode == 0) {
       let gameOverStatus = isGameOver(squares, rows)
       if (gameOverStatus) {
         dispatch(setGameOver(true))
+        dispatch(removeMoveListener())
+        console.log("here");
       }
     }
 
@@ -97,10 +65,15 @@ export const Container = () => {
     if (goalReachStatus) {
       dispatch(setGoal(goal * 2))
       dispatch(setWin(true))
+      dispatch(removeMoveListener())
     }
 
     cacheData(mode)
   }, [squares])
+
+  useEffect(() => {
+    console.log(listenForMove);
+  }, [listenForMove])
 
   const cacheData = mode => {
 
