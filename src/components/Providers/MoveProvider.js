@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MoveContext from '../../context/MoveContext'
 import { setUndoScore } from '../../redux/slices/infoSlice'
-import { moveSquare, setListenForMove, setUndo } from '../../redux/slices/squaresSlice'
+import { moveSquare, setMoveEvent, setUndo } from '../../redux/slices/squaresSlice'
 
 const MoveProvider = ({ children }) => {
 
   const { play, win, gameOver } = useSelector(state => state.rules)
   const { score } = useSelector(state => state.info)
-  const { squares, moveEvent, listenForMove, moveEnds } = useSelector(state => state.squares)
+  const { squares, moveEvent } = useSelector(state => state.squares)
   const dispatch = useDispatch()
 
   const [squaresBackup, setSquaresBackup] = useState([])
@@ -17,10 +17,11 @@ const MoveProvider = ({ children }) => {
 
 
   useEffect(() => {
-
     if (moveEvent && squaresBackup.length > 0) {
+      console.log("backup");
       dispatch(setUndo(squaresBackup))
       dispatch(setUndoScore(scoreBackup))
+      dispatch(setMoveEvent(false))
     }
 
   }, [moveEvent])
@@ -55,7 +56,7 @@ const MoveProvider = ({ children }) => {
 
 
   const handleRightMove = () => {
-    if (!listenForMove) return
+    if (!play || win || gameOver) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)
@@ -76,7 +77,7 @@ const MoveProvider = ({ children }) => {
   const handleUpMove = () => {
 
 
-    if (!listenForMove) return
+    if (!play || win || gameOver) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)
@@ -98,7 +99,7 @@ const MoveProvider = ({ children }) => {
 
   const handleDownMove = () => {
 
-    if (!listenForMove) return
+    if (!play || win || gameOver) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)
@@ -121,7 +122,7 @@ const MoveProvider = ({ children }) => {
   const handleLeftMove = () => {
 
 
-    if (!listenForMove) return
+    if (!play || win || gameOver) return
 
     setSquaresBackup([...squares])
     setScoreBackup(score)

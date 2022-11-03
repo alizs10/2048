@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Square from './Container/Square'
 import PlaceHolder from './Container/PlaceHolder'
-import { createNewSquare, prepareSquaresForMerge, removeMoveListener, setSquares } from '../redux/slices/squaresSlice'
+import { createNewSquare, prepareSquaresForMerge, removeMoveListener, setMoveListener, setSquares } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
 import { addMove, setGoal, setMoves, setScore } from '../redux/slices/infoSlice'
@@ -48,15 +48,14 @@ export const Container = () => {
     // rule: when squares length == 16 => the game is over
     if (squares.length == rows * rows && mode == 1) {
       dispatch(setGameOver(true))
-      dispatch(removeMoveListener())
+      dispatch(setMoveListener(false))
     }
 
     if (squares.length == rows * rows && mode == 0) {
       let gameOverStatus = isGameOver(squares, rows)
       if (gameOverStatus) {
         dispatch(setGameOver(true))
-        dispatch(removeMoveListener())
-        console.log("here");
+        dispatch(setMoveListener(false))
       }
     }
 
@@ -65,7 +64,7 @@ export const Container = () => {
     if (goalReachStatus) {
       dispatch(setGoal(goal * 2))
       dispatch(setWin(true))
-      dispatch(removeMoveListener())
+      dispatch(setMoveListener(false))
     }
 
     cacheData(mode)

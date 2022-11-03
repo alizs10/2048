@@ -12,7 +12,6 @@ const initialState = {
   scoreCount: 0,
   moveScores: 0,
   listenForMove: true,
-  moveEnds: false,
 }
 
 export const squaresSlice = createSlice({
@@ -29,11 +28,11 @@ export const squaresSlice = createSlice({
     start: (state) => {
       let squaresInstance = []
       let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let firstSquare = { id: uuidv4(), value: getRandomValue(), position: [0, 0], canMerged: true }
+      let firstSquare = { id: uuidv4(), value: getRandomValue(), position: firstCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let secondSquare = { id: uuidv4(), value: getRandomValue(), position: [0, 1], canMerged: true }
+      let secondSquare = { id: uuidv4(), value: getRandomValue(), position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
       state.squares = squaresInstance;
@@ -135,18 +134,13 @@ export const squaresSlice = createSlice({
           //prepare squares
           state.squares.map(sq => { sq.canMerged = true })
           //create new square
-          state.moveEvent = false;
           let newCoordinate = generateUniqueCoordinate(state.squares, state.rows)
           let newSquare = { id: uuidv4(), value: getRandomValue(), position: newCoordinate, canMerged: true }
           state.squares = [...state.squares, newSquare]
         }
-        
-        console.log("here");
+
         state.listenForMove = true;
       }
-    },
-    prepareSquaresForMerge: state => {
-      state.squares.map(sq => { sq.canMerged = true })
     },
     setUndo: (state, action) => {
       state.undo = action.payload
@@ -162,13 +156,16 @@ export const squaresSlice = createSlice({
     setSquares: (state, action) => {
       state.squares = action.payload
     },
-    removeMoveListener: state => {
-      state.listenForMove = false;
-    }
+    setMoveListener: (state, action) => {
+      state.listenForMove = action.payload;
+    },
+    setMoveEvent: (state, action) => {
+      state.moveEvent = action.payload;
+    },
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions, merge, createNewSquare, moveSquare, prepareSquaresForMerge, setUndo, undo, resetScoreCount, setSquares,removeMoveListener } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, moveSquare,createNewSquare, setUndo, undo, resetScoreCount, setSquares, setMoveListener, setMoveEvent } = squaresSlice.actions
 
 export default squaresSlice.reducer

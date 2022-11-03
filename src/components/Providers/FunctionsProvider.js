@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FunctionsContext from '../../context/FunctionsContext'
-import MoveContext from '../../context/MoveContext'
 import { initialInfos } from '../../redux/slices/infoSlice'
 import { setPlay } from '../../redux/slices/rulesSlice'
-import { createNewSquare, start } from '../../redux/slices/squaresSlice'
+import { createNewSquare, setMoveListener, start } from '../../redux/slices/squaresSlice'
 import { setTimer } from '../../redux/slices/timerSlice'
 
 
@@ -36,6 +35,7 @@ const FunctionsProvider = ({ children }) => {
     useEffect(() => {
 
         if (gameOver || win || !play) {
+            dispatch(setMoveListener(false))
             clearInterval(timeTrialInterval.current)
         }
 
@@ -53,6 +53,7 @@ const FunctionsProvider = ({ children }) => {
         dispatch(setTimer(0))
         dispatch(initialInfos())
         dispatch(setPlay(true))
+        dispatch(setMoveListener(true))
         dispatch(start())
         if (mode == 1) {
             timeTrialInterval.current = setInterval(() => {
@@ -64,6 +65,7 @@ const FunctionsProvider = ({ children }) => {
 
     const continueGame = () => {
         dispatch(setPlay(true))
+        dispatch(setMoveListener(true))
 
         if (mode == 1) {
             if (timeTrialInterval.current) {
