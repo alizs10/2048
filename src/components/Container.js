@@ -44,12 +44,6 @@ export const Container = () => {
 
   useEffect(() => {
 
-    if(squares.length > 16)
-    {
-      console.log("more than 16");
-      
-    }
-
     if (moveEvent) {
       dispatch(addMove())
     }

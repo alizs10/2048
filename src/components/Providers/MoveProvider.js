@@ -43,7 +43,7 @@ const MoveProvider = ({ children }) => {
       default:
         break;
     }
-  }, [squares])
+  }, [squares, play])
 
   useEffect(() => {
 
