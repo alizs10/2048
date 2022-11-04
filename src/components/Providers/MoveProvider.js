@@ -18,7 +18,6 @@ const MoveProvider = ({ children }) => {
 
   useEffect(() => {
     if (moveEvent && squaresBackup.length > 0) {
-      console.log("backup");
       dispatch(setUndo(squaresBackup))
       dispatch(setUndoScore(scoreBackup))
       dispatch(setMoveEvent(false))
@@ -50,9 +49,18 @@ const MoveProvider = ({ children }) => {
 
     window.addEventListener("keydown", setInputs)
 
+
     return () => window.removeEventListener("keydown", setInputs)
 
   }, [setInputs])
+
+  useEffect(() => {
+
+    if (!play || win || gameOver) {
+      window.removeEventListener("keydown", setInputs)
+    }
+
+  }, [play, win, gameOver])
 
 
   const handleRightMove = () => {
@@ -120,8 +128,6 @@ const MoveProvider = ({ children }) => {
 
 
   const handleLeftMove = () => {
-
-
     if (!play || win || gameOver) return
 
     setSquaresBackup([...squares])
