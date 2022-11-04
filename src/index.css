@@ -5,7 +5,7 @@
 :root {
     --gap: 2vmin;
     --rows: 4;
-    --tile-size: 10vmin;
+    --tile-size: 12vmin;
 }
 
 body {
@@ -31,6 +31,7 @@ body {
     width: var(--tile-size);
     height: var(--tile-size);
     border-radius: 1vmin;
+    font-size: 5vmin;
     transition: 100ms ease-in-out;
 }
 

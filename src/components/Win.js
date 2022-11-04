@@ -10,7 +10,8 @@ import { setGoal, undoScore } from '../redux/slices/infoSlice';
 
 const Win = () => {
 
-    const { goal, moves, seconds, minutes, hours } = useSelector(state => state.info)
+    const { goal, moves } = useSelector(state => state.info)
+    const { timer } = useSelector(state => state.timer)
     const { continueGame } = useContext(FunctionsContext)
     const dispatch = useDispatch()
 
@@ -39,7 +40,7 @@ const Win = () => {
         >
             <div className='row-span-1 flex-center flex-col gap-y-4'>
                 <h1 className='text-stone-700 font-bold text-5xl'>You win!</h1>
-                <span className='text-lg font-bold text-stone-700 text-center'>You unlocked the {goal / 2} tile with {moves} moves in {formatTime(seconds, minutes, hours)}</span>
+                <span className='text-lg font-bold text-stone-700 text-center'>You unlocked the {goal / 2} tile with {moves} moves in {formatTime(timer)}</span>
             </div>
 
             <div className='row-span-5 h-full self-end flex justify-between'>

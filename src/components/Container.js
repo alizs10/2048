@@ -6,10 +6,9 @@ import { setMoveListener } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
 import { addMove, setGoal } from '../redux/slices/infoSlice'
-import { setGameOver, setWin } from '../redux/slices/rulesSlice'
+import { setGameOver, setPlay, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
 import CacheContext from '../context/CacheContext'
-import FunctionsContext from '../context/FunctionsContext'
 
 
 export const Container = () => {
@@ -67,6 +66,7 @@ export const Container = () => {
     if (goalReachStatus) {
       dispatch(setGoal(goal * 2))
       dispatch(setWin(true))
+      dispatch(setPlay(false))
       dispatch(setMoveListener(false))
     }
 

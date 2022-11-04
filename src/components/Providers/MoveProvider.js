@@ -1,29 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MoveContext from '../../context/MoveContext'
-import { setUndoScore } from '../../redux/slices/infoSlice'
-import { moveSquare, setMoveEvent, setUndo } from '../../redux/slices/squaresSlice'
+import { moveSquare } from '../../redux/slices/squaresSlice'
 
 const MoveProvider = ({ children }) => {
 
   const { play, win, gameOver } = useSelector(state => state.rules)
-  const { score } = useSelector(state => state.info)
-  const { squares, moveEvent } = useSelector(state => state.squares)
+  const { squares } = useSelector(state => state.squares)
   const dispatch = useDispatch()
-
-  const [squaresBackup, setSquaresBackup] = useState([])
-  const [scoreBackup, setScoreBackup] = useState(0)
-
-
-
-  useEffect(() => {
-    if (moveEvent && squaresBackup.length > 0) {
-      dispatch(setUndo(squaresBackup))
-      dispatch(setUndoScore(scoreBackup))
-      dispatch(setMoveEvent(false))
-    }
-
-  }, [moveEvent])
 
   const setInputs = useCallback(e => {
     switch (e.key) {
@@ -66,9 +50,9 @@ const MoveProvider = ({ children }) => {
   const handleRightMove = () => {
     if (!play || win || gameOver) return
 
-    setSquaresBackup([...squares])
-    setScoreBackup(score)
-
+  
+  
+    
     let squaresInstance = [...squares]
     squaresInstance.sort((a, b) => {
       return b.position[0] - a.position[0]
@@ -87,8 +71,8 @@ const MoveProvider = ({ children }) => {
 
     if (!play || win || gameOver) return
 
-    setSquaresBackup([...squares])
-    setScoreBackup(score)
+    
+    
 
     let squaresInstance = [...squares]
     squaresInstance.sort((a, b) => {
@@ -109,8 +93,8 @@ const MoveProvider = ({ children }) => {
 
     if (!play || win || gameOver) return
 
-    setSquaresBackup([...squares])
-    setScoreBackup(score)
+    
+    
 
     let squaresInstance = [...squares]
     squaresInstance.sort((a, b) => {
@@ -130,8 +114,8 @@ const MoveProvider = ({ children }) => {
   const handleLeftMove = () => {
     if (!play || win || gameOver) return
 
-    setSquaresBackup([...squares])
-    setScoreBackup(score)
+    
+    
     let squaresInstance = [...squares]
     squaresInstance.sort((a, b) => {
       return a.position[0] - b.position[0];

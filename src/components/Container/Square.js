@@ -47,7 +47,7 @@ const Square = ({ square }) => {
             animate={{ scale }}
             transition={{duration: 0.2}}
             ref={squareRef}
-            className={`absolute tile select-none ${colorClasses} flex-center font-bold text-3xl`}>
+            className={`absolute tile select-none ${colorClasses} flex-center font-bold`}>
             {square.value}
         </motion.div>
     )

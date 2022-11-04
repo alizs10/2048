@@ -34,11 +34,8 @@ function App() {
       className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 lg:w-1/3 sm:mx-auto overflow-hidden">
       <Head />
       <Hint />
-
       <Container />
-
       <Info />
-
       <Functions />
 
       {win && (

@@ -1,14 +1,15 @@
 import { createSlice, current } from '@reduxjs/toolkit'
-import { generateUniqueCoordinate, getNewIndex, getRandomIndex, getRandomValue, getTwoRandomNumber, upAvailableIndexes } from '../../helpers/helpers'
+import { generateUniqueCoordinate, getRandomValue } from '../../helpers/helpers'
 import { v4 as uuidv4 } from 'uuid';
 import { findNextMove } from '../../helpers/square';
+
 const initialState = {
   rows: 4,
   placeHolders: [],
   squares: [],
+  lastSquares: [],
+  holdSquares: [],
   moveEvent: false,
-  undo: [],
-  undoScore: 0,
   scoreCount: 0,
   moveScores: 0,
   listenForMove: true,
@@ -28,11 +29,11 @@ export const squaresSlice = createSlice({
     start: (state) => {
       let squaresInstance = []
       let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let firstSquare = { id: uuidv4(), value: getRandomValue(), position: firstCoordinate, canMerged: true }
+      let firstSquare = { id: uuidv4(), value: 1024, position: firstCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let secondSquare = { id: uuidv4(), value: getRandomValue(), position: secondCoordinate, canMerged: true }
+      let secondSquare = { id: uuidv4(), value: 1024, position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
       state.squares = squaresInstance;
@@ -40,7 +41,7 @@ export const squaresSlice = createSlice({
     },
     createNewSquare: state => {
       if (state.squares.length >= 16) return
-      
+
       state.moveEvent = false;
       let newCoordinate = generateUniqueCoordinate(state.squares, state.rows)
       let newSquare = { id: uuidv4(), value: getRandomValue(), position: newCoordinate, canMerged: true }
@@ -55,9 +56,11 @@ export const squaresSlice = createSlice({
       let squaresInstance = [...state.squares];
       let mergeEvent = false;
       let nextMoveCoordinate = null;
+      
       if (isFirst) {
         state.moveEvent = false;
         state.listenForMove = false;
+        state.holdSquares = state.squares;
       }
 
       let squareIndex = squaresInstance.findIndex(sq => sq.id === squareId)
@@ -142,14 +145,22 @@ export const squaresSlice = createSlice({
         }
 
         state.listenForMove = true;
+
+        if(state.moveEvent)
+        {
+          // backup squares
+          state.lastSquares = state.holdSquares
+          state.holdSquares = []
+          state.moveEvent = false;
+        }
       }
     },
     setUndo: (state, action) => {
       state.undo = action.payload
     },
     undo: state => {
-      if (state.undo.length > 0) {
-        state.squares = state.undo
+      if (state.lastSquares.length > 0) {
+        state.squares = state.lastSquares
       }
     },
     resetScoreCount: state => {
