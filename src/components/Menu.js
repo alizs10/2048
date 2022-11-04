@@ -6,13 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toggleSounds, toggleUndo } from '../redux/slices/settingsSlice'
 import { setMode, setPlay } from '../redux/slices/rulesSlice'
 import { setSquares } from '../redux/slices/squaresSlice'
-import { initialInfos, setGoal, setHours, setMinutes, setMoves, setScore, setSeconds } from '../redux/slices/infoSlice'
+import { initialInfos } from '../redux/slices/infoSlice'
+import CacheContext from '../context/CacheContext'
 
 const Menu = () => {
 
     const { mode } = useSelector(state => state.rules)
     const { undo, sounds } = useSelector(state => state.settings)
-    const { handleToggleMenu, handleToggleStat, cacheData, setCachedData } = useContext(FunctionsContext)
+    const { handleToggleMenu, handleToggleStat } = useContext(FunctionsContext)
+
+    const { cacheData, setCachedData } = useContext(CacheContext)
 
     const dispatch = useDispatch()
 

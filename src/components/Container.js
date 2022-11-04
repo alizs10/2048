@@ -2,23 +2,24 @@ import React, { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Square from './Container/Square'
 import PlaceHolder from './Container/PlaceHolder'
-import { createNewSquare, prepareSquaresForMerge, removeMoveListener, setMoveListener, setSquares } from '../redux/slices/squaresSlice'
+import { setMoveListener } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
-import { addMove, setGoal, setMoves, setScore } from '../redux/slices/infoSlice'
+import { addMove, setGoal } from '../redux/slices/infoSlice'
 import { setGameOver, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
-import { setTimer } from '../redux/slices/timerSlice'
+import CacheContext from '../context/CacheContext'
 
 
 export const Container = () => {
 
-  const { goal, score, moves } = useSelector(state => state.info)
-  const { timer } = useSelector(state => state.timer)
+  const { goal } = useSelector(state => state.info)
   const { mode } = useSelector(state => state.rules)
 
-  const { placeHolders, squares, moveEvent, rows,listenForMove } = useSelector(state => state.squares)
+  const { placeHolders, squares, moveEvent, rows } = useSelector(state => state.squares)
   const dispatch = useDispatch()
+
+  const { cacheData, setCachedData } = useContext(CacheContext)
 
   useEffect(() => {
 
@@ -69,56 +70,6 @@ export const Container = () => {
 
     cacheData(mode)
   }, [squares])
-
-  useEffect(() => {
-    console.log(listenForMove);
-  }, [listenForMove])
-
-  const cacheData = mode => {
-
-    let squaresInstance = [...squares]
-    if (squaresInstance.length == 0) return
-
-    let backupObj = {};
-
-    backupObj.score = score;
-    backupObj.timer = timer
-    backupObj.moves = moves;
-    backupObj.goal = goal;
-    backupObj.squares = squaresInstance;
-
-    switch (mode) {
-      case "0":
-
-        localStorage.setItem("classic-mode-cache", JSON.stringify(backupObj))
-        break;
-
-      case "1":
-        localStorage.setItem("time-trial-mode-cache", JSON.stringify(backupObj))
-        break;
-      default:
-        break;
-    }
-  }
-
-
-  const setCachedData = cachedObj => {
-
-    //score
-    dispatch(setScore(cachedObj.score))
-
-    //time
-    dispatch(setTimer(cachedObj.timer))
-
-    //moves
-    dispatch(setMoves(cachedObj.moves))
-
-    //goal
-    dispatch(setGoal(cachedObj.goal))
-
-    //squares
-    dispatch(setSquares(cachedObj.squares))
-  }
 
 
   const handlers = useSwipeable({

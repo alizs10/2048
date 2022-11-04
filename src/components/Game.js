@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import App from '../App'
 import FunctionsContext from '../context/FunctionsContext'
 import Menu from './Menu'
+import CacheProvider from './Providers/CacheProvider'
 import Statistics from './Statistics'
 
 const Game = () => {
@@ -14,12 +15,16 @@ const Game = () => {
 
             <AnimatePresence>
                 {!menuVisibility && !statVisibility && (
-                    <App />
+                    <CacheProvider>
+                        <App />
+                    </CacheProvider>
                 )}
             </AnimatePresence>
             <AnimatePresence>
                 {menuVisibility && (
-                    <Menu />
+                    <CacheProvider>
+                        <Menu />
+                    </CacheProvider>
                 )}
             </AnimatePresence>
             <AnimatePresence>
