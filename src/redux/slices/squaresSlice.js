@@ -39,6 +39,8 @@ export const squaresSlice = createSlice({
 
     },
     createNewSquare: state => {
+      if (state.squares.length >= 16) return
+      
       state.moveEvent = false;
       let newCoordinate = generateUniqueCoordinate(state.squares, state.rows)
       let newSquare = { id: uuidv4(), value: getRandomValue(), position: newCoordinate, canMerged: true }
@@ -130,7 +132,7 @@ export const squaresSlice = createSlice({
         state.scoreCount = state.moveScores;
         state.moveScores = 0;
 
-        if (state.moveEvent) {
+        if (state.moveEvent && state.squares.length < 16) {
           //prepare squares
           state.squares.map(sq => { sq.canMerged = true })
           //create new square
@@ -166,6 +168,6 @@ export const squaresSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions, merge, moveSquare,createNewSquare, setUndo, undo, resetScoreCount, setSquares, setMoveListener, setMoveEvent } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, moveSquare, createNewSquare, setUndo, undo, resetScoreCount, setSquares, setMoveListener, setMoveEvent } = squaresSlice.actions
 
 export default squaresSlice.reducer

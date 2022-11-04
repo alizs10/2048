@@ -32,7 +32,6 @@ const Square = ({ square }) => {
 
 
     useEffect(() => {
-
         if(square)
         {
             squareRef.current.style.setProperty("--x", square.position[0])

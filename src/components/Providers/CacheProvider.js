@@ -29,12 +29,10 @@ const CacheProvider = ({ children }) => {
 
     switch (mode.toString()) {
       case "0":
-
         localStorage.setItem("classic-mode-cache", JSON.stringify(backupObj))
         break;
 
       case "1":
-        console.log("here");
         localStorage.setItem("time-trial-mode-cache", JSON.stringify(backupObj))
         break;
         

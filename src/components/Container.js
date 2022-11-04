@@ -9,6 +9,7 @@ import { addMove, setGoal } from '../redux/slices/infoSlice'
 import { setGameOver, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
 import CacheContext from '../context/CacheContext'
+import FunctionsContext from '../context/FunctionsContext'
 
 
 export const Container = () => {
@@ -38,9 +39,16 @@ export const Container = () => {
   }, [])
 
   const { handleRightMove, handleLeftMove, handleUpMove, handleDownMove } = useContext(MoveContext)
+  
 
 
   useEffect(() => {
+
+    if(squares.length > 16)
+    {
+      console.log("more than 16");
+      
+    }
 
     if (moveEvent) {
       dispatch(addMove())
