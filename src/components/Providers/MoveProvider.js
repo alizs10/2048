@@ -49,15 +49,11 @@ const MoveProvider = ({ children }) => {
 
   const handleRightMove = () => {
     if (!play || win || gameOver) return
-
-  
-  
     
     let squaresInstance = [...squares]
     squaresInstance.sort((a, b) => {
       return b.position[0] - a.position[0]
     })
-
 
     squaresInstance.map((square, index) => {
       let isFirst = (index == 0) ? true : false;

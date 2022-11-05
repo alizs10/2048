@@ -4,6 +4,7 @@ import { Goal } from './Head/Goal'
 import { New } from './Head/New'
 import { Score } from './Head/Score'
 import { Undo } from './Head/Undo'
+import UndoProvider from './Providers/UndoProvider'
 
 export const Head = () => {
 
@@ -16,7 +17,9 @@ export const Head = () => {
                 <Score />
                 <New />
                 {undo && (
-                    <Undo />
+                    <UndoProvider>
+                        <Undo />
+                    </UndoProvider>
                 )}
             </div>
         </div>

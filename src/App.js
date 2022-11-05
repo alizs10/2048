@@ -12,6 +12,7 @@ import Win from "./components/Win";
 import { initial } from "./redux/slices/squaresSlice";
 
 import { motion } from 'framer-motion'
+import UndoProvider from "./components/Providers/UndoProvider";
 
 
 function App() {
@@ -40,12 +41,16 @@ function App() {
 
       {win && (
         <AnimatePresence>
-          <Win />
+          <UndoProvider>
+            <Win />
+          </UndoProvider>
         </AnimatePresence>
       )}
       <AnimatePresence>
         {gameOver && (
-          <GameOver />
+          <UndoProvider>
+            <GameOver />
+          </UndoProvider>
         )}
       </AnimatePresence>
 

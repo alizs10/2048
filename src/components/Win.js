@@ -7,6 +7,7 @@ import { setWin } from '../redux/slices/rulesSlice';
 import { undo } from '../redux/slices/squaresSlice';
 import FunctionsContext from '../context/FunctionsContext';
 import { setGoal, undoScore } from '../redux/slices/infoSlice';
+import UndoContext from '../context/UndoContext';
 
 const Win = () => {
 
@@ -20,14 +21,7 @@ const Win = () => {
         continueGame()
     }
 
-    const handleUndo = () => {
-        dispatch(setWin(false))
-        dispatch(setGoal(goal / 2))
-        dispatch(undoScore())
-        dispatch(undo())
-        continueGame()
-    }
-
+    const { handleUndo } = useContext(UndoContext)
 
     return (
         <motion.div

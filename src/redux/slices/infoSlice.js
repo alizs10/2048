@@ -3,10 +3,11 @@ import { createSlice, current } from '@reduxjs/toolkit'
 const initialState = {
   score: 0,
   lastScore: 0,
-  undoGoal: 2048,
   best: localStorage.getItem('best') ?? 0,
   moves: 0,
   goal: 2048,
+  lastGoal: 2048,
+  reachedGoalScore: 0,
 }
 
 export const infoSlice = createSlice({
@@ -44,6 +45,11 @@ export const infoSlice = createSlice({
     setGoal: (state, action) => {
       state.goal = action.payload
     },
+    reachedGoal: (state) => {
+      console.log(current(state).score);
+      state.reachedGoalScore = state.score
+      state.goal *= 2
+    },
     setUndoGoal: (state, action) => {
       state.undoGoal = action.payload
     },
@@ -54,12 +60,13 @@ export const infoSlice = createSlice({
       state.score = state.lastScore
     },
     undoGoal: (state) => {
-      state.goal = state.undoGoal
+      state.reachedGoalScore = 0;
+      state.goal /= 2;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setScore, setMoves, setGoal, setBest, addMove, initialInfos, addScore, setUndoScore, undoScore, setUndoGoal, undoGoal } = infoSlice.actions
+export const { setScore, setMoves, setGoal, setBest, addMove, initialInfos, addScore, setUndoScore, undoScore, setUndoGoal, undoGoal, reachedGoal } = infoSlice.actions
 
 export default infoSlice.reducer
