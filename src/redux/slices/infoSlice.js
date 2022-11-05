@@ -5,6 +5,7 @@ const initialState = {
   lastScore: 0,
   best: localStorage.getItem('best') ?? 0,
   moves: 0,
+  lastMoves: 0,
   goal: 2048,
   lastGoal: 2048,
   reachedGoalScore: 0,
@@ -16,6 +17,7 @@ export const infoSlice = createSlice({
   reducers: {
     initialInfos: (state) => {
       state.moves = 0;
+      state.lastMoves = 0;
       state.score = 0;
       state.lastScore = 0;
       state.best = localStorage.getItem('best') ?? 0;
@@ -37,7 +39,11 @@ export const infoSlice = createSlice({
       }
     },
     addMove: (state) => {
+      state.lastMoves = state.moves;
       state.moves += 1;
+    },
+    decreaseMove: (state) => {
+      state.moves = state.lastMoves;
     },
     setMoves: (state, action) => {
       state.moves = action.payload;
@@ -46,7 +52,6 @@ export const infoSlice = createSlice({
       state.goal = action.payload
     },
     reachedGoal: (state) => {
-      console.log(current(state).score);
       state.reachedGoalScore = state.score
       state.goal *= 2
     },
@@ -67,6 +72,6 @@ export const infoSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setScore, setMoves, setGoal, setBest, addMove, initialInfos, addScore, setUndoScore, undoScore, setUndoGoal, undoGoal, reachedGoal } = infoSlice.actions
+export const { setScore, setMoves, setGoal, setBest, addMove, decreaseMove, initialInfos, addScore, setUndoScore, undoScore, setUndoGoal, undoGoal, reachedGoal } = infoSlice.actions
 
 export default infoSlice.reducer

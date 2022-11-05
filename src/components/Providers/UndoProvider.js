@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import UndoContext from "../../context/UndoContext"
-import { undoGoal, undoScore } from "../../redux/slices/infoSlice"
+import { decreaseMove, undoGoal, undoScore } from "../../redux/slices/infoSlice"
 import { setGameOver, setPlay, setWin } from "../../redux/slices/rulesSlice"
 import { undo } from "../../redux/slices/squaresSlice"
 
@@ -16,10 +16,14 @@ const UndoProvider = ({ children }) => {
       // set prev goal 
       console.log("undo goal");
       dispatch(undoGoal())
+      
     }
     // set prev score
     dispatch(undoScore())
     
+    // undo moves
+    dispatch(decreaseMove())
+
     // set prev squares
     dispatch(undo())
 

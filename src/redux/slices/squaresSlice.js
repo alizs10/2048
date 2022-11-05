@@ -13,6 +13,7 @@ const initialState = {
   scoreCount: 0,
   moveScores: 0,
   listenForMove: true,
+  moveCount: 0,
 }
 
 export const squaresSlice = createSlice({
@@ -151,6 +152,7 @@ export const squaresSlice = createSlice({
           // backup squares
           state.lastSquares = state.holdSquares
           state.holdSquares = []
+          state.moveCount = 1;
           state.moveEvent = false;
         }
       }
@@ -166,6 +168,9 @@ export const squaresSlice = createSlice({
     resetScoreCount: state => {
       state.scoreCount = 0;
     },
+    resetMoveCount: state => {
+      state.moveCount = 0;
+    },
     setSquares: (state, action) => {
       state.squares = action.payload
     },
@@ -179,6 +184,6 @@ export const squaresSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions, merge, moveSquare, createNewSquare, setUndo, undo, resetScoreCount, setSquares, setMoveListener, setMoveEvent } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, moveSquare, createNewSquare, setUndo, undo, resetScoreCount, resetMoveCount, setSquares, setMoveListener, setMoveEvent } = squaresSlice.actions
 
 export default squaresSlice.reducer

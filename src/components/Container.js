@@ -26,7 +26,6 @@ export const Container = () => {
     if (squares.length == 0) {
 
       let cachedMode = localStorage.getItem("mode")
-
       let modeCacheKey = cachedMode == 1 ? "time-trial-mode-cache" : "classic-mode-cache"
       let cachedObj = localStorage.getItem(modeCacheKey)
 
@@ -42,11 +41,6 @@ export const Container = () => {
 
 
   useEffect(() => {
-
-    if (moveEvent) {
-      dispatch(addMove())
-    }
-
     // rule: when squares length == 16 => the game is over
     if (squares.length == rows * rows && mode == 1) {
       dispatch(setGameOver(true))
