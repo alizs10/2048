@@ -24,6 +24,7 @@ export const Info = () => {
     }
 
   }, [moveCount])
+  
   useEffect(() => {
     if (play) {
 

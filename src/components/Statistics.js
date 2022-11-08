@@ -3,19 +3,23 @@ import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
 import { formatTime } from '../helpers/helpers'
 import FunctionsContext from '../context/FunctionsContext'
+import { useSelector } from 'react-redux'
 
 const Statistics = () => {
 
     const { handleToggleStat } = useContext(FunctionsContext)
-    let fakeData = {
-        all: { best: 51880, total: 326476, topTile: 4096 },
-        goals: [
-            { tile: 512, games: 13, time: { hours: 0, minutes: 2, seconds: 44 }, moves: 247 },
-            { tile: 1024, games: 12, time: { hours: 0, minutes: 5, seconds: 58 }, moves: 478 },
-            { tile: 2048, games: 7, time: { hours: 0, minutes: 12, seconds: 27 }, moves: 944 },
-            { tile: 4096, games: 2, time: { hours: 0, minutes: 27, seconds: 25 }, moves: 1876 },
-        ]
-    }
+    
+    const {all, goals} = useSelector(state => state.statistics)
+    
+    // let fakeData = {
+    //     all: { best: 51880, total: 326476, topTile: 4096 },
+    //     goals: [
+    //         { tile: 512, games: 13, time: { hours: 0, minutes: 2, seconds: 44 }, moves: 247 },
+    //         { tile: 1024, games: 12, time: { hours: 0, minutes: 5, seconds: 58 }, moves: 478 },
+    //         { tile: 2048, games: 7, time: { hours: 0, minutes: 12, seconds: 27 }, moves: 944 },
+    //         { tile: 4096, games: 2, time: { hours: 0, minutes: 27, seconds: 25 }, moves: 1876 },
+    //     ]
+    // }
     return (
         <motion.div
             initial={{ left: "100%" }}
@@ -34,18 +38,18 @@ const Statistics = () => {
                 <span className='text-xl font-bold text-stone-500'>All Play</span>
                 <span className='flex justify-between'>
                     <span className='text-xl text-stone-400'>Best Score</span>
-                    <span className='text-xl text-stone-400'>{fakeData.all.best}</span>
+                    <span className='text-xl text-stone-400'>{all.best}</span>
                 </span>
                 <span className='flex justify-between'>
                     <span className='text-xl text-stone-400'>Total Score</span>
-                    <span className='text-xl text-stone-400'>{fakeData.all.total}</span>
+                    <span className='text-xl text-stone-400'>{all.total}</span>
                 </span>
                 <span className='flex justify-between'>
                     <span className='text-xl text-stone-400'>Top Tile</span>
-                    <span className='text-xl text-stone-400'>{fakeData.all.topTile}</span>
+                    <span className='text-xl text-stone-400'>{all.topTile}</span>
                 </span>
 
-                {fakeData.goals.map(goal => (
+                {goals.length > 0 && goals.map(goal => (
                     <div className='mt-2'>
                         <span className='text-xl font-bold text-stone-500'>{goal.tile}</span>
                         <span className='flex justify-between'>

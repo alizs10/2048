@@ -6,6 +6,7 @@ import { findNextMove } from '../../helpers/square';
 const initialState = {
   rows: 4,
   placeHolders: [],
+  gameId: null,
   squares: [],
   lastSquares: [],
   holdSquares: [],
@@ -37,6 +38,7 @@ export const squaresSlice = createSlice({
       let secondSquare = { id: uuidv4(), value: 1024, position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
+      state.gameId = uuidv4();
       state.squares = squaresInstance;
 
     },
