@@ -43,7 +43,11 @@ export const Info = () => {
 
 
   useEffect(() => {
-    dispatch(updateGame({ id: gameId, timer, moves }))
+
+    if(gameId)
+    {
+      dispatch(updateGame({ id: gameId, timer, moves }))
+    }
   }, [timer, moves])
 
 

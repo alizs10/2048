@@ -26,6 +26,7 @@ export const statisticsSlice = createSlice({
     },
     updateGame: (state, action) => {
       
+      if(state.games.length == 0) return
       let gamesInstance = state.games;
       let updatableGameIndex = gamesInstance.findIndex(game => game.id == action.payload.id)
       let updatableGame = gamesInstance[updatableGameIndex]
