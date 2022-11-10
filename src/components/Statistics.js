@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { motion } from 'framer-motion'
 import { formatTime } from '../helpers/helpers'
@@ -8,10 +8,12 @@ import { useSelector } from 'react-redux'
 const Statistics = () => {
 
     const { handleToggleStat } = useContext(FunctionsContext)
-    
-    const {all, goals, games} = useSelector(state => state.statistics)
-    
-    console.log(games);
+
+    const { all, goals, games } = useSelector(state => state.statistics)
+    const [topTile, setTopTile] = useState(0)
+    const [total, setTotal] = useState(0)
+
+
     // let fakeData = {
     //     all: { best: 51880, total: 326476, topTile: 4096 },
     //     goals: [
@@ -21,6 +23,29 @@ const Statistics = () => {
     //         { tile: 4096, games: 2, time: { hours: 0, minutes: 27, seconds: 25 }, moves: 1876 },
     //     ]
     // }
+
+    useEffect(() => {
+
+        if (games.length == 0) return
+
+        let sortedGames = [...games]
+        sortedGames.sort((a, b) => {
+            return b.topTile - a.topTile
+        })
+
+        let totalScore = 0;
+        sortedGames.map(game => {
+            if (game.score) {
+                totalScore += game.score
+            }
+        })
+
+
+        setTopTile(sortedGames[0].topTile)
+        setTotal(totalScore)
+
+    }, [games])
+
     return (
         <motion.div
             initial={{ left: "100%" }}
@@ -43,11 +68,11 @@ const Statistics = () => {
                 </span>
                 <span className='flex justify-between'>
                     <span className='text-xl text-stone-400'>Total Score</span>
-                    <span className='text-xl text-stone-400'>{all.total}</span>
+                    <span className='text-xl text-stone-400'>{total}</span>
                 </span>
                 <span className='flex justify-between'>
                     <span className='text-xl text-stone-400'>Top Tile</span>
-                    <span className='text-xl text-stone-400'>{all.topTile}</span>
+                    <span className='text-xl text-stone-400'>{topTile}</span>
                 </span>
 
                 {goals.length > 0 && goals.map(goal => (

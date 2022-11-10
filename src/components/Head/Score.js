@@ -27,7 +27,10 @@ export const Score = () => {
 
 
     useEffect(() => {
-        dispatch(updateGame({ id: gameId, score }))
+        if(gameId)
+        {
+            dispatch(updateGame({ id: gameId, score }))
+        }
     }, [score, best])
 
 

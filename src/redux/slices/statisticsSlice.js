@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 const initialState = {
   games: [],
@@ -26,11 +26,15 @@ export const statisticsSlice = createSlice({
     },
     updateGame: (state, action) => {
       
+      if(action.payload.id === null) return
       if(state.games.length == 0) return
+
       let gamesInstance = state.games;
       let updatableGameIndex = gamesInstance.findIndex(game => game.id == action.payload.id)
-      let updatableGame = gamesInstance[updatableGameIndex]
-      let filteredGames = gamesInstance.filter(game => game.id != updatableGame.id)
+      if(updatableGameIndex == -1) return
+
+      let updatableGame = current(gamesInstance)[updatableGameIndex]
+      let filteredGames = gamesInstance.filter(game => game.id && game.id != updatableGame.id)
       let updatedGame = {...updatableGame, ...action.payload}
       gamesInstance = [...filteredGames, updatedGame]    
       state.games = gamesInstance
