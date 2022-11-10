@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from "react-redux"
 import CacheContext from "../../context/CacheContext"
 import { setGoal, setMoves, setScore } from "../../redux/slices/infoSlice"
 import { setGameId, setSquares } from "../../redux/slices/squaresSlice"
+import { setGames } from "../../redux/slices/statisticsSlice"
 import { setTimer } from "../../redux/slices/timerSlice"
 
 const CacheProvider = ({ children }) => {
 
   const { goal, score, moves } = useSelector(state => state.info)
   const { timer } = useSelector(state => state.timer)
-  const {  squares, gameId } = useSelector(state => state.squares)
+  const { squares, gameId } = useSelector(state => state.squares)
+  const { games } = useSelector(state => state.statistics)
 
   const dispatch = useDispatch()
 
@@ -27,6 +29,7 @@ const CacheProvider = ({ children }) => {
     backupObj.moves = moves;
     backupObj.goal = goal;
     backupObj.squares = squaresInstance;
+    backupObj.games = games;
 
     switch (mode.toString()) {
       case "0":
@@ -36,15 +39,14 @@ const CacheProvider = ({ children }) => {
       case "1":
         localStorage.setItem("time-trial-mode-cache", JSON.stringify(backupObj))
         break;
-        
+
       default:
         break;
     }
   }
 
-  
-  const setCachedData = cachedObj => {
 
+  const setCachedData = cachedObj => {
     //game id
     dispatch(setGameId(cachedObj.gameId))
 
@@ -62,6 +64,9 @@ const CacheProvider = ({ children }) => {
 
     //squares
     dispatch(setSquares(cachedObj.squares))
+
+    //games
+    dispatch(setGames(cachedObj.games ?? []))
   }
 
 

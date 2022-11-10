@@ -10,8 +10,8 @@ export const statisticsSlice = createSlice({
   name: 'statistics',
   initialState,
   reducers: {
-    setStats: (state, action) => {
-      state = action.payload
+    setGames: (state, action) => {
+      state.games = action.payload
     },
     addGame: (state, action) => {
 
@@ -20,12 +20,12 @@ export const statisticsSlice = createSlice({
       let isExists = gamesInstance.find(game => game.id == action.payload.id)
 
       if (!isExists) {
-        console.log("and here");
         state.games = [...state.games, action.payload]
       }
     },
     updateGame: (state, action) => {
       
+      console.log(current(state));
       if(action.payload.id === null) return
       if(state.games.length == 0) return
 
@@ -45,6 +45,6 @@ export const statisticsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setStats, addGame, updateGame } = statisticsSlice.actions
+export const { setGames, addGame, updateGame } = statisticsSlice.actions
 
 export default statisticsSlice.reducer
