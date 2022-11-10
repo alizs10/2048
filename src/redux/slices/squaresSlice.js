@@ -182,10 +182,13 @@ export const squaresSlice = createSlice({
     setMoveEvent: (state, action) => {
       state.moveEvent = action.payload;
     },
+    setGameId: (state, action) => {
+      state.gameId = action.payload;
+    },
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { initial, start, updatePositions, merge, moveSquare, createNewSquare, setUndo, undo, resetScoreCount, resetMoveCount, setSquares, setMoveListener, setMoveEvent } = squaresSlice.actions
+export const { initial, start, updatePositions, merge, moveSquare, createNewSquare, setUndo, undo, resetScoreCount, resetMoveCount, setSquares, setMoveListener, setMoveEvent, setGameId } = squaresSlice.actions
 
 export default squaresSlice.reducer

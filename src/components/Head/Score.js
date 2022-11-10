@@ -7,11 +7,12 @@ import { resetScoreCount } from '../../redux/slices/squaresSlice'
 import ScoreCount from './ScoreCount'
 
 import { v4 as uuidv4 } from 'uuid';
+import { updateGame } from '../../redux/slices/statisticsSlice'
 
 export const Score = () => {
 
     const { score, best } = useSelector(state => state.info)
-    const { scoreCount } = useSelector(state => state.squares)
+    const { scoreCount, gameId } = useSelector(state => state.squares)
     const [scoreCountArr, setScoreCountArr] = useState([])
     const dispatch = useDispatch()
     useEffect(() => {
@@ -23,6 +24,12 @@ export const Score = () => {
         }
 
     }, [scoreCount])
+
+
+    useEffect(() => {
+        dispatch(updateGame({ id: gameId, score }))
+    }, [score, best])
+
 
     return (
         <div className='col-span-2 grid grid-cols-2 gap-1 sm:gap-2'>

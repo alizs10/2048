@@ -9,8 +9,9 @@ const Statistics = () => {
 
     const { handleToggleStat } = useContext(FunctionsContext)
     
-    const {all, goals} = useSelector(state => state.statistics)
+    const {all, goals, games} = useSelector(state => state.statistics)
     
+    console.log(games);
     // let fakeData = {
     //     all: { best: 51880, total: 326476, topTile: 4096 },
     //     goals: [

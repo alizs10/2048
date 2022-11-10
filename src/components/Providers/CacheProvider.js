@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux"
 
 import CacheContext from "../../context/CacheContext"
 import { setGoal, setMoves, setScore } from "../../redux/slices/infoSlice"
-import { setSquares } from "../../redux/slices/squaresSlice"
+import { setGameId, setSquares } from "../../redux/slices/squaresSlice"
 import { setTimer } from "../../redux/slices/timerSlice"
 
 const CacheProvider = ({ children }) => {
 
   const { goal, score, moves } = useSelector(state => state.info)
   const { timer } = useSelector(state => state.timer)
-  const {  squares } = useSelector(state => state.squares)
+  const {  squares, gameId } = useSelector(state => state.squares)
 
   const dispatch = useDispatch()
 
@@ -21,6 +21,7 @@ const CacheProvider = ({ children }) => {
 
     let backupObj = {};
 
+    backupObj.gameId = gameId;
     backupObj.score = score;
     backupObj.timer = timer
     backupObj.moves = moves;
@@ -43,6 +44,9 @@ const CacheProvider = ({ children }) => {
 
   
   const setCachedData = cachedObj => {
+
+    //game id
+    dispatch(setGameId(cachedObj.gameId))
 
     //score
     dispatch(setScore(cachedObj.score))

@@ -9,6 +9,7 @@ import { addMove, reachedGoal, setGoal } from '../redux/slices/infoSlice'
 import { setGameOver, setPlay, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
 import CacheContext from '../context/CacheContext'
+import { addGame, updateGame } from '../redux/slices/statisticsSlice'
 
 
 export const Container = () => {
@@ -16,7 +17,7 @@ export const Container = () => {
   const { goal } = useSelector(state => state.info)
   const { mode } = useSelector(state => state.rules)
 
-  const { placeHolders, squares, moveEvent, rows } = useSelector(state => state.squares)
+  const { placeHolders, squares, gameId, rows } = useSelector(state => state.squares)
   const dispatch = useDispatch()
 
   const { cacheData, setCachedData } = useContext(CacheContext)
@@ -36,8 +37,16 @@ export const Container = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (gameId) {
+
+      dispatch(addGame({ id: gameId }))
+    }
+
+  }, [gameId])
+
   const { handleRightMove, handleLeftMove, handleUpMove, handleDownMove } = useContext(MoveContext)
-  
+
 
 
   useEffect(() => {
@@ -63,6 +72,20 @@ export const Container = () => {
       dispatch(setPlay(false))
       dispatch(setMoveListener(false))
     }
+
+
+    if (squares.length > 0 && gameId) {
+      // find the top tile
+      let sortedSquares = [...squares]
+      sortedSquares.sort((a, b) => {
+        return a.value > b.value
+      })
+
+
+      dispatch(updateGame({id: gameId, topTile: sortedSquares[0].value}))
+    }
+
+
 
     cacheData(mode)
   }, [squares])
