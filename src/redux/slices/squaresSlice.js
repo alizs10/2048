@@ -14,7 +14,7 @@ const initialState = {
   scoreCount: 0,
   moveScores: 0,
   listenForMove: true,
-  moveCount: 0,
+  moveCount: 0
 }
 
 export const squaresSlice = createSlice({
@@ -31,11 +31,11 @@ export const squaresSlice = createSlice({
     start: (state) => {
       let squaresInstance = []
       let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let firstSquare = { id: uuidv4(), value: 1024, position: firstCoordinate, canMerged: true }
+      let firstSquare = { id: uuidv4(), value: 256, position: firstCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let secondSquare = { id: uuidv4(), value: 1024, position: secondCoordinate, canMerged: true }
+      let secondSquare = { id: uuidv4(), value: 256, position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
       state.gameId = uuidv4();
@@ -138,6 +138,7 @@ export const squaresSlice = createSlice({
         state.scoreCount = state.moveScores;
         state.moveScores = 0;
 
+        // new square
         if (state.moveEvent && state.squares.length < 16) {
           //prepare squares
           state.squares.map(sq => { sq.canMerged = true })

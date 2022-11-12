@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import { motion } from 'framer-motion'
-import { formatTime } from '../helpers/helpers'
+import { formatTime, getFewestMove, getShortestTime } from '../helpers/helpers'
 import FunctionsContext from '../context/FunctionsContext'
 import { useSelector } from 'react-redux'
 
@@ -9,20 +9,10 @@ const Statistics = () => {
 
     const { handleToggleStat } = useContext(FunctionsContext)
 
-    const { all, goals, games } = useSelector(state => state.statistics)
+    const { all, goals, games, reachedTopTiles } = useSelector(state => state.statistics)
     const [topTile, setTopTile] = useState(0)
     const [total, setTotal] = useState(0)
 
-
-    // let fakeData = {
-    //     all: { best: 51880, total: 326476, topTile: 4096 },
-    //     goals: [
-    //         { tile: 512, games: 13, time: { hours: 0, minutes: 2, seconds: 44 }, moves: 247 },
-    //         { tile: 1024, games: 12, time: { hours: 0, minutes: 5, seconds: 58 }, moves: 478 },
-    //         { tile: 2048, games: 7, time: { hours: 0, minutes: 12, seconds: 27 }, moves: 944 },
-    //         { tile: 4096, games: 2, time: { hours: 0, minutes: 27, seconds: 25 }, moves: 1876 },
-    //     ]
-    // }
 
     useEffect(() => {
 
@@ -75,23 +65,25 @@ const Statistics = () => {
                     <span className='text-xl text-stone-400'>{topTile}</span>
                 </span>
 
-                {goals.length > 0 && goals.map(goal => (
-                    <div className='mt-2'>
-                        <span className='text-xl font-bold text-stone-500'>{goal.tile}</span>
-                        <span className='flex justify-between'>
-                            <span className='text-xl text-stone-400'>Games Reached</span>
-                            <span className='text-xl text-stone-400'>{goal.games}</span>
-                        </span>
-                        <span className='flex justify-between'>
-                            <span className='text-xl text-stone-400'>Shortest Time</span>
-                            <span className='text-xl text-stone-400'>{formatTime(goal.time.seconds, goal.time.minutes, goal.time.hours)}</span>
-                        </span>
-                        <span className='flex justify-between'>
-                            <span className='text-xl text-stone-400'>Fewest Moves</span>
-                            <span className='text-xl text-stone-400'>{goal.moves}</span>
-                        </span>
-                    </div>
-                ))}
+                {goals.length > 0 && goals.map((goal, index) => {
+                    return goal.games == 0 ? null : (
+                        <div key={index} className='mt-2'>
+                            <span className='text-xl font-bold text-stone-500'>{goal.tile}</span>
+                            <span className='flex justify-between'>
+                                <span className='text-xl text-stone-400'>Games Reached</span>
+                                <span className='text-xl text-stone-400'>{goal.games}</span>
+                            </span>
+                            <span className='flex justify-between'>
+                                <span className='text-xl text-stone-400'>Shortest Time</span>
+                                <span className='text-xl text-stone-400'>{formatTime(getShortestTime(goal.tile, reachedTopTiles))}</span>
+                            </span>
+                            <span className='flex justify-between'>
+                                <span className='text-xl text-stone-400'>Fewest Moves</span>
+                                <span className='text-xl text-stone-400'>{getFewestMove(goal.tile, reachedTopTiles)}</span>
+                            </span>
+                        </div>
+                    )
+                })}
 
 
             </div>

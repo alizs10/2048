@@ -5,19 +5,22 @@ import PlaceHolder from './Container/PlaceHolder'
 import { setMoveListener } from '../redux/slices/squaresSlice'
 import { useSwipeable } from 'react-swipeable'
 import MoveContext from '../context/MoveContext'
-import { addMove, reachedGoal, setGoal } from '../redux/slices/infoSlice'
+import { reachedGoal } from '../redux/slices/infoSlice'
 import { setGameOver, setPlay, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
 import CacheContext from '../context/CacheContext'
-import { addGame, updateGame } from '../redux/slices/statisticsSlice'
+import { addGame, addReachedTopTiles, updateGame } from '../redux/slices/statisticsSlice'
 
 
 export const Container = () => {
 
-  const { goal } = useSelector(state => state.info)
+  const { timer } = useSelector(state => state.timer)
+  const { goal, moves } = useSelector(state => state.info)
   const { mode } = useSelector(state => state.rules)
 
   const { placeHolders, squares, gameId, rows } = useSelector(state => state.squares)
+  const { reachedTopTiles } = useSelector(state => state.statistics)
+
   const dispatch = useDispatch()
 
   const { cacheData, setCachedData } = useContext(CacheContext)
@@ -37,6 +40,11 @@ export const Container = () => {
     }
   }, [])
 
+
+  useEffect(() => {
+    console.log(reachedTopTiles);
+  }, [reachedTopTiles])
+
   useEffect(() => {
     if (gameId) {
 
@@ -44,6 +52,7 @@ export const Container = () => {
     }
 
   }, [gameId])
+
 
   const { handleRightMove, handleLeftMove, handleUpMove, handleDownMove } = useContext(MoveContext)
 
@@ -81,11 +90,16 @@ export const Container = () => {
         return a.value > b.value
       })
 
-
-      dispatch(updateGame({id: gameId, topTile: sortedSquares[0].value}))
+      dispatch(updateGame({ id: gameId, topTile: sortedSquares[0].value }))
     }
 
 
+    // add top tiles
+    squares.map(sq => {
+      if (Math.log2(sq.value) >= 9) {
+        dispatch(addReachedTopTiles({ id: sq.id, tile: sq.value, timer, moves: moves + 1 }))
+      }
+    })
 
     cacheData(mode)
   }, [squares])

@@ -257,3 +257,19 @@ export const formatTime = (timer) => {
 
     return `${hours != 0 ? hours + ':' : ''}${minutes < 10 ? '0' + minutes + ':' : minutes + ':'}${seconds < 10 ? '0' + seconds : seconds}`;
 }
+
+export const getShortestTime = (tile, reachedTopTiles) => {
+
+    let tilesInfo = reachedTopTiles.filter(reachedTopTile => reachedTopTile.tile == tile)
+    let timeSortedTilesInfo = tilesInfo.sort((a,b) => a.timer - b.timer)
+    
+    return timeSortedTilesInfo[0].timer
+}
+
+export const getFewestMove = (tile, reachedTopTiles) => {
+
+    let tilesInfo = reachedTopTiles.filter(reachedTopTile => reachedTopTile.tile == tile)
+    let timeSortedTilesInfo = tilesInfo.sort((a,b) => a.moves - b.moves)
+    
+    return timeSortedTilesInfo[0].moves
+}
