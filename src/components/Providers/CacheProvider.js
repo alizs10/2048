@@ -12,7 +12,7 @@ const CacheProvider = ({ children }) => {
   const { goal, score, moves } = useSelector(state => state.info)
   const { timer } = useSelector(state => state.timer)
   const { squares, gameId } = useSelector(state => state.squares)
-  const { games } = useSelector(state => state.statistics)
+  const { games, reachedTopTiles } = useSelector(state => state.statistics)
 
   const dispatch = useDispatch()
 
@@ -30,6 +30,7 @@ const CacheProvider = ({ children }) => {
     backupObj.goal = goal;
     backupObj.squares = squaresInstance;
     backupObj.games = games;
+    backupObj.reachedTopTiles = reachedTopTiles;
 
     switch (mode.toString()) {
       case "0":
@@ -67,6 +68,9 @@ const CacheProvider = ({ children }) => {
 
     //games
     dispatch(setGames(cachedObj.games ?? []))
+
+    //reachedTopTiles
+    dispatch(setGames(cachedObj.reachedTopTiles ?? []))
   }
 
 

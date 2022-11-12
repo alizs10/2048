@@ -21,6 +21,9 @@ export const statisticsSlice = createSlice({
     setGames: (state, action) => {
       state.games = action.payload
     },
+    setReachedTopTiles: (state, action) => {
+      state.reachedTopTiles = action.payload
+    },
     addGame: (state, action) => {
 
       //we should check is game exists or not
@@ -47,10 +50,10 @@ export const statisticsSlice = createSlice({
       state.games = gamesInstance
     },
     addReachedTopTiles: (state, action) => {
-      
+
       let isExists = false
       state.reachedTopTiles.every(reachedTile => {
-        console.log(reachedTile.id," = ", action.payload.id);
+        console.log(reachedTile.id, " = ", action.payload.id);
         if (reachedTile.id == action.payload.id) {
           isExists = true
         }
@@ -59,7 +62,7 @@ export const statisticsSlice = createSlice({
       })
       if (isExists) return
       state.reachedTopTiles = [...state.reachedTopTiles, action.payload]
-      
+
       // update goals
 
       let goalsInstance = [...state.goals]
@@ -70,13 +73,13 @@ export const statisticsSlice = createSlice({
       let filteredGoals = goalsInstance.filter(goal => goal.tile != updatableTile)
       state.goals = [...filteredGoals, updatableGoal]
     },
-    updateBest: (state,action) => {
+    updateBest: (state, action) => {
       state.all.best = action.payload
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { setGames, addGame, updateGame, addReachedTopTiles, updateBest } = statisticsSlice.actions
+export const { setGames, setReachedTopTiles, addGame, updateGame, addReachedTopTiles, updateBest } = statisticsSlice.actions
 
 export default statisticsSlice.reducer
