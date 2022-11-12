@@ -9,13 +9,13 @@ import { reachedGoal } from '../redux/slices/infoSlice'
 import { setGameOver, setPlay, setWin } from '../redux/slices/rulesSlice'
 import { isGameOver, isGoalReached } from '../helpers/helpers'
 import CacheContext from '../context/CacheContext'
-import { addGame, addReachedTopTiles, updateGame } from '../redux/slices/statisticsSlice'
+import { addGame, addReachedTopTiles, updateBest, updateGame } from '../redux/slices/statisticsSlice'
 
 
 export const Container = () => {
 
   const { timer } = useSelector(state => state.timer)
-  const { goal, moves } = useSelector(state => state.info)
+  const { goal, moves, best } = useSelector(state => state.info)
   const { mode } = useSelector(state => state.rules)
 
   const { placeHolders, squares, gameId, rows } = useSelector(state => state.squares)
@@ -40,11 +40,6 @@ export const Container = () => {
     }
   }, [])
 
-
-  useEffect(() => {
-    console.log(reachedTopTiles);
-  }, [reachedTopTiles])
-
   useEffect(() => {
     if (gameId) {
 
@@ -53,6 +48,10 @@ export const Container = () => {
 
   }, [gameId])
 
+
+  useEffect(() => {
+    dispatch(updateBest(best))
+  }, [best])
 
   const { handleRightMove, handleLeftMove, handleUpMove, handleDownMove } = useContext(MoveContext)
 

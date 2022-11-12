@@ -31,11 +31,11 @@ export const squaresSlice = createSlice({
     start: (state) => {
       let squaresInstance = []
       let firstCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let firstSquare = { id: uuidv4(), value: 256, position: firstCoordinate, canMerged: true }
+      let firstSquare = { id: uuidv4(), value: 4096, position: firstCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, firstSquare]
 
       let secondCoordinate = generateUniqueCoordinate(squaresInstance, state.rows)
-      let secondSquare = { id: uuidv4(), value: 256, position: secondCoordinate, canMerged: true }
+      let secondSquare = { id: uuidv4(), value: 4096, position: secondCoordinate, canMerged: true }
       squaresInstance = [...squaresInstance, secondSquare]
 
       state.gameId = uuidv4();

@@ -70,13 +70,13 @@ export const statisticsSlice = createSlice({
       let filteredGoals = goalsInstance.filter(goal => goal.tile != updatableTile)
       state.goals = [...filteredGoals, updatableGoal]
     },
-    resetReachedTopTiles: state => {
-      state.reachedTopTiles = []
+    updateBest: (state,action) => {
+      state.all.best = action.payload
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { setGames, addGame, updateGame, resetReachedTopTiles, addReachedTopTiles } = statisticsSlice.actions
+export const { setGames, addGame, updateGame, addReachedTopTiles, updateBest } = statisticsSlice.actions
 
 export default statisticsSlice.reducer

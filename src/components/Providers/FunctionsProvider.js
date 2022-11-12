@@ -4,7 +4,6 @@ import FunctionsContext from '../../context/FunctionsContext'
 import { initialInfos } from '../../redux/slices/infoSlice'
 import { setPlay } from '../../redux/slices/rulesSlice'
 import { createNewSquare, setMoveListener, start } from '../../redux/slices/squaresSlice'
-import { resetReachedTopTiles } from '../../redux/slices/statisticsSlice'
 import { setTimer } from '../../redux/slices/timerSlice'
 
 
@@ -55,7 +54,6 @@ const FunctionsProvider = ({ children }) => {
         dispatch(initialInfos())
         dispatch(setPlay(true))
         dispatch(setMoveListener(true))
-        dispatch(resetReachedTopTiles())
         dispatch(start())
         if (mode == 1) {
             timeTrialInterval.current = setInterval(() => {
