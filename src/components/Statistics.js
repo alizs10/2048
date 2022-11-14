@@ -33,7 +33,8 @@ const Statistics = () => {
                 goalsInstance = [...goalsInstance, { tile: reachedTopTile.tile, games: 1 }]
             }
         })
-        
+
+        goalsInstance.sort((a,b) => a.tile - b.tile)
         setGoals(goalsInstance)
     }, [])
 
