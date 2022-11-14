@@ -41,7 +41,7 @@ const Statistics = () => {
             animate={{ left: "auto" }}
             exit={{ left: "100%" }}
             transition={{ bounce: "none" }}
-            className="absolute top-0 w-full h-full flex flex-col gap-y-2 md:w-3/5 lg:w-[45%] xl:w-1/3 z-50 bg-gray-200 py-5 px-20 overflow-y-scroll"
+            className="absolute top-0 w-full h-full flex flex-col gap-y-2 z-50 bg-gray-200 py-5 px-20 overflow-y-scroll"
         >
             <div className='flex justify-between items-center'>
                 <span onClick={handleToggleStat} className='text-xl text-stone-400 cursor-pointer'>back</span>
