@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { motion } from 'framer-motion'
 import FunctionsContext from '../context/FunctionsContext'
@@ -82,6 +82,19 @@ const Menu = () => {
     }
 
 
+    const [fullScreen, setFullScreen] = useState(document.webkitIsFullScreen ? true : false)
+
+    const handleToggleFullScreen = () => {
+        if(fullScreen)
+        {
+            document.exitFullscreen()
+            
+        } else {
+            document.body.requestFullscreen()
+        }
+        setFullScreen(prevState => !prevState)
+
+    }
 
 
     return (
@@ -102,6 +115,7 @@ const Menu = () => {
                 <button onClick={handleToggleStat} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white mt-8 text-lg font-bold">Statistics</button>
                 <button onClick={handleToggleSounds} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white text-lg font-bold">Sounds {sounds ? "ON" : "OFF"}</button>
                 <button onClick={handleToggleUndo} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white text-lg font-bold">Undo {undo ? "ON" : "OFF"}</button>
+                <button onClick={handleToggleFullScreen} className="py-2 w-full rounded-md bg-blue-600 flex-center gap-x-2 text-white text-lg font-bold">Full Screen {fullScreen ? "ON" : "OFF"}</button>
 
                 <button onClick={handleToggleMenu} className="py-2 w-full rounded-md bg-stone-500 flex-center gap-x-2 text-white mt-8 text-lg font-bold">How to play</button>
                 <button onClick={handleToggleMenu} className="py-2 w-full rounded-md bg-stone-500 flex-center gap-x-2 text-white text-lg font-bold">About 2048</button>
