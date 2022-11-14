@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Square from './Container/Square'
 import PlaceHolder from './Container/PlaceHolder'
@@ -17,18 +17,14 @@ export const Container = () => {
   const { timer } = useSelector(state => state.timer)
   const { goal, moves, best } = useSelector(state => state.info)
   const { mode } = useSelector(state => state.rules)
-
   const { placeHolders, squares, gameId, rows } = useSelector(state => state.squares)
-  const { reachedTopTiles } = useSelector(state => state.statistics)
 
   const dispatch = useDispatch()
-
   const { cacheData, setCachedData } = useContext(CacheContext)
 
   useEffect(() => {
 
     if (squares.length == 0) {
-
       let cachedMode = localStorage.getItem("mode")
       let modeCacheKey = cachedMode == 1 ? "time-trial-mode-cache" : "classic-mode-cache"
       let cachedObj = localStorage.getItem(modeCacheKey)
@@ -38,16 +34,16 @@ export const Container = () => {
         setCachedData(JSON.parse(cachedObj))
       }
     }
+
   }, [])
+
 
   useEffect(() => {
     if (gameId) {
-
       dispatch(addGame({ id: gameId }))
     }
 
   }, [gameId])
-
 
   useEffect(() => {
     dispatch(updateBest(best))
@@ -124,26 +120,19 @@ export const Container = () => {
   const containerRef = useRef(null)
 
   const refPassthrough = (el) => {
-    // call useSwipeable ref prop with el
     handlers.ref(el);
-
-    // set myRef el so you can access it yourself
     containerRef.current = el;
   }
 
   return (
 
-    <div {...handlers} ref={refPassthrough} tabIndex="0" className="game-container z-50 relative w-fit bg-stone-400 self-center">
+    <div {...handlers} ref={refPassthrough} className="game-container z-50 relative w-full bg-stone-400 self-center grid grid-cols-4 gap-[8px] rounded-md p-2">
       {placeHolders.map((placeHolder) => (
         <PlaceHolder key={placeHolder.id} />
       ))}
-
-
       {squares.length > 0 && squares.map((square) => (
-        <Square parent={containerRef} key={square.id} square={square} />
+        <Square key={square.id} square={square} />
       ))}
-
-
     </div>
   )
 }

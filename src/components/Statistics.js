@@ -30,7 +30,6 @@ const Statistics = () => {
             }
         })
 
-        console.log(sortedGames[0].topTile ?? 0);
         setTopTile(sortedGames[0].topTile)
         setTotal(totalScore)
 

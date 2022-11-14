@@ -7,10 +7,8 @@ import GameOver from "./components/GameOver";
 import { Head } from "./components/Head";
 import { Hint } from "./components/Hint";
 import { Info } from "./components/Info";
-import MoveProvider from "./components/Providers/MoveProvider";
 import Win from "./components/Win";
 import { initial } from "./redux/slices/squaresSlice";
-
 import { motion } from 'framer-motion'
 import UndoProvider from "./components/Providers/UndoProvider";
 
@@ -32,20 +30,20 @@ function App() {
       animate={{ left: "auto" }}
       exit={{ left: "100%" }}
       transition={{ bounce: "none" }}
-      className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-gray-200 lg:w-1/3 sm:mx-auto overflow-hidden">
+      className="absolute top-0 w-full h-full flex flex-col gap-y-4 py-5 px-12 bg-stone-200 overflow-hidden">
       <Head />
       <Hint />
       <Container />
       <Info />
       <Functions />
 
-      {win && (
-        <AnimatePresence>
+      <AnimatePresence>
+        {win && (
           <UndoProvider>
             <Win />
           </UndoProvider>
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {gameOver && (
           <UndoProvider>

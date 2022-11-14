@@ -8,7 +8,7 @@ const Square = ({ square }) => {
     const [value, setValue] = useState(square.value)
     const [isMerged, setIsMerged] = useState(false)
     const [scale, setScale] = useState(1)
-    
+
     const squareRef = useRef(null)
 
     useEffect(() => {
@@ -30,24 +30,21 @@ const Square = ({ square }) => {
 
     }, [isMerged])
 
-
     useEffect(() => {
-        if(square)
-        {
-            squareRef.current.style.setProperty("--x", square.position[0])
-            squareRef.current.style.setProperty("--y", square.position[1])
+        if (square) {
+            squareRef.current.style.top = ((squareRef.current.clientWidth * square.position[1]) + 8 * (square.position[1] + 1)) + "px"
+            squareRef.current.style.left = ((squareRef.current.clientWidth * square.position[0]) + 8 * (square.position[0] + 1)) + "px"
         }
     }, [square])
-
 
     let colorClasses = setSquareColor(square.value);
 
     return (
         <motion.div
             animate={{ scale }}
-            transition={{duration: 0.2}}
+            transition={{ duration: 0.2 }}
             ref={squareRef}
-            className={`absolute tile select-none ${colorClasses} flex-center font-bold`}>
+            className={`absolute tile aspect-square rounded-md select-none ${colorClasses} flex-center font-bold`}>
             {square.value}
         </motion.div>
     )

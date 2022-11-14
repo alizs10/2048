@@ -11,7 +11,7 @@ const Game = () => {
     const { menuVisibility, statVisibility } = useContext(FunctionsContext)
 
     return (
-        <div className='relative h-screen w-full overflow-hidden flex-center'>
+        <div className='relative h-screen w-full sm:w-[450px] bg-stone-200 mx-auto overflow-hidden flex-center'>
 
             <AnimatePresence>
                 {!menuVisibility && !statVisibility && (

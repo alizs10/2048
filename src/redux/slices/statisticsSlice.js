@@ -53,7 +53,7 @@ export const statisticsSlice = createSlice({
 
       let isExists = false
       state.reachedTopTiles.every(reachedTile => {
-        console.log(reachedTile.id, " = ", action.payload.id);
+        
         if (reachedTile.id == action.payload.id) {
           isExists = true
         }
