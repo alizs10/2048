@@ -30,6 +30,10 @@ body {
 .tile {
     animation: show 200ms ease-in-out;
     width: var(--tile-width);
+    --x: 0;
+    --y: 0;
+    top: calc((var(--tile-width) * var(--y)) + (var(--gap) * (var(--y) + 1)));
+    left: calc((var(--tile-width) * var(--x)) + (var(--gap) * (var(--x) + 1)));
 }
 
 @keyframes show {

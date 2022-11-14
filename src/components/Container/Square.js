@@ -32,8 +32,8 @@ const Square = ({ square }) => {
 
     useEffect(() => {
         if (square) {
-            squareRef.current.style.top = ((squareRef.current.clientWidth * square.position[1]) + 8 * (square.position[1] + 1)) + "px"
-            squareRef.current.style.left = ((squareRef.current.clientWidth * square.position[0]) + 8 * (square.position[0] + 1)) + "px"
+            squareRef.current.style.setProperty("--y", square.position[1])
+            squareRef.current.style.setProperty("--x", square.position[0])
         }
     }, [square])
 
