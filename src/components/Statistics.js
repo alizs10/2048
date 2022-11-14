@@ -9,10 +9,33 @@ const Statistics = () => {
 
     const { handleToggleStat } = useContext(FunctionsContext)
 
-    const { all, goals, games, reachedTopTiles } = useSelector(state => state.statistics)
+    const { all, games, reachedTopTiles } = useSelector(state => state.statistics)
     const [topTile, setTopTile] = useState(0)
     const [total, setTotal] = useState(0)
+    const [goals, setGoals] = useState([])
 
+    useEffect(() => {
+        if (reachedTopTiles.length == 0) return
+
+        let goalsInstance = [...goals]
+        reachedTopTiles.map(reachedTopTile => {
+
+            let isAdded = goalsInstance.filter(goal => goal.tile == reachedTopTile.tile)
+            if (isAdded.length > 0) {
+
+                let gameIndex = goalsInstance.findIndex(goal => goal.tile == reachedTopTile.tile)
+                let updatableGoal = goalsInstance[gameIndex]
+                let filteredState = goalsInstance.filter(goal => goal.tile != reachedTopTile.tile)
+                goalsInstance = [...filteredState, { tile: updatableGoal.tile, games: updatableGoal.games + 1 }]
+
+
+            } else {
+                goalsInstance = [...goalsInstance, { tile: reachedTopTile.tile, games: 1 }]
+            }
+        })
+        
+        setGoals(goalsInstance)
+    }, [])
 
     useEffect(() => {
 

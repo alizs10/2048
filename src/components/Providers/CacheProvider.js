@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import CacheContext from "../../context/CacheContext"
 import { setGoal, setMoves, setScore } from "../../redux/slices/infoSlice"
 import { setGameId, setSquares } from "../../redux/slices/squaresSlice"
-import { setGames } from "../../redux/slices/statisticsSlice"
+import { setGames, setReachedTopTiles } from "../../redux/slices/statisticsSlice"
 import { setTimer } from "../../redux/slices/timerSlice"
 
 const CacheProvider = ({ children }) => {
@@ -70,7 +70,7 @@ const CacheProvider = ({ children }) => {
     dispatch(setGames(cachedObj.games ?? []))
 
     //reachedTopTiles
-    dispatch(setGames(cachedObj.reachedTopTiles ?? []))
+    dispatch(setReachedTopTiles(cachedObj.reachedTopTiles ?? []))
   }
 
 

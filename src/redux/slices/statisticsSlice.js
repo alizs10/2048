@@ -3,14 +3,6 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   games: [],
   all: { best: localStorage.getItem("best") ?? 0, total: 0, topTile: 0 },
-  goals: [
-    { tile: 512, games: 0 },
-    { tile: 1024, games: 0 },
-    { tile: 2048, games: 0 },
-    { tile: 4096, games: 0 },
-    { tile: 8192, games: 0 },
-    { tile: 16384, games: 0 }
-  ],
   reachedTopTiles: []
 }
 
@@ -54,7 +46,7 @@ export const statisticsSlice = createSlice({
       let isExists = false
       state.reachedTopTiles.every(reachedTile => {
         
-        if (reachedTile.id == action.payload.id) {
+        if (reachedTile.id == action.payload.id && reachedTile.tile == action.payload.tile) {
           isExists = true
         }
 
@@ -63,15 +55,6 @@ export const statisticsSlice = createSlice({
       if (isExists) return
       state.reachedTopTiles = [...state.reachedTopTiles, action.payload]
 
-      // update goals
-
-      let goalsInstance = [...state.goals]
-      let updatableTile = action.payload.tile;
-      let updatableGoalIndex = goalsInstance.findIndex(goal => goal.tile == updatableTile)
-      let updatableGoal = goalsInstance[updatableGoalIndex]
-      updatableGoal.games += 1
-      let filteredGoals = goalsInstance.filter(goal => goal.tile != updatableTile)
-      state.goals = [...filteredGoals, updatableGoal]
     },
     updateBest: (state, action) => {
       state.all.best = action.payload
