@@ -19,6 +19,7 @@ body {
 
 
 .game-container {
+    touch-action: none;
     transition: 100ms ease-in-out;
 }
 
