@@ -48,13 +48,15 @@ const Statistics = () => {
         })
 
         let totalScore = 0;
+
         sortedGames.map(game => {
             if (game.score) {
                 totalScore += game.score
             }
         })
 
-        setTopTile(sortedGames[0].topTile)
+        let filteredGames = sortedGames.filter(game => !!game.topTile)
+        setTopTile(filteredGames[0].topTile)
         setTotal(totalScore)
 
     }, [games])
