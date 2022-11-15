@@ -7,6 +7,7 @@ import { moveSquare } from '../../redux/slices/squaresSlice'
 const MoveProvider = ({ children }) => {
 
   const { play, win, gameOver } = useSelector(state => state.rules)
+  const { sounds } = useSelector(state => state.settings)
   const { squares } = useSelector(state => state.squares)
   const dispatch = useDispatch()
   
@@ -62,7 +63,10 @@ const MoveProvider = ({ children }) => {
     if (!play || win || gameOver) return
 
     
-    swipeAudioRef.current.play()
+    if(sounds)
+    {
+      swipeAudioRef.current.play()
+    }
 
     let squaresInstance = [...squares]
     squaresInstance.sort((a, b) => {
@@ -82,7 +86,10 @@ const MoveProvider = ({ children }) => {
     if (!play || win || gameOver) return
 
 
-    swipeAudioRef.current.play()
+    if(sounds)
+    {
+      swipeAudioRef.current.play()
+    }
 
 
     let squaresInstance = [...squares]
@@ -105,7 +112,10 @@ const MoveProvider = ({ children }) => {
     if (!play || win || gameOver) return
 
 
-    swipeAudioRef.current.play()
+    if(sounds)
+    {
+      swipeAudioRef.current.play()
+    }
 
 
     let squaresInstance = [...squares]
@@ -127,7 +137,10 @@ const MoveProvider = ({ children }) => {
     if (!play || win || gameOver) return
 
 
-    swipeAudioRef.current.play()
+    if(sounds)
+    {
+      swipeAudioRef.current.play()
+    }
 
     let squaresInstance = [...squares]
     squaresInstance.sort((a, b) => {
