@@ -126,7 +126,7 @@ export const Container = () => {
 
   return (
 
-    <div {...handlers} ref={refPassthrough} className="game-container z-50 relative w-full bg-stone-400 self-center grid grid-cols-4 gap-[8px] rounded-md p-2">
+    <div {...handlers} ref={refPassthrough} className="game-container z-50 relative w-full bg-[#BBADA0] self-center grid grid-cols-4 gap-[8px] rounded-md p-2">
       {placeHolders.map((placeHolder) => (
         <PlaceHolder key={placeHolder.id} />
       ))}

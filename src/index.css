@@ -23,7 +23,6 @@ body {
 }
 
 .tile, .place-holder {
-    font-size: 5vmin;
     transition: 100ms ease-in-out;
 }
 

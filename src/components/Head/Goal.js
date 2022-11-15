@@ -10,7 +10,7 @@ export const Goal = () => {
     return (
         <div
             onClick={handleToggleMenu}
-            className='cursor-pointer w-[40%] xs:w-[30%] h-fit aspect-square flex-center text-white font-bold bg-yellow-400 rounded-md text-xl md:text-3xl'>
+            className='cursor-pointer w-[40%] xs:w-[30%] h-fit aspect-square flex-center text-white font-bold bg-[#EDC22E] rounded-md text-xl md:text-3xl'>
             {goal}
         </div>
     )

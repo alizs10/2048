@@ -205,44 +205,44 @@ export const setSquareColor = value => {
 
     switch (exponent) {
         case 1: // 2
-            colorClasses = 'bg-stone-100 text-gray-600'
+            colorClasses = 'bg-[#EEE4DA] text-[#776E65] text-[7vmin]'
             break;
         case 2: // 4
-            colorClasses = 'bg-[#faf4ea] text-gray-600'
+            colorClasses = 'bg-[#EDE0C8] text-[#776E65] text-[7vmin]'
             break;
         case 3: // 8
-            colorClasses = 'bg-[#F9C48B] text-white'
+            colorClasses = 'bg-[#F2B179] text-[#F9F6F2] text-[7vmin]'
             break;
         case 4: // 16
-            colorClasses = 'bg-[#f7a072] text-white'
+            colorClasses = 'bg-[#F59563] text-[#F9F6F2] text-[7vmin]'
             break;
         case 5: // 32
-            colorClasses = 'bg-[#fe4a49]/70 text-white'
+            colorClasses = 'bg-[#F67C5F] text-[#F9F6F2] text-[7vmin]'
             break;
         case 6: // 64
-            colorClasses = 'bg-[#fe4a49]/90 text-white'
+            colorClasses = 'bg-[#F65E3B] text-[#F9F6F2] text-[7vmin]'
             break;
         case 7: // 128
-            colorClasses = 'bg-[#FAE588] text-white'
+            colorClasses = 'bg-[#EDCF72] text-[#F9F6F2] text-[7vmin]'
             break;
         case 8: // 256
-            colorClasses = 'bg-[#FAE275] text-white'
+            colorClasses = 'bg-[#EDCC61] text-[#F9F6F2] text-[7vmin]'
             break;
         case 9: // 512
-            colorClasses = 'bg-[#FAE275] text-white'
+            colorClasses = 'bg-[#EDC850] text-[#F9F6F2] text-[7vmin]'
             break;
         case 10: // 1024
-            colorClasses = 'bg-[#f9dc5c] text-white'
+            colorClasses = 'bg-[#EDC53F] text-[#F9F6F2] text-[5vmin]'
             break;
         case 11: // 2048
-            colorClasses = 'bg-yellow-300 text-white'
+            colorClasses = 'bg-[#EDC22E] text-[#F9F6F2] text-[5vmin]'
             break;
         case 12: // 4096
-            colorClasses = 'bg-stone-700 text-white'
+            colorClasses = 'bg-stone-700 text-[#F9F6F2] text-[5vmin]'
             break;
 
         default:
-            colorClasses = 'bg-stone-700 text-white'
+            colorClasses = 'bg-stone-700 text-[#F9F6F2] text-[5vmin]'
             break;
     }
 
